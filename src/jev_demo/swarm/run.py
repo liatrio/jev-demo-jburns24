@@ -53,6 +53,8 @@ async def run_swarm(
     concurrency: int = DEFAULT_CONCURRENCY,
     max_steps: int = MAX_STEPS,
     baseline: Path = DEFAULT_BASELINE,
+    headed: bool = False,
+    slow_mo_ms: int = 0,
     on_agent_done=None,
 ) -> tuple[SwarmSummary, list[Trajectory]]:
     injected = parse_injected(inject)
@@ -63,7 +65,7 @@ async def run_swarm(
     with TargetServer(injected) as server:
         async with (
             Gateway(mode=mode, concurrency=32) as gateway,  # type: ignore[arg-type]
-            BrowserPool(server.base_url) as pool,
+            BrowserPool(server.base_url, headed=headed, slow_mo_ms=slow_mo_ms) as pool,
         ):
 
             async def one(i: int) -> Trajectory:
