@@ -1,4 +1,4 @@
-"""Command-line interface: ``jev-demo tapes | play | play-all | generate-tapes``."""
+"""Command-line interface: ``jev-demo tapes | play | play-all | generate-tapes | pii-check``."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ import asyncio
 import json
 import os
 from pathlib import Path
+from typing import Annotated
 
 import typer
 from rich.live import Live
@@ -137,6 +138,24 @@ def play_all(
         (RESULTS_DIR / "summary.json").write_text(
             json.dumps({k: v.model_dump() for k, v in agg.items()}, indent=1)
         )
+
+
+@app.command("pii-check")
+def pii_check_cmd(
+    paths: Annotated[
+        list[str], typer.Argument(help="source files to scan (pre-commit passes these)")
+    ],
+    mode: str | None = typer.Option(
+        None, "--mode", help="replay | record | live (default: $JEV_DEMO_MODE or record)"
+    ),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="also list statements that passed"),
+    save: bool = typer.Option(False, "--save", help="write results/pii-check.json"),
+) -> None:
+    """Semantic lint: block if any log statement writes PII. One Jev call per file."""
+    from .pii_check import run
+
+    out = RESULTS_DIR / "pii-check.json" if save else None
+    raise typer.Exit(run(paths, mode=mode, verbose=verbose, save=out))
 
 
 if __name__ == "__main__":

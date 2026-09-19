@@ -51,6 +51,14 @@ def test_invalid_answers_are_rejected(mutate, message) -> None:
         validate_choice(a, CRITERIA)
 
 
+def test_rounded_tie_accepts_either_argmax() -> None:
+    """The gateway rounds to 2 decimals, so 0.5/0.5 ties happen; both choices are argmaxes."""
+    tie = {"choice": "c", "probabilities": {"a": 0.0, "b": 0.5, "c": 0.5}}
+    validate_choice(tie, CRITERIA)
+    tie["choice"] = "b"
+    validate_choice(tie, CRITERIA)
+
+
 def test_questions_cover_every_pattern() -> None:
     q = jev_questions()
     assert set(q["pattern"]["criteria"]) == {p.value for p in Pattern}

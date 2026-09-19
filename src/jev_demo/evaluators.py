@@ -80,7 +80,9 @@ def validate_choice(answer: dict[str, Any], criteria: dict[str, str]) -> None:
         raise JevAnswerError("probabilities must be finite numbers in [0, 1]")
     if abs(sum(vals) - 1.0) > 0.02:
         raise JevAnswerError(f"probabilities sum to {sum(vals):.3f}, expected 1")
-    if max(probs, key=probs.get) != choice:  # type: ignore[arg-type]
+    # The gateway rounds probabilities (2 decimals), so a near-tie can round to an exact
+    # tie; the choice must be *an* argmax, not necessarily the first key with that value.
+    if probs[choice] < max(vals) - 1e-9:
         raise JevAnswerError("choice is not the argmax of probabilities")
     conf = answer.get("confidence")
     if conf is not None and not (0 <= conf <= 1):

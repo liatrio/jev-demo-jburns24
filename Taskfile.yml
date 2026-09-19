@@ -105,6 +105,21 @@ tasks:
       JEV_DEMO_MODE: live
     cmds: ["{{.PY}} jev-demo play-all -e jev,sonnet,gpt --no-save"]
 
+  pii:check:
+    desc: "Semantic lint: ask Jev whether any log statement in the given files leaks PII. task pii:check -- src/**/*.py"
+    deps: [setup]
+    cmds: ["{{.PY}} jev-demo pii-check --mode live -v {{.CLI_ARGS}}"]
+
+  pii:demo:
+    desc: Run the PII log check on the demo fixtures (leaky files block, clean files pass; needs API_KEY)
+    deps: [setup]
+    cmds:
+      - echo "--- clean files: expect exit 0"
+      - "{{.PY}} jev-demo pii-check --mode live -v tests/fixtures/pii/clean_service.py tests/fixtures/pii/clean_worker.go"
+      - echo "--- leaky files: expect BLOCK lines and exit 1"
+      - cmd: "{{.PY}} jev-demo pii-check --mode live tests/fixtures/pii/leaky_service.py tests/fixtures/pii/leaky_handler.ts"
+        ignore_error: true
+
   hooks:install:
     desc: Install the pre-commit hook
     cmds:

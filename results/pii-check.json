@@ -1,0 +1,220 @@
+{
+ "files_scanned": 4,
+ "statements": 26,
+ "flagged": 7,
+ "jev_calls": 4,
+ "p50_ms": 593.6,
+ "max_ms": 746.6,
+ "wall_ms": 765.1,
+ "cost_usd": 0.000479,
+ "findings": [
+  {
+   "file": "tests/fixtures/pii/clean_service.py",
+   "line": 23,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "logger.info(\"onboarding started customer_id=%s\", customer_id)"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_service.py",
+   "line": 24,
+   "kind": "none",
+   "p_pii": 0.14,
+   "flagged": false,
+   "code": "logger.info(\"welcome email queued for %s\", mask_email(email))"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_service.py",
+   "line": 25,
+   "kind": "none",
+   "p_pii": 0.03,
+   "flagged": false,
+   "code": "logger.debug(\"kyc check passed customer_id=%s provider=onfido\", customer_id)"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_service.py",
+   "line": 30,
+   "kind": "none",
+   "p_pii": 0.01,
+   "flagged": false,
+   "code": "logger.info(\"charging %d cents txn_id=%s card_brand=%s\", amount_cents, txn_id, card_brand)"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_service.py",
+   "line": 34,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "logger.error(\"authorization failed txn_id=%s reason=%s\", txn_id, type(exc).__name__)"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_service.py",
+   "line": 36,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "logger.info(\"charge settled txn_id=%s latency_ms=%d\", txn_id, 42)"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_service.py",
+   "line": 41,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "logger.warning(\"audit action=%s user_hash=%s\", action, digest)"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_service.py",
+   "line": 42,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "logger.info(\"audit batch flushed rows=%d table=%s\", 128, \"audit_events\")"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_worker.go",
+   "line": 18,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "slog.Info(\"job started\", \"job_id\", j.ID, \"account_id\", j.AccountID)"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_worker.go",
+   "line": 20,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "slog.Warn(\"job retried too often\", \"job_id\", j.ID, \"attempts\", j.Attempts)"
+  },
+  {
+   "file": "tests/fixtures/pii/clean_worker.go",
+   "line": 22,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "slog.Info(\"job finished\", \"job_id\", j.ID, \"elapsed\", time.Since(start))"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_handler.ts",
+   "line": 17,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "log.info({ requestId }, \"login attempt\")"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_handler.ts",
+   "line": 18,
+   "kind": "identity",
+   "p_pii": 1.0,
+   "flagged": true,
+   "code": "log.info(`user ${user.name} (${user.email}) logged in, dob ${user.dateOfBirth}`)"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_handler.ts",
+   "line": 19,
+   "kind": "credential",
+   "p_pii": 1.0,
+   "flagged": true,
+   "code": "console.error(\"session issued\", { userId: user.id, token: user.sessionToken })"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_handler.ts",
+   "line": 20,
+   "kind": "none",
+   "p_pii": 0.01,
+   "flagged": false,
+   "code": "log.warn({ requestId, userId: user.id, durationMs: 180 }, \"slow login\")"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_handler.ts",
+   "line": 24,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "console.log(\"logout\", { userId })"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 27,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "logger.info(\"onboarding started customer_id=%s\", customer.customer_id)"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 28,
+   "kind": "identity",
+   "p_pii": 1.0,
+   "flagged": true,
+   "code": "logger.info(\"welcome email queued for %s <%s>\", customer.full_name, customer.email)"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 29,
+   "kind": "identity",
+   "p_pii": 1.0,
+   "flagged": true,
+   "code": "logger.debug(\"kyc payload: ssn=%s dob_verified=true\", customer.ssn)"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 30,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "logger.info(\"onboarding complete customer_id=%s steps=4\", customer.customer_id)"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 34,
+   "kind": "none",
+   "p_pii": 0.01,
+   "flagged": false,
+   "code": "logger.info(\"charging %d cents txn_id=%s\", amount_cents, txn_id)"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 38,
+   "kind": "financial",
+   "p_pii": 1.0,
+   "flagged": true,
+   "code": "logger.error("
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 45,
+   "kind": "network_location",
+   "p_pii": 1.0,
+   "flagged": true,
+   "code": "logger.warning(\"high-value charge from ip=%s txn_id=%s\", customer.ip_address, txn_id)"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 46,
+   "kind": "none",
+   "p_pii": 0.01,
+   "flagged": false,
+   "code": "logger.info(\"charge settled txn_id=%s latency_ms=%d\", txn_id, 42)"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 50,
+   "kind": "credential",
+   "p_pii": 1.0,
+   "flagged": true,
+   "code": "logger.info(f\"password reset for {customer.email}: new password is {new_password}\")"
+  },
+  {
+   "file": "tests/fixtures/pii/leaky_service.py",
+   "line": 51,
+   "kind": "none",
+   "p_pii": 0.0,
+   "flagged": false,
+   "code": "logger.info(\"password reset complete customer_id=%s\", customer.customer_id)"
+  }
+ ]
+}

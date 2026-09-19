@@ -1,0 +1,37 @@
+{
+  "_comment": "Ground truth for the PII fixtures: file -> line -> true when the statement leaks PII and must block the commit, false when it must pass. Every log statement in each fixture is listed.",
+  "leaky_service.py": {
+    "27": false,
+    "28": true,
+    "29": true,
+    "30": false,
+    "34": false,
+    "38": true,
+    "45": true,
+    "46": false,
+    "50": true,
+    "51": false
+  },
+  "clean_service.py": {
+    "23": false,
+    "24": false,
+    "25": false,
+    "30": false,
+    "34": false,
+    "36": false,
+    "41": false,
+    "42": false
+  },
+  "leaky_handler.ts": {
+    "17": false,
+    "18": true,
+    "19": true,
+    "20": false,
+    "24": false
+  },
+  "clean_worker.go": {
+    "18": false,
+    "20": false,
+    "22": false
+  }
+}

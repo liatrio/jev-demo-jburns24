@@ -1,0 +1,166 @@
+{
+ "latency_ms": 674.8,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "s0": {
+    "criteria": {
+     "contact": "Writes contact details: email address, phone number, postal address.",
+     "credential": "Writes a password, session token, API key, or other secret bound to a user.",
+     "financial": "Writes a payment card number (PAN, CVV, expiry) or a bank account or IBAN.",
+     "identity": "Writes identity data: a person's name, date of birth, or a government identifier such as SSN, passport, tax id or driver's licence.",
+     "network_location": "Writes a user's IP address, device fingerprint or precise geolocation.",
+     "none": "Writes only operational data or opaque internal identifiers; no personal data.",
+     "sensitive": "Writes health, biometric or other special-category data about a person."
+    },
+    "instructions": "What kind of personal data, if any, does log statement s0 write to the log output? Judge by the policy.",
+    "type": "choice"
+   },
+   "s1": {
+    "criteria": {
+     "contact": "Writes contact details: email address, phone number, postal address.",
+     "credential": "Writes a password, session token, API key, or other secret bound to a user.",
+     "financial": "Writes a payment card number (PAN, CVV, expiry) or a bank account or IBAN.",
+     "identity": "Writes identity data: a person's name, date of birth, or a government identifier such as SSN, passport, tax id or driver's licence.",
+     "network_location": "Writes a user's IP address, device fingerprint or precise geolocation.",
+     "none": "Writes only operational data or opaque internal identifiers; no personal data.",
+     "sensitive": "Writes health, biometric or other special-category data about a person."
+    },
+    "instructions": "What kind of personal data, if any, does log statement s1 write to the log output? Judge by the policy.",
+    "type": "choice"
+   },
+   "s2": {
+    "criteria": {
+     "contact": "Writes contact details: email address, phone number, postal address.",
+     "credential": "Writes a password, session token, API key, or other secret bound to a user.",
+     "financial": "Writes a payment card number (PAN, CVV, expiry) or a bank account or IBAN.",
+     "identity": "Writes identity data: a person's name, date of birth, or a government identifier such as SSN, passport, tax id or driver's licence.",
+     "network_location": "Writes a user's IP address, device fingerprint or precise geolocation.",
+     "none": "Writes only operational data or opaque internal identifiers; no personal data.",
+     "sensitive": "Writes health, biometric or other special-category data about a person."
+    },
+    "instructions": "What kind of personal data, if any, does log statement s2 write to the log output? Judge by the policy.",
+    "type": "choice"
+   }
+  },
+  "state": {
+   "policy": "A log statement leaks PII when the text it writes to the log output can identify or be traced to a natural person: full or partial names, email addresses, phone numbers, postal addresses, dates of birth, government identifiers (SSN, passport, driver's licence, tax id), payment card numbers or bank account numbers, IP addresses tied to a user, precise geolocation, health or biometric data, and secrets that grant access as a person (passwords, session tokens, API keys). Infer what is written from variable and attribute names and from any literal values: `user.email`, `customer_name`, `ssn`, `card.pan`, `request.remote_addr` count. Opaque internal identifiers (transaction ids, account ids, order ids, request ids, user ids that are random or numeric surrogate keys), counts, durations, status codes, error types, table names and other operational data do NOT count. A hashed, masked, truncated or explicitly redacted value does NOT count: `mask(email)`, `sha256(user_key)`, `redact(...)`, and the last four digits of a card number (`card_last4`, `pan[-4:]`) are all acceptable to log.",
+   "statements": {
+    "s0": {
+     "file": "tests/fixtures/pii/clean_worker.go",
+     "line": 18,
+     "log_statement": "slog.Info(\"job started\", \"job_id\", j.ID, \"account_id\", j.AccountID)",
+     "preceding_lines": "}\n\nfunc Process(j Job) error {\n\tstart := time.Now()"
+    },
+    "s1": {
+     "file": "tests/fixtures/pii/clean_worker.go",
+     "line": 20,
+     "log_statement": "slog.Warn(\"job retried too often\", \"job_id\", j.ID, \"attempts\", j.Attempts)",
+     "preceding_lines": "func Process(j Job) error {\n\tstart := time.Now()\n\tslog.Info(\"job started\", \"job_id\", j.ID, \"account_id\", j.AccountID)\n\tif j.Attempts > 3 {"
+    },
+    "s2": {
+     "file": "tests/fixtures/pii/clean_worker.go",
+     "line": 22,
+     "log_statement": "slog.Info(\"job finished\", \"job_id\", j.ID, \"elapsed\", time.Since(start))",
+     "preceding_lines": "\tslog.Info(\"job started\", \"job_id\", j.ID, \"account_id\", j.AccountID)\n\tif j.Attempts > 3 {\n\t\tslog.Warn(\"job retried too often\", \"job_id\", j.ID, \"attempts\", j.Attempts)\n\t}"
+    }
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "s0": {
+    "choice": "none",
+    "probabilities": {
+     "contact": 0,
+     "credential": 0,
+     "financial": 0,
+     "identity": 0,
+     "network_location": 0,
+     "none": 1,
+     "sensitive": 0
+    },
+    "type": "choice"
+   },
+   "s1": {
+    "choice": "none",
+    "probabilities": {
+     "contact": 0,
+     "credential": 0,
+     "financial": 0,
+     "identity": 0,
+     "network_location": 0,
+     "none": 1,
+     "sensitive": 0
+    },
+    "type": "choice"
+   },
+   "s2": {
+    "choice": "none",
+    "probabilities": {
+     "contact": 0,
+     "credential": 0,
+     "financial": 0,
+     "identity": 0,
+     "network_location": 0,
+     "none": 1,
+     "sensitive": 0
+    },
+    "type": "choice"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WCN3RWX755EZ41T9QY4SWR",
+    "marketCost": "0.000067662",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789806678118,
+         "provider": "typesafe-ai",
+         "startTime": 1789806677867,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "s0": 1,
+     "s1": 1,
+     "s2": 1
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1611,
+   "outputTokens": 201
+  },
+  "warnings": []
+ }
+}
