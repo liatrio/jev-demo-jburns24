@@ -1,12 +1,12 @@
 {
  "agents": 200,
- "steps": 806,
- "jev_calls": 813,
- "network_calls": 6,
- "replays": 807,
- "agent_errors": 1,
- "wall_seconds": 38.3,
- "cost_usd": 0.04810318800000002,
+ "steps": 800,
+ "jev_calls": 808,
+ "network_calls": 808,
+ "replays": 0,
+ "agent_errors": 3,
+ "wall_seconds": 53.2,
+ "cost_usd": 0.04797618000000002,
  "injected": [
   "dead_link",
   "idor",
@@ -21,7 +21,7 @@
    "fingerprint": "money_loss:/transfer[negative_amount_displayed]",
    "category": "money_loss",
    "severity": 2,
-   "defect_probability": 0.93,
+   "defect_probability": 0.92,
    "path": "/transfer",
    "action": "click button \"Send transfer\" (submits the form)",
    "persona": "negative-money",
@@ -159,7 +159,7 @@
    "fingerprint": "broken_page:/transfer[http_500,stack_trace_exposed]",
    "category": "broken_page",
    "severity": 2,
-   "defect_probability": 0.9,
+   "defect_probability": 0.89,
    "path": "/transfer",
    "action": "click button \"Send transfer\" (submits the form)",
    "persona": "injector",
@@ -167,13 +167,14 @@
     19,
     70,
     91,
+    115,
+    139,
     142,
     147,
     150,
     155,
     174,
     182,
-    187,
     195,
     198
    ],
@@ -181,6 +182,27 @@
    "automatic_checks": [
     "http_500",
     "stack_trace_exposed"
+   ],
+   "blocking": true,
+   "in_baseline": false
+  },
+  {
+   "fingerprint": "security:/search[script_injection_executed]",
+   "category": "security",
+   "severity": 2,
+   "defect_probability": 0.88,
+   "path": "/search",
+   "action": "click button \"Search\" (submits the form)",
+   "persona": "injector",
+   "agents": [
+    35,
+    59,
+    83,
+    179
+   ],
+   "evidence": "AccountsTransfer SearchStatementsProfile Help\nSearch transactions\nMemo or amount  Search\nResults for \"\"\nNo matching transactions.",
+   "automatic_checks": [
+    "script_injection_executed"
    ],
    "blocking": true,
    "in_baseline": false
@@ -207,30 +229,10 @@
    "in_baseline": false
   },
   {
-   "fingerprint": "security:/search[script_injection_executed]",
-   "category": "security",
-   "severity": 2,
-   "defect_probability": 0.89,
-   "path": "/search",
-   "action": "click button \"Search\" (submits the form)",
-   "persona": "injector",
-   "agents": [
-    35,
-    83,
-    179
-   ],
-   "evidence": "AccountsTransfer SearchStatementsProfile Help\nSearch transactions\nMemo or amount  Search\nResults for \"\"\nNo matching transactions.",
-   "automatic_checks": [
-    "script_injection_executed"
-   ],
-   "blocking": true,
-   "in_baseline": false
-  },
-  {
    "fingerprint": "validation_gap:/transfer",
    "category": "validation_gap",
    "severity": 2,
-   "defect_probability": 0.88,
+   "defect_probability": 0.86,
    "path": "/transfer",
    "action": "click button \"Send transfer\" (submits the form)",
    "persona": "negative-money",
@@ -248,7 +250,7 @@
   "broken_page:/statements[http_404]",
   "security:/accounts/2001",
   "broken_page:/transfer[http_500,stack_trace_exposed]",
-  "broken_page:/profile[http_500,stack_trace_exposed]",
-  "security:/search[script_injection_executed]"
+  "security:/search[script_injection_executed]",
+  "broken_page:/profile[http_500,stack_trace_exposed]"
  ]
 }

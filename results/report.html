@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jev Experiment Results</title>
+<meta name="description" content="Cost, speed and enterprise value of three Jev experiments: fraud classification, PII log lint, adversarial e2e swarm.">
+<style>
+:root{color-scheme:light;
+ --bg:#fcfcfb;--surface:#ffffff;--surface-2:#f3f2ef;--border:#e3e1dc;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#7a7873;
+ --accent:#2a78d6;
+ --jev:#2a78d6;--sonnet-5:#eb6834;--gpt-5-6-luna:#1baf7a;--jev-sonnet-5:#eda100;
+ --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+ --bg:#141413;--surface:#1a1a19;--surface-2:#232321;--border:#33322f;--ink:#ffffff;--ink-2:#c3c2b7;--ink-3:#8f8e86;
+ --accent:#3987e5;--jev:#3987e5;--sonnet-5:#d95926;--gpt-5-6-luna:#199e70;--jev-sonnet-5:#c98500;
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500}}
+:root[data-theme="dark"]{color-scheme:dark;
+ --bg:#141413;--surface:#1a1a19;--surface-2:#232321;--border:#33322f;--ink:#ffffff;--ink-2:#c3c2b7;--ink-3:#8f8e86;
+ --accent:#3987e5;--jev:#3987e5;--sonnet-5:#d95926;--gpt-5-6-luna:#199e70;--jev-sonnet-5:#c98500;
+ --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1080px;margin:0 auto;padding:32px 16px 64px}
+header{padding:8px 0 24px;border-bottom:1px solid var(--border);margin-bottom:8px}
+header h1{font-size:30px;line-height:1.2;margin:0 0 8px}
+header p{color:var(--ink-2);margin:0}
+nav{display:flex;flex-wrap:wrap;gap:8px 18px;margin:16px 0 0;font-size:14px}
+nav a{color:var(--accent);text-decoration:none}
+section{padding:32px 0;border-bottom:1px solid var(--border)}
+h2{font-size:23px;margin:0 0 12px;line-height:1.25}
+h3{font-size:17px;margin:28px 0 10px}
+.lede{color:var(--ink-2);margin:0 0 20px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:0 0 24px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.k-label{font-size:13px;color:var(--ink-2)}
+.k-value{font-size:30px;font-weight:600;line-height:1.15;margin:4px 0 2px;font-variant-numeric:proportional-nums}
+.k-sub{font-size:13px;color:var(--ink-3)}
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.chart{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px 10px}
+.chart figcaption{font-size:14px;font-weight:600;margin-bottom:8px}
+.chart svg{width:100%;height:auto;display:block}
+.chart .lbl{font-size:13px;fill:var(--ink-2)}
+.chart .val{font-size:13px;fill:var(--ink);font-weight:600}
+.chart .s-1{fill:var(--s1)}.chart .s-2{fill:var(--s2)}.chart .s-3{fill:var(--s3)}.chart .s-4{fill:var(--s4)}
+.chart rect:hover{opacity:.85}
+.note{font-size:13px;color:var(--ink-3);margin:8px 0 0}
+.tbl{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top;white-space:nowrap}
+td:nth-child(n+3){font-variant-numeric:tabular-nums}
+th{font-weight:600;color:var(--ink-2);background:var(--surface-2);font-size:13px}
+th small{font-weight:400;color:var(--ink-3)}
+tr:last-child td{border-bottom:0}
+table td:has(code){white-space:normal}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-right:8px;vertical-align:-1px}
+ul{padding-left:20px}li{margin:6px 0}
+.comps{margin:14px 0 0}
+a{color:var(--accent)}
+footer{color:var(--ink-3);font-size:13px;padding-top:20px}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Jev experiment results: fraud classification, PII lint, adversarial swarm</h1>
+<p>Live runs on 2026-09-19 from the <code>jev-demo</code> repository. Cost, speed and what each result is worth to an enterprise bank.</p>
+<nav><a href="#summary">Summary</a><a href="#fraud">1. Fraud bake-off</a><a href="#pii">2. PII log lint</a><a href="#swarm">3. Adversarial swarm</a><a href="#method">Method and caveats</a></nav>
+</header>
+
+<section id="summary">
+<h2>Executive summary</h2>
+<p class="lede">Three experiments use TypeSafe's Jev, an evaluation model that returns typed,
+calibrated decisions instead of text, in three roles: as an in-line fraud classifier, as a
+semantic linter, and as the decision loop of two hundred adversarial browser agents. All three
+were run live against the Vercel AI Gateway for this report.</p>
+<div class="tbl"><table>
+<thead><tr><th>Experiment</th><th>Job</th><th>Speed</th><th>Cost</th><th>Quality</th><th>Enterprise value</th></tr></thead>
+<tbody>
+<tr><td><a href="#fraud">1. Fraud bake-off</a></td><td>Classify 212 transaction rows against Sonnet 5 and GPT-5.6 Luna</td>
+<td>269 ms p50, 8x faster than Sonnet</td>
+<td>$0.018 vs $1.14 for Sonnet (63x)</td>
+<td>Recall 1.00, 5 FP, F1 0.94 (second to Jev + Sonnet (gated) at 0.95)</td>
+<td>Fits inside a card authorization hop; calibrated thresholds per product line</td></tr>
+<tr><td><a href="#pii">2. PII log lint</a></td><td>Judge 26 log statements in 4 files</td>
+<td>1.1 s wall per commit</td><td>$0.00048 per commit</td>
+<td>7 / 7 leaks caught, 0 false positives</td>
+<td>A privacy control developers will not bypass; policy as text, not regex</td></tr>
+<tr><td><a href="#swarm">3. Adversarial swarm</a></td><td>200 browser agents attack a banking portal pre-push</td>
+<td>53 s per run</td><td>$0.048 per run</td>
+<td>7 / 7 planted regressions, 0 findings on the clean site</td>
+<td>Money-loss and data-exposure bugs caught before the push, for cents</td></tr>
+</tbody></table></div>
+<p>The common thread: because Jev answers in a quarter of a second for a fraction of a cent and
+returns calibrated probabilities that code can threshold, it can sit in the hot path (authorization,
+commit, push) where a two-second, dollar-scale generative call cannot. The generative models still
+have a role, as the escalation target for gray-zone rows and for anything that needs prose.</p>
+</section>
+
+
+<section id="fraud">
+<h2>Experiment 1: Jev vs generative LLMs on fraud-classification tapes</h2>
+<p class="lede">Six synthetic transaction streams with planted fraud (account takeover, card testing,
+structuring, impossible travel, money mule, plus one clean control) are played row by row through
+four evaluators. Each sees the account profile, the previous rows for that account and the row
+under review, then answers three typed questions: is this fraud, which pattern, what risk level.
+Ground truth is stripped before the model sees the row and used only for scoring.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="k-label">Rows evaluated</div><div class="k-value">212</div><div class="k-sub">39 fraud rows across 6 tapes</div></div>
+  <div class="kpi"><div class="k-label">Jev recall</div><div class="k-value">1.00</div><div class="k-sub">5 false positives, 0 misses</div></div>
+  <div class="kpi"><div class="k-label">Jev median latency</div><div class="k-value">269 ms</div><div class="k-sub">p95 620 ms</div></div>
+  <div class="kpi"><div class="k-label">Jev cost, whole run</div><div class="k-value">$0.018</div><div class="k-sub">$0.086 per 1,000 rows</div></div>
+</div>
+
+<div class="charts">
+<figure class="chart"><figcaption>Cost per 1,000 rows (USD)</figcaption>
+<svg viewBox="0 0 640 152" role="img" aria-label="Cost per 1,000 rows (USD)">
+<text x="160" y="19.0" text-anchor="end" class="lbl">Jev</text><rect x="170" y="4" width="6.1" height="22" rx="4" class="s-1"><title>Jev: $0.086</title></rect><text x="184.1" y="19.0" class="val">$0.086</text>
+<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="380.0" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: $5.389</title></rect><text x="558.0" y="55.0" class="val">$5.389</text>
+<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="30.4" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: $0.431</title></rect><text x="208.4" y="91.0" class="val">$0.431</text>
+<text x="160" y="127.0" text-anchor="end" class="lbl">Jev + Sonnet (gated)</text><rect x="170" y="112" width="38.5" height="22" rx="4" class="s-4"><title>Jev + Sonnet (gated): $0.545</title></rect><text x="216.5" y="127.0" class="val">$0.545</text>
+</svg>
+<p class="note">Gateway list prices at run time. Every evaluator saw byte-identical input.</p>
+</figure>
+<figure class="chart"><figcaption>Median latency per row (ms)</figcaption>
+<svg viewBox="0 0 640 152" role="img" aria-label="Median latency per row (ms)">
+<text x="160" y="19.0" text-anchor="end" class="lbl">Jev</text><rect x="170" y="4" width="46.7" height="22" rx="4" class="s-1"><title>Jev: 269 ms</title></rect><text x="224.7" y="19.0" class="val">269 ms</text>
+<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="380.0" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: 2,188 ms</title></rect><text x="558.0" y="55.0" class="val">2,188 ms</text>
+<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="359.2" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: 2,068 ms</title></rect><text x="537.2" y="91.0" class="val">2,068 ms</text>
+<text x="160" y="127.0" text-anchor="end" class="lbl">Jev + Sonnet (gated)</text><rect x="170" y="112" width="46.2" height="22" rx="4" class="s-4"><title>Jev + Sonnet (gated): 266 ms</title></rect><text x="224.2" y="127.0" class="val">266 ms</text>
+</svg>
+<p class="note">Wall clock through the gateway at concurrency 8. Jev answers three typed questions per call.</p>
+</figure>
+<figure class="chart"><figcaption>F1 on fraud rows (pooled, 6 tapes)</figcaption>
+<svg viewBox="0 0 640 152" role="img" aria-label="F1 on fraud rows (pooled, 6 tapes)">
+<text x="160" y="19.0" text-anchor="end" class="lbl">Jev</text><rect x="170" y="4" width="375.9" height="22" rx="4" class="s-1"><title>Jev: 0.94</title></rect><text x="553.9" y="19.0" class="val">0.94</text>
+<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="366.3" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: 0.92</title></rect><text x="544.3" y="55.0" class="val">0.92</text>
+<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="338.5" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: 0.85</title></rect><text x="516.5" y="91.0" class="val">0.85</text>
+<text x="160" y="127.0" text-anchor="end" class="lbl">Jev + Sonnet (gated)</text><rect x="170" y="112" width="380.0" height="22" rx="4" class="s-4"><title>Jev + Sonnet (gated): 0.95</title></rect><text x="558.0" y="127.0" class="val">0.95</text>
+</svg>
+<p class="note">Recall and precision scored against ground truth the models never see.</p>
+</figure>
+</div>
+
+<h3>Pooled results</h3>
+<div class="tbl"><table>
+<thead><tr><th>Evaluator</th><th>Rows</th><th>TP</th><th>FP</th><th>FN</th><th>Precision</th><th>Recall</th><th>F1</th><th>Pattern acc</th><th>p50 ms</th><th>p95 ms</th><th>Errors</th><th>Total cost</th><th>Per 1k rows</th></tr></thead>
+<tbody><tr><td><span class="sw" style="--c:var(--jev)"></span>Jev</td><td>212</td><td>39</td><td>5</td><td>0</td><td>0.89</td><td>1.00</td><td>0.94</td><td>0.97</td><td>269</td><td>620</td><td>1</td><td>$0.0182</td><td>$0.086</td></tr><tr><td><span class="sw" style="--c:var(--sonnet-5)"></span>Claude Sonnet 5</td><td>212</td><td>38</td><td>6</td><td>1</td><td>0.86</td><td>0.97</td><td>0.92</td><td>1.00</td><td>2,188</td><td>3,103</td><td>0</td><td>$1.1424</td><td>$5.389</td></tr><tr><td><span class="sw" style="--c:var(--gpt-5-6-luna)"></span>GPT-5.6 Luna</td><td>212</td><td>33</td><td>6</td><td>6</td><td>0.85</td><td>0.85</td><td>0.85</td><td>1.00</td><td>2,068</td><td>3,695</td><td>0</td><td>$0.0914</td><td>$0.431</td></tr><tr><td><span class="sw" style="--c:var(--jev-sonnet-5)"></span>Jev + Sonnet (gated)</td><td>212</td><td>38</td><td>3</td><td>1</td><td>0.93</td><td>0.97</td><td>0.95</td><td>0.97</td><td>266</td><td>2,308</td><td>1</td><td>$0.1156</td><td>$0.545</td></tr></tbody></table></div>
+
+<ul class="comps"><li><b>vs Claude Sonnet 5:</b> Jev is 8x faster at p50 and 63x cheaper, with F1 0.94 vs 0.92.</li><li><b>vs GPT-5.6 Luna:</b> Jev is 8x faster at p50 and 5x cheaper, with F1 0.94 vs 0.85.</li><li><b>vs Jev + Sonnet (gated):</b> Jev is 1x faster at p50 and 6x cheaper, with F1 0.94 vs 0.95.</li></ul>
+<p class="note">Errors are transport or parse failures counted as "not fraud" and scored against the row. On this run Jev had one gateway connection error on a clean row and the gated hybrid had one unparseable Sonnet reply on a structuring row.</p>
+
+<h3>Per tape</h3>
+<div class="tbl"><table>
+<thead><tr><th>Tape</th><th>Situation</th><th>Rows</th><th>Fraud</th><th>Jev<br><small>recall / FP</small></th><th>Claude Sonnet 5<br><small>recall / FP</small></th><th>GPT-5.6 Luna<br><small>recall / FP</small></th><th>Jev + Sonnet (gated)<br><small>recall / FP</small></th></tr></thead>
+<tbody><tr><td><code>T00-clean</code></td><td>Clean baseline</td><td>47</td><td>0</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td></tr><tr><td><code>T01-ato</code></td><td>Account takeover</td><td>38</td><td>4</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td></tr><tr><td><code>T02-cardtest</code></td><td>Card testing burst</td><td>39</td><td>15</td><td>1.00 / 0</td><td>1.00 / 1</td><td>0.93 / 0</td><td>1.00 / 0</td></tr><tr><td><code>T03-structuring</code></td><td>Cash structuring (smurfing)</td><td>32</td><td>9</td><td>1.00 / 4</td><td>1.00 / 3</td><td>0.89 / 4</td><td>1.00 / 1</td></tr><tr><td><code>T04-travel</code></td><td>Impossible travel (counterfeit card)</td><td>31</td><td>2</td><td>1.00 / 1</td><td>1.00 / 2</td><td>1.00 / 2</td><td>1.00 / 2</td></tr><tr><td><code>T05-mule</code></td><td>Money mule account</td><td>25</td><td>9</td><td>1.00 / 0</td><td>0.89 / 0</td><td>0.56 / 0</td><td>0.89 / 0</td></tr></tbody></table></div>
+
+<h3>What this means for an enterprise bank</h3>
+<p>The tapes are small and textbook, so treat quality as "competitive on known patterns", not as a
+production benchmark. Cost and speed, however, are structural and scale linearly. At
+<b>10,000,000 transactions per day</b> scored in-line, using this run's measured cost per row:</p>
+<div class="tbl"><table>
+<thead><tr><th>Evaluator</th><th>Per day</th><th>Per year</th><th>Decision latency (p50)</th><th>Recall</th><th>FP on 212 rows</th></tr></thead>
+<tbody><tr><td>Jev</td><td>$859</td><td>$313,475</td><td>269 ms</td><td>1.00</td><td>5</td></tr><tr><td>Claude Sonnet 5</td><td>$53,888</td><td>$19,669,196</td><td>2,188 ms</td><td>0.97</td><td>6</td></tr><tr><td>GPT-5.6 Luna</td><td>$4,311</td><td>$1,573,546</td><td>2,068 ms</td><td>0.85</td><td>6</td></tr><tr><td>Jev + Sonnet (gated)</td><td>$5,454</td><td>$1,990,644</td><td>266 ms</td><td>0.97</td><td>3</td></tr></tbody></table></div>
+<ul>
+<li><b>Real-time authorization is only viable with Jev.</b> Card networks expect a decision in
+well under a second. A quarter-second typed verdict fits inside an authorization hop; two seconds
+does not, which pushes generative LLMs to after-the-fact review.</li>
+<li><b>Calibrated probabilities are the operational lever.</b> Jev returns P(fraud), a pattern
+distribution and a risk score, so a bank can set auto-approve, step-up and block thresholds per
+product line and audit them. Free-text JSON from a chat model gives a label, not a calibrated number.</li>
+<li><b>Escalate, do not replace.</b> The confidence-gated hybrid routes only the 0.3 to 0.7 gray
+zone to Sonnet. It runs at Jev's latency for most rows and about a tenth of Sonnet's cost, and is the
+natural shape for adding an analyst-facing explanation to the few rows that need one.</li>
+</ul>
+</section>
+
+
+<section id="pii">
+<h2>Experiment 2: semantic PII lint in a pre-commit hook</h2>
+<p class="lede">A regex finds every <code>logger.info(...)</code>. It cannot tell whether the string
+inside leaks a customer's email. This check extracts every logging call from staged files (Python,
+TypeScript, Go and six other languages), sends each file's statements to Jev as one call with one
+typed <em>choice</em> question per statement, and blocks the commit when P(personal data) is at
+least 0.5. It runs live on every commit; the fixture run below is the same code path.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="k-label">Log statements</div><div class="k-value">26</div><div class="k-sub">4 files, 4 Jev calls</div></div>
+  <div class="kpi"><div class="k-label">Leaks caught</div><div class="k-value">7 / 7</div><div class="k-sub">0 false positives</div></div>
+  <div class="kpi"><div class="k-label">Wall clock</div><div class="k-value">1.1 s</div><div class="k-sub">p50 663 ms per call</div></div>
+  <div class="kpi"><div class="k-label">Cost</div><div class="k-value">$0.00048</div><div class="k-sub">for the whole commit</div></div>
+</div>
+
+<h3>Blocked lines</h3>
+<div class="tbl"><table>
+<thead><tr><th>Location</th><th>Kind</th><th>P(pii)</th><th>Statement</th></tr></thead>
+<tbody><tr><td><code>leaky_handler.ts:18</code></td><td>identity</td><td>1.00</td><td><code>log.info(`user ${user.name} (${user.email}) logged in, dob ${user.dateOfBirth}`)</code></td></tr><tr><td><code>leaky_handler.ts:19</code></td><td>credential</td><td>1.00</td><td><code>console.error(&quot;session issued&quot;, { userId: user.id, token: user.sessionToken })</code></td></tr><tr><td><code>leaky_service.py:28</code></td><td>identity</td><td>1.00</td><td><code>logger.info(&quot;welcome email queued for %s &lt;%s&gt;&quot;, customer.full_name, customer.email)</code></td></tr><tr><td><code>leaky_service.py:29</code></td><td>identity</td><td>1.00</td><td><code>logger.debug(&quot;kyc payload: ssn=%s dob_verified=true&quot;, customer.ssn)</code></td></tr><tr><td><code>leaky_service.py:38</code></td><td>financial</td><td>1.00</td><td><code>logger.error(</code></td></tr><tr><td><code>leaky_service.py:45</code></td><td>network_location</td><td>1.00</td><td><code>logger.warning(&quot;high-value charge from ip=%s txn_id=%s&quot;, customer.ip_address, txn_id)</code></td></tr><tr><td><code>leaky_service.py:50</code></td><td>credential</td><td>1.00</td><td><code>logger.info(f&quot;password reset for {customer.email}: new password is {new_password}&quot;)</code></td></tr></tbody></table></div>
+
+<h3>Lines a keyword scanner would false-alarm on, and Jev passed</h3>
+<div class="tbl"><table>
+<thead><tr><th>Location</th><th>P(pii)</th><th>Statement</th></tr></thead>
+<tbody><tr><td><code>clean_service.py:24</code></td><td>0.20</td><td><code>logger.info(&quot;welcome email queued for %s&quot;, mask_email(email))</code></td></tr><tr><td><code>clean_service.py:30</code></td><td>0.01</td><td><code>logger.info(&quot;charging %d cents txn_id=%s card_brand=%s&quot;, amount_cents, txn_id, card_brand)</code></td></tr><tr><td><code>clean_service.py:41</code></td><td>0.00</td><td><code>logger.warning(&quot;audit action=%s user_hash=%s&quot;, action, digest)</code></td></tr></tbody></table></div>
+
+<h3>What this means for an enterprise engineering org</h3>
+<ul>
+<li><b>Cost is a rounding error.</b> At roughly $0.0006 per commit of five changed
+files, 400 commits a day costs about $87 a year.
+One PII incident in production logs costs more than that in the first hour of the response.</li>
+<li><b>Latency is inside the developer's tolerance.</b> About a second added to a commit is
+accepted; ten seconds from a generative model is the point where teams add <code>--no-verify</code>
+to their muscle memory and the control stops existing.</li>
+<li><b>Semantic, not lexical.</b> Masked emails, hashed keys and opaque ids pass. Compliance
+teams get a control that judges meaning against a written policy, with a calibrated probability
+per line that can be tuned (block at 0.5, warn from 0.35) without rewriting rules.</li>
+</ul>
+</section>
+
+
+<section id="swarm">
+<h2>Experiment 3: an adversarial e2e swarm on pre-push</h2>
+<p class="lede">If one Jev-driven browser agent costs a quarter of a second and a hundredth of a
+cent per step, run two hundred of them. Each agent gets one of eight adversarial personas
+(negative money, overdraft, URL tamperer, injector, link walker, empty hands, edge text,
+bookkeeper) and up to six steps against a small online-banking portal. Code observes the page and
+enumerates concrete actions; Jev picks one and grades the page with typed questions; code acts.
+Incidents are deduped and triaged by Jev into a category and a release-blocking severity. The
+swarm runs as the git pre-push hook.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="k-label">Agents per run</div><div class="k-value">200</div><div class="k-sub">800 browser steps, 808 Jev calls</div></div>
+  <div class="kpi"><div class="k-label">Planted regressions found</div><div class="k-value">7 / 7</div><div class="k-sub">6 blocking findings, 1 report-only</div></div>
+  <div class="kpi"><div class="k-label">Wall clock</div><div class="k-value">53 s</div><div class="k-sub">clean run 45 s</div></div>
+  <div class="kpi"><div class="k-label">Cost per run</div><div class="k-value">$0.048</div><div class="k-sub">clean run $0.050, all calls live</div></div>
+</div>
+
+<h3>Two runs</h3>
+<div class="tbl"><table>
+<thead><tr><th>Run</th><th>Agents</th><th>Steps</th><th>Jev calls</th><th>Wall</th><th>Cost</th><th>Outcome</th></tr></thead>
+<tbody>
+<tr><td>Clean portal</td><td>200</td><td>818</td><td>818</td><td>45.4 s</td><td>$0.0499</td><td>PASS, 0 findings</td></tr>
+<tr><td>All seven regressions injected</td><td>200</td><td>800</td><td>808</td><td>53.2 s</td><td>$0.0480</td><td>FAIL, 6 blocking</td></tr>
+</tbody></table></div>
+<p class="note">Injected: <code>dead_link</code>, <code>idor</code>, <code>negative_transfer</code>, <code>overdraft</code>, <code>stack_trace</code>, <code>unicode_crash</code>, <code>xss_search</code>. Negative transfer and overdraft share one fingerprint (both are a missing amount check on the same form).</p>
+
+<h3>Findings on the injected run</h3>
+<div class="tbl"><table>
+<thead><tr><th>Sev</th><th>Category</th><th>Path</th><th>Agents</th><th>P(defect)</th><th>Automatic checks</th><th>Gate</th></tr></thead>
+<tbody><tr><td>2</td><td>money_loss</td><td><code>/transfer</code></td><td>48</td><td>0.92</td><td>negative_amount_displayed</td><td><b>BLOCK</b></td></tr><tr><td>2</td><td>broken_page</td><td><code>/statements</code></td><td>25</td><td>0.92</td><td>http_404</td><td><b>BLOCK</b></td></tr><tr><td>2</td><td>security</td><td><code>/accounts/2001</code></td><td>16</td><td>0.95</td><td>-</td><td><b>BLOCK</b></td></tr><tr><td>2</td><td>broken_page</td><td><code>/transfer</code></td><td>13</td><td>0.89</td><td>http_500, stack_trace_exposed</td><td><b>BLOCK</b></td></tr><tr><td>2</td><td>security</td><td><code>/search</code></td><td>4</td><td>0.88</td><td>script_injection_executed</td><td><b>BLOCK</b></td></tr><tr><td>2</td><td>broken_page</td><td><code>/profile</code></td><td>3</td><td>0.93</td><td>http_500, stack_trace_exposed</td><td><b>BLOCK</b></td></tr><tr><td>2</td><td>validation_gap</td><td><code>/transfer</code></td><td>1</td><td>0.86</td><td>-</td><td>report</td></tr></tbody></table></div>
+
+<h3>What this means for an enterprise platform team</h3>
+<ul>
+<li><b>Exploratory QA at the cost of a CI minute.</b> About $0.05 and under a minute
+per push. At 1,500 pushes a day that is roughly $26,802
+a year for two hundred adversarial testers on every push. A single contracted pen-test round costs
+more, and finds the IDOR after the release.</li>
+<li><b>No false positives on the clean site</b> means the gate can actually block. A noisy gate gets
+disabled within a sprint; this one distinguishes a 500 with a stack trace from a legitimate error page.</li>
+<li><b>Money-loss and data-exposure defects surface before the push.</b> Negative transfers,
+another customer's SSN digits, and reflected script execution were each found by many independent
+agents, which is the reproducibility a release manager needs to hold a deploy.</li>
+<li><b>Replay makes it cheap to keep.</b> Every Jev request is keyed on a deterministic page
+observation. Unchanged pages replay from cassettes for free; only changed page states go live.</li>
+</ul>
+</section>
+
+
+<section id="method">
+<h2>Method and caveats</h2>
+<ul>
+<li>All numbers on this page come from <code>results/</code> as written by live runs on
+2026-09-19 (<code>JEV_DEMO_MODE=live</code>, no cassette replay). Regenerate with
+<code>uv run python scripts/report_html.py</code>.</li>
+<li>Every model is reached through one Vercel AI Gateway key and sees byte-identical input. Cost uses
+the gateway's listed per-token prices. Latency is wall clock from this machine, concurrency 8 for the
+bake-off and 32 for the swarm.</li>
+<li>Tapes are synthetic and small (212 rows, 39 fraud).
+They demonstrate behaviour on textbook patterns and are not a production fraud benchmark.</li>
+<li>Enterprise sizing (10,000,000 transactions/day, 400 commits/day, 1,500
+pushes/day) is illustrative. Multiply the measured per-unit cost by your own volumes.</li>
+<li>Jev is <code>typesafe-ai/jev</code> on the gateway, which resolves to the current release. Pin a
+version before deriving production thresholds. TypeSafe documents calibration, not bit-for-bit
+determinism.</li>
+</ul>
+</section>
+
+<footer>Source: <code>results/summary.json</code>, <code>results/T0*.json</code>, <code>results/pii-check.json</code>, <code>results/swarm/*-summary.json</code>. Rendered by <code>scripts/report_html.py</code>.</footer>
+</main>
+</body>
+</html>
