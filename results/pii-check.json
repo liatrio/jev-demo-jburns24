@@ -3,9 +3,9 @@
  "statements": 26,
  "flagged": 7,
  "jev_calls": 4,
- "p50_ms": 593.6,
- "max_ms": 746.6,
- "wall_ms": 765.1,
+ "p50_ms": 663.1,
+ "max_ms": 673.8,
+ "wall_ms": 1101.8,
  "cost_usd": 0.000479,
  "findings": [
   {
@@ -20,7 +20,7 @@
    "file": "tests/fixtures/pii/clean_service.py",
    "line": 24,
    "kind": "none",
-   "p_pii": 0.14,
+   "p_pii": 0.2,
    "flagged": false,
    "code": "logger.info(\"welcome email queued for %s\", mask_email(email))"
   },
@@ -28,7 +28,7 @@
    "file": "tests/fixtures/pii/clean_service.py",
    "line": 25,
    "kind": "none",
-   "p_pii": 0.03,
+   "p_pii": 0.04,
    "flagged": false,
    "code": "logger.debug(\"kyc check passed customer_id=%s provider=onfido\", customer_id)"
   },

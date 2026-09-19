@@ -76,12 +76,12 @@ as a JSON object. Provider default reasoning settings are used unless `--effort`
 
 | evaluator | rows | TP | FP | FN | precision | recall | F1 | pattern acc | errors | p50 ms | p95 ms | total cost |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| jev | 212 | 39 | 4 | 0 | 0.91 | 1.00 | 0.95 | 0.97 | 0 | 251 | 356 | $0.0183 |
-| sonnet-5 | 212 | 39 | 5 | 0 | 0.89 | 1.00 | 0.94 | 1.00 | 0 | 1,902 | 3,584 | $1.1406 |
-| gpt-5.6-luna | 212 | 35 | 7 | 4 | 0.83 | 0.90 | 0.86 | 1.00 | 0 | 2,069 | 3,474 | $0.0914 |
-| jev+sonnet-5 | 212 | 38 | 5 | 1 | 0.88 | 0.97 | 0.93 | 0.97 | 0 | 254 | 2,153 | $0.1175 |
+| jev | 212 | 39 | 5 | 0 | 0.89 | 1.00 | 0.94 | 0.97 | 1 | 269 | 620 | $0.0182 |
+| sonnet-5 | 212 | 38 | 6 | 1 | 0.86 | 0.97 | 0.92 | 1.00 | 0 | 2,188 | 3,103 | $1.1424 |
+| gpt-5.6-luna | 212 | 33 | 6 | 6 | 0.85 | 0.85 | 0.85 | 1.00 | 0 | 2,068 | 3,695 | $0.0914 |
+| jev+sonnet-5 | 212 | 38 | 3 | 1 | 0.93 | 0.97 | 0.95 | 0.97 | 1 | 266 | 2,308 | $0.1156 |
 
-- vs **sonnet-5**: Jev is 8x faster at p50 and 62x cheaper
+- vs **sonnet-5**: Jev is 8x faster at p50 and 63x cheaper
 - vs **gpt-5.6-luna**: Jev is 8x faster at p50 and 5x cheaper
 - vs **jev+sonnet-5**: Jev is 1x faster at p50 and 6x cheaper
 
@@ -92,9 +92,9 @@ as a JSON object. Provider default reasoning settings are used unless `--effort`
 | T00-clean | 1.00 / 0 | 1.00 / 0 | 1.00 / 0 | 1.00 / 0 |
 | T01-ato | 1.00 / 0 | 1.00 / 0 | 1.00 / 0 | 1.00 / 0 |
 | T02-cardtest | 1.00 / 0 | 1.00 / 1 | 0.93 / 0 | 1.00 / 0 |
-| T03-structuring | 1.00 / 3 | 1.00 / 2 | 1.00 / 4 | 1.00 / 3 |
-| T04-travel | 1.00 / 1 | 1.00 / 2 | 1.00 / 3 | 1.00 / 2 |
-| T05-mule | 1.00 / 0 | 1.00 / 0 | 0.67 / 0 | 0.89 / 0 |
+| T03-structuring | 1.00 / 4 | 1.00 / 3 | 0.89 / 4 | 1.00 / 1 |
+| T04-travel | 1.00 / 1 | 1.00 / 2 | 1.00 / 2 | 1.00 / 2 |
+| T05-mule | 1.00 / 0 | 0.89 / 0 | 0.56 / 0 | 0.89 / 0 |
 
 Reading the table honestly:
 
@@ -102,16 +102,22 @@ Reading the table honestly:
   quarter of a second and the whole 212-row run costs under two cents. Sonnet 5 takes about
   two seconds per row and costs over a dollar for the same rows.
 - **Quality** is competitive on these textbook patterns: Jev catches every planted fraud row
-  (recall 1.00) with the fewest false positives, and names the right pattern on 97 percent
-  of true positives. Sonnet 5 matches its recall with one more false alarm. GPT-5.6 Luna
-  misses four rows, three of them the early Zelle credits on the mule tape.
+  (recall 1.00) and names the right pattern on 97 percent of true positives. Sonnet 5 misses
+  one mule row and adds one more false alarm. GPT-5.6 Luna misses six rows, four of them the
+  early Zelle credits on the mule tape. One Jev row hit a gateway connection error and is
+  scored as "not fraud".
 - **Structuring is the hard tape for everyone.** Every evaluator flags a few legitimate
   business rows on `T03` once it has seen the pattern of under-threshold deposits.
-- **The confidence-gated hybrid** did not beat Jev alone on this run: one gray-zone mule row
-  escalated to Sonnet came back as legitimate. It costs a tenth of Sonnet and sits at Jev's
-  latency for the 90-plus percent of rows Jev decides alone.
+- **The confidence-gated hybrid** trades one missed mule row (a gray-zone escalation Sonnet
+  called legitimate) for three fewer false positives on structuring, edging Jev alone on F1.
+  It costs a tenth of Sonnet and sits at Jev's latency for the 90-plus percent of rows Jev
+  decides alone.
 
 Regenerate this section with `uv run python scripts/results_md.py` after `task e2e:record`.
+
+A single-page HTML report covering all three experiments (cost, speed and enterprise value,
+with the latest live numbers from `results/`) is at `results/report.html`; rebuild it with
+`uv run python scripts/report_html.py`.
 
 ## Determinism, tests and the pre-commit hook
 

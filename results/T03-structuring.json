@@ -6,41 +6,41 @@
     "txn_id": "T03-structuring-0001",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.15,
+    "fraud_probability": 0.13,
     "pattern": "none",
-    "confidence": 0.96,
-    "reason": "risk_score=0.48",
-    "latency_ms": 286.2,
+    "confidence": 0.97,
+    "reason": "risk_score=0.51",
+    "latency_ms": 301.79650499999866,
     "input_tokens": 903,
     "output_tokens": 103,
     "cost_usd": 0.000037925999999999996,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.15,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.13
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
+        "structuring": 0.02,
         "card_testing": 0,
+        "none": 0.98,
         "impossible_travel": 0,
         "mule_account": 0,
-        "none": 0.97,
-        "structuring": 0.03
-       },
-       "type": "choice"
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.51,
        "probabilities": {
-        "0": 0.65,
-        "1": 0.24,
+        "0": 0.61,
+        "1": 0.28,
         "2": 0.11,
         "3": 0
-       },
-       "score": 0.48,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -50,42 +50,42 @@
    {
     "txn_id": "T03-structuring-0002",
     "evaluator": "jev",
-    "is_fraud": false,
-    "fraud_probability": 0.49,
+    "is_fraud": true,
+    "fraud_probability": 0.52,
     "pattern": "structuring",
-    "confidence": 0.41,
-    "reason": "risk_score=1.7",
-    "latency_ms": 412.4,
+    "confidence": 0.52,
+    "reason": "risk_score=1.76",
+    "latency_ms": 277.4321309999834,
     "input_tokens": 1057,
     "output_tokens": 105,
     "cost_usd": 0.000044394,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.49,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.52
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
+        "structuring": 0.61,
+        "none": 0.39,
         "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
-        "none": 0.48,
-        "structuring": 0.52
-       },
-       "type": "choice"
+        "card_testing": 0,
+        "impossible_travel": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.76,
        "probabilities": {
-        "0": 0.04,
-        "1": 0.22,
-        "2": 0.73,
+        "0": 0.03,
+        "1": 0.18,
+        "2": 0.78,
         "3": 0.01
-       },
-       "score": 1.7,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -98,39 +98,39 @@
     "is_fraud": false,
     "fraud_probability": 0.17,
     "pattern": "none",
-    "confidence": 0.95,
-    "reason": "risk_score=0.84",
-    "latency_ms": 248.1,
+    "confidence": 0.96,
+    "reason": "risk_score=0.82",
+    "latency_ms": 300.4617519999897,
     "input_tokens": 898,
     "output_tokens": 103,
     "cost_usd": 0.000037715999999999996,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.17,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.17
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0.01,
         "card_testing": 0,
         "impossible_travel": 0,
         "mule_account": 0,
-        "none": 0.96,
-        "structuring": 0.03
-       },
-       "type": "choice"
+        "account_takeover": 0.01,
+        "structuring": 0.02,
+        "none": 0.97
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.82,
        "probabilities": {
-        "0": 0.31,
-        "1": 0.54,
-        "2": 0.14,
-        "3": 0.01
-       },
-       "score": 0.84,
-       "type": "score"
+        "0": 0.32,
+        "1": 0.55,
+        "2": 0.13,
+        "3": 0
+       }
       }
      },
      "model": null
@@ -143,39 +143,39 @@
     "is_fraud": false,
     "fraud_probability": 0.11,
     "pattern": "none",
-    "confidence": 0.99,
-    "reason": "risk_score=0.48",
-    "latency_ms": 312.9,
+    "confidence": 0.98,
+    "reason": "risk_score=0.44",
+    "latency_ms": 286.4387230000034,
     "input_tokens": 1050,
     "output_tokens": 103,
     "cost_usd": 0.0000441,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.11,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.11
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0.01,
         "mule_account": 0,
+        "account_takeover": 0,
+        "impossible_travel": 0.01,
+        "structuring": 0,
         "none": 0.99,
-        "structuring": 0
-       },
-       "type": "choice"
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.44,
        "probabilities": {
-        "0": 0.62,
-        "1": 0.3,
-        "2": 0.08,
+        "0": 0.64,
+        "1": 0.29,
+        "2": 0.07,
         "3": 0
-       },
-       "score": 0.48,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -186,41 +186,41 @@
     "txn_id": "T03-structuring-0005",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.14,
+    "fraud_probability": 0.13,
     "pattern": "none",
     "confidence": 0.98,
-    "reason": "risk_score=0.47",
-    "latency_ms": 208.7,
+    "reason": "risk_score=0.48",
+    "latency_ms": 244.6816629999944,
     "input_tokens": 1199,
     "output_tokens": 103,
     "cost_usd": 0.000050358,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.14,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.13
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
+        "structuring": 0,
         "impossible_travel": 0.01,
         "mule_account": 0,
-        "none": 0.98,
-        "structuring": 0.01
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "none": 0.99,
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.48,
        "probabilities": {
-        "0": 0.64,
-        "1": 0.26,
-        "2": 0.1,
-        "3": 0
-       },
-       "score": 0.47,
-       "type": "score"
+        "0": 0.63,
+        "1": 0.27,
+        "2": 0.09,
+        "3": 0.01
+       }
       }
      },
      "model": null
@@ -231,41 +231,41 @@
     "txn_id": "T03-structuring-0006",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.45,
+    "fraud_probability": 0.41,
     "pattern": "none",
-    "confidence": 0.58,
-    "reason": "risk_score=1.38",
-    "latency_ms": 239.3,
+    "confidence": 0.6,
+    "reason": "risk_score=1.35",
+    "latency_ms": 364.94653299999413,
     "input_tokens": 1214,
     "output_tokens": 103,
     "cost_usd": 0.000050988,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.45,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.41
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
         "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
+        "structuring": 0.33,
         "mule_account": 0,
-        "none": 0.65,
-        "structuring": 0.35
-       },
-       "type": "choice"
+        "impossible_travel": 0,
+        "card_testing": 0,
+        "none": 0.67
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.35,
        "probabilities": {
-        "0": 0.16,
+        "0": 0.17,
         "1": 0.31,
-        "2": 0.52,
+        "2": 0.51,
         "3": 0.01
-       },
-       "score": 1.38,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -276,41 +276,41 @@
     "txn_id": "T03-structuring-0007",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.35,
+    "fraud_probability": 0.36,
     "pattern": "none",
-    "confidence": 0.7,
-    "reason": "risk_score=1.45",
-    "latency_ms": 233.2,
+    "confidence": 0.72,
+    "reason": "risk_score=1.43",
+    "latency_ms": 291.16665599997305,
     "input_tokens": 1371,
     "output_tokens": 103,
     "cost_usd": 0.000057582,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.35,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.36
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
         "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
+        "none": 0.77,
         "mule_account": 0,
-        "none": 0.76,
-        "structuring": 0.24
-       },
-       "type": "choice"
+        "structuring": 0.23,
+        "impossible_travel": 0,
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.43,
        "probabilities": {
-        "0": 0.13,
-        "1": 0.29,
-        "2": 0.57,
+        "0": 0.16,
+        "1": 0.27,
+        "2": 0.5599999999999999,
         "3": 0.01
-       },
-       "score": 1.45,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -324,38 +324,38 @@
     "fraud_probability": 0.72,
     "pattern": "structuring",
     "confidence": 0.99,
-    "reason": "risk_score=2",
-    "latency_ms": 219.0,
+    "reason": "risk_score=2.02",
+    "latency_ms": 247.6339600000017,
     "input_tokens": 1529,
     "output_tokens": 105,
     "cost_usd": 0.000064218,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.72,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.72
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
+        "mule_account": 0,
+        "structuring": 0.99,
+        "none": 0.01,
         "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0.01,
-        "structuring": 0.99
-       },
-       "type": "choice"
+        "impossible_travel": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.02,
        "probabilities": {
         "0": 0,
         "1": 0.02,
         "2": 0.94,
         "3": 0.04
-       },
-       "score": 2,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -366,41 +366,41 @@
     "txn_id": "T03-structuring-0009",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.75,
+    "fraud_probability": 0.73,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "risk_score=2.08",
-    "latency_ms": 331.5,
+    "reason": "risk_score=2.06",
+    "latency_ms": 219.06006499997943,
     "input_tokens": 1689,
     "output_tokens": 105,
     "cost_usd": 0.000070938,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.75,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.73
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
+        "card_testing": 0,
+        "structuring": 1,
         "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.06,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.9,
-        "3": 0.09
-       },
-       "score": 2.08,
-       "type": "score"
+        "2": 0.91,
+        "3": 0.08
+       }
       }
      },
      "model": null
@@ -413,39 +413,39 @@
     "is_fraud": false,
     "fraud_probability": 0.12,
     "pattern": "none",
-    "confidence": 0.99,
-    "reason": "risk_score=0.29",
-    "latency_ms": 291.3,
+    "confidence": 0.98,
+    "reason": "risk_score=0.34",
+    "latency_ms": 251.0914199999945,
     "input_tokens": 1356,
     "output_tokens": 103,
     "cost_usd": 0.000056952,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.12,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.12
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
         "account_takeover": 0,
-        "card_testing": 0,
+        "structuring": 0,
         "impossible_travel": 0.01,
+        "card_testing": 0,
         "mule_account": 0,
-        "none": 0.99,
-        "structuring": 0
-       },
-       "type": "choice"
+        "none": 0.99
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.34,
        "probabilities": {
-        "0": 0.76,
-        "1": 0.2,
-        "2": 0.04,
+        "0": 0.71,
+        "1": 0.24,
+        "2": 0.05,
         "3": 0
-       },
-       "score": 0.29,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -456,41 +456,41 @@
     "txn_id": "T03-structuring-0011",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.15,
+    "fraud_probability": 0.13,
     "pattern": "none",
     "confidence": 0.98,
-    "reason": "risk_score=0.57",
-    "latency_ms": 265.7,
+    "reason": "risk_score=0.52",
+    "latency_ms": 280.96410199998445,
     "input_tokens": 1507,
     "output_tokens": 103,
     "cost_usd": 0.000063294,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.15,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.13
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
+        "account_takeover": 0,
+        "structuring": 0,
         "impossible_travel": 0.01,
-        "mule_account": 0,
-        "none": 0.98,
-        "structuring": 0.01
-       },
-       "type": "choice"
+        "none": 0.99,
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.52,
        "probabilities": {
-        "0": 0.54,
-        "1": 0.36,
-        "2": 0.1,
+        "0": 0.58,
+        "1": 0.33,
+        "2": 0.09,
         "3": 0
-       },
-       "score": 0.57,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -501,41 +501,41 @@
     "txn_id": "T03-structuring-0012",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.12,
+    "fraud_probability": 0.11,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "risk_score=0.27",
-    "latency_ms": 256.5,
+    "reason": "risk_score=0.25",
+    "latency_ms": 285.50784500001214,
     "input_tokens": 1658,
     "output_tokens": 103,
     "cost_usd": 0.000069636,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.12,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.11
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
         "account_takeover": 0,
-        "card_testing": 0,
         "impossible_travel": 0,
         "mule_account": 0,
-        "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "card_testing": 0,
+        "structuring": 0,
+        "none": 1
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.25,
        "probabilities": {
-        "0": 0.77,
-        "1": 0.19,
-        "2": 0.04,
+        "0": 0.79,
+        "1": 0.18,
+        "2": 0.03,
         "3": 0
-       },
-       "score": 0.27,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -546,41 +546,41 @@
     "txn_id": "T03-structuring-0013",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.55,
+    "fraud_probability": 0.57,
     "pattern": "structuring",
-    "confidence": 0.61,
-    "reason": "risk_score=1.54",
-    "latency_ms": 257.7,
+    "confidence": 0.6,
+    "reason": "risk_score=1.58",
+    "latency_ms": 333.86905400001865,
     "input_tokens": 1847,
     "output_tokens": 105,
     "cost_usd": 0.000077574,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.55,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.57
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
+        "impossible_travel": 0,
+        "none": 0.33,
+        "mule_account": 0,
         "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0.32,
-        "structuring": 0.68
-       },
-       "type": "choice"
+        "structuring": 0.67
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.58,
        "probabilities": {
-        "0": 0.14,
-        "1": 0.21,
-        "2": 0.63,
-        "3": 0.02
-       },
-       "score": 1.54,
-       "type": "score"
+        "0": 0.12,
+        "1": 0.2,
+        "2": 0.65,
+        "3": 0.03
+       }
       }
      },
      "model": null
@@ -594,38 +594,38 @@
     "fraud_probability": 0.77,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "risk_score=2.11",
-    "latency_ms": 262.5,
+    "reason": "risk_score=2.09",
+    "latency_ms": 203.5722729999918,
     "input_tokens": 2005,
     "output_tokens": 105,
     "cost_usd": 0.00008421,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.77,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.77
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
+        "mule_account": 0,
+        "structuring": 1,
         "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "none": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.09,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.87,
-        "3": 0.12
-       },
-       "score": 2.11,
-       "type": "score"
+        "2": 0.89,
+        "3": 0.1
+       }
       }
      },
      "model": null
@@ -636,41 +636,41 @@
     "txn_id": "T03-structuring-0015",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.82,
+    "fraud_probability": 0.81,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "risk_score=2.12",
-    "latency_ms": 294.5,
+    "reason": "risk_score=2.16",
+    "latency_ms": 235.61866899999018,
     "input_tokens": 2163,
     "output_tokens": 105,
     "cost_usd": 0.000090846,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.82,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.81
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
+        "account_takeover": 0,
         "none": 0,
+        "impossible_travel": 0,
+        "card_testing": 0,
         "structuring": 1
-       },
-       "type": "choice"
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.16,
        "probabilities": {
         "0": 0,
         "1": 0,
-        "2": 0.88,
-        "3": 0.12
-       },
-       "score": 2.12,
-       "type": "score"
+        "2": 0.83,
+        "3": 0.17
+       }
       }
      },
      "model": null
@@ -681,41 +681,41 @@
     "txn_id": "T03-structuring-0016",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.09,
+    "fraud_probability": 0.1,
     "pattern": "none",
     "confidence": 1.0,
-    "reason": "risk_score=0.14",
-    "latency_ms": 243.7,
+    "reason": "risk_score=0.12",
+    "latency_ms": 254.36726199998816,
     "input_tokens": 1807,
     "output_tokens": 103,
     "cost_usd": 0.000075894,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.09,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.1
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
+        "structuring": 0,
+        "card_testing": 0,
         "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "mule_account": 0,
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.12,
        "probabilities": {
-        "0": 0.88,
-        "1": 0.1,
-        "2": 0.02,
+        "0": 0.9,
+        "1": 0.09,
+        "2": 0.01,
         "3": 0
-       },
-       "score": 0.14,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -726,41 +726,41 @@
     "txn_id": "T03-structuring-0017",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.25,
+    "fraud_probability": 0.23,
     "pattern": "none",
-    "confidence": 0.96,
-    "reason": "risk_score=1.25",
-    "latency_ms": 259.6,
+    "confidence": 0.97,
+    "reason": "risk_score=1.2",
+    "latency_ms": 276.6323889999853,
     "input_tokens": 1959,
     "output_tokens": 103,
     "cost_usd": 0.000082278,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.25,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.23
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0.01,
         "mule_account": 0,
-        "none": 0.97,
-        "structuring": 0.02
-       },
-       "type": "choice"
+        "none": 0.98,
+        "structuring": 0.01,
+        "card_testing": 0,
+        "account_takeover": 0,
+        "impossible_travel": 0.01
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.2,
        "probabilities": {
-        "0": 0.14,
+        "0": 0.16,
         "1": 0.49,
-        "2": 0.36,
+        "2": 0.34,
         "3": 0.01
-       },
-       "score": 1.25,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -773,39 +773,39 @@
     "is_fraud": false,
     "fraud_probability": 0.29,
     "pattern": "none",
-    "confidence": 0.98,
-    "reason": "risk_score=1.32",
-    "latency_ms": 314.8,
+    "confidence": 0.97,
+    "reason": "risk_score=1.35",
+    "latency_ms": 237.43409699997642,
     "input_tokens": 2111,
     "output_tokens": 103,
     "cost_usd": 0.000088662,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.29,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.29
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
+        "none": 0.98,
         "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0.99,
-        "structuring": 0.01
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "structuring": 0.02,
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.35,
        "probabilities": {
-        "0": 0.12,
-        "1": 0.45,
-        "2": 0.42,
+        "0": 0.11,
+        "1": 0.43,
+        "2": 0.45,
         "3": 0.01
-       },
-       "score": 1.32,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -816,41 +816,41 @@
     "txn_id": "T03-structuring-0019",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.64,
+    "fraud_probability": 0.65,
     "pattern": "structuring",
     "confidence": 0.63,
-    "reason": "risk_score=1.56",
-    "latency_ms": 188.7,
+    "reason": "risk_score=1.51",
+    "latency_ms": 246.46365800001035,
     "input_tokens": 2321,
     "output_tokens": 105,
     "cost_usd": 0.000097482,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.64,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.65
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
+        "none": 0.3,
         "impossible_travel": 0,
         "mule_account": 0,
-        "none": 0.31,
-        "structuring": 0.69
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "structuring": 0.7
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.51,
        "probabilities": {
-        "0": 0.14,
+        "0": 0.17,
         "1": 0.19,
-        "2": 0.64,
-        "3": 0.03
-       },
-       "score": 1.56,
-       "type": "score"
+        "2": 0.6,
+        "3": 0.04
+       }
       }
      },
      "model": null
@@ -863,39 +863,39 @@
     "is_fraud": false,
     "fraud_probability": 0.48,
     "pattern": "structuring",
-    "confidence": 0.59,
-    "reason": "risk_score=1.43",
-    "latency_ms": 333.3,
+    "confidence": 0.61,
+    "reason": "risk_score=1.39",
+    "latency_ms": 261.6243699999927,
     "input_tokens": 2479,
     "output_tokens": 105,
     "cost_usd": 0.000104118,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.48,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.48
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
+        "none": 0.32,
+        "structuring": 0.68,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0.34,
-        "structuring": 0.66
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.39,
        "probabilities": {
-        "0": 0.17,
-        "1": 0.25,
-        "2": 0.56,
+        "0": 0.2,
+        "1": 0.24,
+        "2": 0.54,
         "3": 0.02
-       },
-       "score": 1.43,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -906,41 +906,41 @@
     "txn_id": "T03-structuring-0021",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.8,
+    "fraud_probability": 0.77,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "risk_score=2.06",
-    "latency_ms": 294.1,
+    "reason": "risk_score=2.07",
+    "latency_ms": 277.11555499999463,
     "input_tokens": 2637,
     "output_tokens": 105,
     "cost_usd": 0.000110754,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.8,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.77
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
+        "structuring": 1,
         "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
+        "account_takeover": 0,
         "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "impossible_travel": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.07,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.91,
-        "3": 0.08
-       },
-       "score": 2.06,
-       "type": "score"
+        "2": 0.9,
+        "3": 0.09
+       }
       }
      },
      "model": null
@@ -951,41 +951,41 @@
     "txn_id": "T03-structuring-0022",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.82,
+    "fraud_probability": 0.81,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "risk_score=2.15",
-    "latency_ms": 229.8,
+    "reason": "risk_score=2.13",
+    "latency_ms": 242.94058600000312,
     "input_tokens": 2795,
     "output_tokens": 105,
     "cost_usd": 0.00011739,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.82,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.81
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
-        "mule_account": 0,
         "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "mule_account": 0,
+        "impossible_travel": 0,
+        "structuring": 1,
+        "account_takeover": 0,
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.13,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.82,
-        "3": 0.17
-       },
-       "score": 2.15,
-       "type": "score"
+        "2": 0.84,
+        "3": 0.15
+       }
       }
      },
      "model": null
@@ -999,38 +999,38 @@
     "fraud_probability": 0.09,
     "pattern": "none",
     "confidence": 1.0,
-    "reason": "risk_score=0.08",
-    "latency_ms": 248.1,
+    "reason": "risk_score=0.09",
+    "latency_ms": 265.75906400000804,
     "input_tokens": 2266,
     "output_tokens": 103,
     "cost_usd": 0.000095172,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.09,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.09
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
-        "mule_account": 0,
         "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "impossible_travel": 0,
+        "structuring": 0,
+        "mule_account": 0,
+        "card_testing": 0,
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.09,
        "probabilities": {
-        "0": 0.94,
-        "1": 0.05,
+        "0": 0.93,
+        "1": 0.06,
         "2": 0.01,
         "3": 0
-       },
-       "score": 0.08,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -1044,38 +1044,38 @@
     "fraud_probability": 0.13,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "risk_score=0.29",
-    "latency_ms": 261.6,
+    "reason": "risk_score=0.32",
+    "latency_ms": 419.83320599999274,
     "input_tokens": 2419,
     "output_tokens": 103,
     "cost_usd": 0.000101598,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.13,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.13
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
+        "structuring": 0.01,
         "card_testing": 0,
-        "impossible_travel": 0,
+        "account_takeover": 0,
+        "none": 0.99,
         "mule_account": 0,
-        "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "impossible_travel": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.32,
        "probabilities": {
-        "0": 0.76,
-        "1": 0.2,
-        "2": 0.04,
+        "0": 0.74,
+        "1": 0.21,
+        "2": 0.05,
         "3": 0
-       },
-       "score": 0.29,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -1086,41 +1086,41 @@
     "txn_id": "T03-structuring-0025",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.15,
+    "fraud_probability": 0.16,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "risk_score=0.66",
-    "latency_ms": 271.7,
+    "reason": "risk_score=0.67",
+    "latency_ms": 248.13426899999058,
     "input_tokens": 2570,
     "output_tokens": 103,
     "cost_usd": 0.00010794,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.15,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.16
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
+        "impossible_travel": 0,
         "none": 1,
+        "account_takeover": 0,
         "structuring": 0
-       },
-       "type": "choice"
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.67,
        "probabilities": {
         "0": 0.46,
-        "1": 0.44,
-        "2": 0.1,
+        "1": 0.42,
+        "2": 0.12,
         "3": 0
-       },
-       "score": 0.66,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -1131,41 +1131,41 @@
     "txn_id": "T03-structuring-0026",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.51,
-    "pattern": "none",
-    "confidence": 0.44,
-    "reason": "risk_score=1.16",
-    "latency_ms": 195.7,
+    "fraud_probability": 0.52,
+    "pattern": "structuring",
+    "confidence": 0.4,
+    "reason": "risk_score=1.14",
+    "latency_ms": 308.25775299999236,
     "input_tokens": 2796,
-    "output_tokens": 103,
+    "output_tokens": 105,
     "cost_usd": 0.000117432,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.51,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.52
       },
       "pattern": {
-       "choice": "none",
+       "type": "choice",
+       "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0.54,
-        "structuring": 0.46
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "none": 0.49,
+        "structuring": 0.51,
+        "card_testing": 0,
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.14,
        "probabilities": {
         "0": 0.32,
-        "1": 0.23,
-        "2": 0.43,
+        "1": 0.25,
+        "2": 0.41,
         "3": 0.02
-       },
-       "score": 1.16,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -1179,38 +1179,38 @@
     "fraud_probability": 0.81,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "risk_score=2.14",
-    "latency_ms": 215.7,
+    "reason": "risk_score=2.12",
+    "latency_ms": 271.9328750000045,
     "input_tokens": 2799,
     "output_tokens": 105,
     "cost_usd": 0.000117558,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.81,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.81
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
         "account_takeover": 0,
-        "card_testing": 0,
+        "structuring": 1,
         "impossible_travel": 0,
+        "card_testing": 0,
         "mule_account": 0,
-        "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "none": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.12,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.83,
-        "3": 0.16
-       },
-       "score": 2.14,
-       "type": "score"
+        "2": 0.86,
+        "3": 0.13
+       }
       }
      },
      "model": null
@@ -1221,41 +1221,41 @@
     "txn_id": "T03-structuring-0028",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.82,
+    "fraud_probability": 0.84,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "risk_score=2.1",
-    "latency_ms": 213.6,
+    "reason": "risk_score=2.12",
+    "latency_ms": 347.03552499999546,
     "input_tokens": 2800,
     "output_tokens": 105,
     "cost_usd": 0.0001176,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.82,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.84
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
+        "structuring": 1,
+        "mule_account": 0,
         "account_takeover": 0,
         "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "none": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.12,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.87,
-        "3": 0.12
-       },
-       "score": 2.1,
-       "type": "score"
+        "2": 0.85,
+        "3": 0.14
+       }
       }
      },
      "model": null
@@ -1266,41 +1266,41 @@
     "txn_id": "T03-structuring-0029",
     "evaluator": "jev",
     "is_fraud": true,
-    "fraud_probability": 0.88,
+    "fraud_probability": 0.87,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "risk_score=2.24",
-    "latency_ms": 280.3,
+    "reason": "risk_score=2.22",
+    "latency_ms": 202.8245270000184,
     "input_tokens": 2801,
     "output_tokens": 105,
     "cost_usd": 0.000117642,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.88,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.87
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
-        "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "impossible_travel": 0,
+        "structuring": 1,
+        "card_testing": 0,
+        "account_takeover": 0,
+        "none": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.22,
        "probabilities": {
         "0": 0,
         "1": 0,
-        "2": 0.75,
-        "3": 0.25
-       },
-       "score": 2.24,
-       "type": "score"
+        "2": 0.77,
+        "3": 0.23
+       }
       }
      },
      "model": null
@@ -1314,38 +1314,38 @@
     "fraud_probability": 0.11,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "risk_score=0.18",
-    "latency_ms": 274.0,
+    "reason": "risk_score=0.17",
+    "latency_ms": 620.1391779999881,
     "input_tokens": 2723,
     "output_tokens": 103,
     "cost_usd": 0.000114366,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.11,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.11
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
-        "none": 0.99,
-        "structuring": 0.01
-       },
-       "type": "choice"
+        "card_testing": 0,
+        "structuring": 0,
+        "impossible_travel": 0,
+        "none": 1,
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.17,
        "probabilities": {
-        "0": 0.85,
+        "0": 0.86,
         "1": 0.12,
-        "2": 0.03,
+        "2": 0.02,
         "3": 0
-       },
-       "score": 0.18,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -1356,41 +1356,41 @@
     "txn_id": "T03-structuring-0031",
     "evaluator": "jev",
     "is_fraud": false,
-    "fraud_probability": 0.12,
+    "fraud_probability": 0.13,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "risk_score=0.38",
-    "latency_ms": 224.9,
+    "reason": "risk_score=0.44",
+    "latency_ms": 300.4946400000108,
     "input_tokens": 2725,
     "output_tokens": 103,
     "cost_usd": 0.00011445,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.12,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.13
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
+        "none": 0.99,
+        "mule_account": 0,
+        "structuring": 0.01,
         "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.44,
        "probabilities": {
-        "0": 0.66,
-        "1": 0.29,
+        "0": 0.61,
+        "1": 0.34,
         "2": 0.05,
         "3": 0
-       },
-       "score": 0.38,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -1404,38 +1404,38 @@
     "fraud_probability": 0.09,
     "pattern": "none",
     "confidence": 1.0,
-    "reason": "risk_score=0.08",
-    "latency_ms": 225.4,
+    "reason": "risk_score=0.09",
+    "latency_ms": 336.7204770000001,
     "input_tokens": 2725,
     "output_tokens": 103,
     "cost_usd": 0.00011445,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.09,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.09
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
+        "impossible_travel": 0,
         "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "structuring": 0,
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.09,
        "probabilities": {
         "0": 0.92,
         "1": 0.07,
         "2": 0.01,
         "3": 0
-       },
-       "score": 0.08,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -1451,13 +1451,13 @@
     "fraud_probability": 0.03,
     "pattern": "none",
     "confidence": null,
-    "reason": "This ACH debit to a known wholesale supplier is consistent with the account's typical business spending pattern and amount.",
-    "latency_ms": 1562.8142670000216,
+    "reason": "This is a routine ACH payment to a known wholesale supplier consistent with the account's typical business activity and spend levels.",
+    "latency_ms": 1957.3543600000107,
     "input_tokens": 856,
-    "output_tokens": 75,
-    "cost_usd": 0.0024619999999999998,
+    "output_tokens": 77,
+    "cost_usd": 0.002482,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"This ACH debit to a known wholesale supplier is consistent with the account's typical business spending pattern and amount.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"This is a routine ACH payment to a known wholesale supplier consistent with the account's typical business activity and spend levels.\"}"
     },
     "error": null
    },
@@ -1465,16 +1465,16 @@
     "txn_id": "T03-structuring-0002",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.2,
+    "fraud_probability": 0.15,
     "pattern": "none",
     "confidence": null,
-    "reason": "A single cash deposit below typical monthly spend and reporting threshold is not sufficient evidence of structuring without a repeated pattern of near-threshold deposits.",
-    "latency_ms": 1608.8204980001137,
+    "reason": "A single cash deposit below the reporting threshold at a branch is consistent with normal small-business cash deposit activity and there is no pattern yet of repeated sub-threshold deposits.",
+    "latency_ms": 2484.88952400001,
     "input_tokens": 1044,
-    "output_tokens": 92,
-    "cost_usd": 0.0030080000000000003,
+    "output_tokens": 98,
+    "cost_usd": 0.0030680000000000004,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.2, \"pattern\": \"none\", \"reason\": \"A single cash deposit below typical monthly spend and reporting threshold is not sufficient evidence of structuring without a repeated pattern of near-threshold deposits.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.15, \"pattern\": \"none\", \"reason\": \"A single cash deposit below the reporting threshold at a branch is consistent with normal small-business cash deposit activity and there is no pattern yet of repeated sub-threshold deposits.\"}"
     },
     "error": null
    },
@@ -1482,16 +1482,16 @@
     "txn_id": "T03-structuring-0003",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.05,
+    "fraud_probability": 0.04,
     "pattern": "none",
     "confidence": null,
-    "reason": "A single moderate-value card-present travel purchase in the customer's home city is not indicative of a known fraud pattern.",
-    "latency_ms": 1566.092911000169,
+    "reason": "A modest card-present travel purchase in the customer's home city is consistent with normal, if slightly atypical, spending and shows no signs of fraud patterns.",
+    "latency_ms": 2343.5537699999995,
     "input_tokens": 849,
-    "output_tokens": 76,
-    "cost_usd": 0.002458,
+    "output_tokens": 89,
+    "cost_usd": 0.002588,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.05, \"pattern\": \"none\", \"reason\": \"A single moderate-value card-present travel purchase in the customer's home city is not indicative of a known fraud pattern.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.04, \"pattern\": \"none\", \"reason\": \"A modest card-present travel purchase in the customer's home city is consistent with normal, if slightly atypical, spending and shows no signs of fraud patterns.\"}"
     },
     "error": null
    },
@@ -1502,13 +1502,13 @@
     "fraud_probability": 0.03,
     "pattern": "none",
     "confidence": null,
-    "reason": "A small in-town card-present purchase at a pharmacy is consistent with the account's normal spending pattern and location.",
-    "latency_ms": 1570.4780619998928,
+    "reason": "A small in-town pharmacy purchase consistent with normal spending patterns and location, showing no signs of fraud.",
+    "latency_ms": 2335.8999659999995,
     "input_tokens": 1031,
-    "output_tokens": 75,
-    "cost_usd": 0.0028120000000000003,
+    "output_tokens": 76,
+    "cost_usd": 0.002822,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A small in-town card-present purchase at a pharmacy is consistent with the account's normal spending pattern and location.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A small in-town pharmacy purchase consistent with normal spending patterns and location, showing no signs of fraud.\"}"
     },
     "error": null
    },
@@ -1516,16 +1516,16 @@
     "txn_id": "T03-structuring-0005",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.02,
+    "fraud_probability": 0.03,
     "pattern": "none",
     "confidence": null,
-    "reason": "Routine card-present fuel purchase in home city consistent with account's typical spend and merchant categories.",
-    "latency_ms": 1641.5906790000463,
+    "reason": "A normal-sized card-present fuel purchase in the customer's home city consistent with typical spending patterns.",
+    "latency_ms": 1831.2524399999859,
     "input_tokens": 1205,
-    "output_tokens": 71,
-    "cost_usd": 0.00312,
+    "output_tokens": 73,
+    "cost_usd": 0.00314,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Routine card-present fuel purchase in home city consistent with account's typical spend and merchant categories.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A normal-sized card-present fuel purchase in the customer's home city consistent with typical spending patterns.\"}"
     },
     "error": null
    },
@@ -1533,16 +1533,16 @@
     "txn_id": "T03-structuring-0006",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.05,
+    "fraud_probability": 0.1,
     "pattern": "none",
     "confidence": null,
-    "reason": "This is a routine ACH payment to a known wholesale supplier consistent with the account's typical business activity.",
-    "latency_ms": 1558.9938089999578,
+    "reason": "This is a routine ACH payment to a known wholesale supplier consistent with the account's normal business activity.",
+    "latency_ms": 1698.8084050000225,
     "input_tokens": 1229,
     "output_tokens": 72,
     "cost_usd": 0.003178,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.05, \"pattern\": \"none\", \"reason\": \"This is a routine ACH payment to a known wholesale supplier consistent with the account's typical business activity.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.1, \"pattern\": \"none\", \"reason\": \"This is a routine ACH payment to a known wholesale supplier consistent with the account's normal business activity.\"}"
     },
     "error": null
    },
@@ -1550,16 +1550,16 @@
     "txn_id": "T03-structuring-0007",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.1,
+    "fraud_probability": 0.05,
     "pattern": "none",
     "confidence": null,
-    "reason": "This ACH payroll debit is consistent with the account's typical business spend and category, showing no signs of structuring or other fraud patterns.",
-    "latency_ms": 1978.941968000072,
+    "reason": "This is a routine payroll ACH debit consistent with the account's normal business activity and size, with no signs of structuring or other suspicious patterns in this specific transaction.",
+    "latency_ms": 2971.748052999999,
     "input_tokens": 1414,
-    "output_tokens": 82,
-    "cost_usd": 0.0036479999999999998,
+    "output_tokens": 92,
+    "cost_usd": 0.0037479999999999996,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.1, \"pattern\": \"none\", \"reason\": \"This ACH payroll debit is consistent with the account's typical business spend and category, showing no signs of structuring or other fraud patterns.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.05, \"pattern\": \"none\", \"reason\": \"This is a routine payroll ACH debit consistent with the account's normal business activity and size, with no signs of structuring or other suspicious patterns in this specific transaction.\"}"
     },
     "error": null
    },
@@ -1567,16 +1567,16 @@
     "txn_id": "T03-structuring-0008",
     "evaluator": "sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.87,
+    "fraud_probability": 0.85,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "A cash deposit of $9,925.17 kept just under the $10,000 reporting threshold, following an earlier similar cash deposit pattern, is consistent with structuring to evade CTR reporting.",
-    "latency_ms": 2374.3835490001857,
+    "reason": "A cash deposit of $9,925.17, just under the $10,000 reporting threshold, follows a pattern of repeated cash deposits at the same branch, consistent with structuring to evade CTR filing.",
+    "latency_ms": 2792.7246870000035,
     "input_tokens": 1599,
-    "output_tokens": 106,
-    "cost_usd": 0.004258,
+    "output_tokens": 107,
+    "cost_usd": 0.004268,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.87, \"pattern\": \"structuring\", \"reason\": \"A cash deposit of $9,925.17 kept just under the $10,000 reporting threshold, following an earlier similar cash deposit pattern, is consistent with structuring to evade CTR reporting.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.85, \"pattern\": \"structuring\", \"reason\": \"A cash deposit of $9,925.17, just under the $10,000 reporting threshold, follows a pattern of repeated cash deposits at the same branch, consistent with structuring to evade CTR filing.\"}"
     },
     "error": null
    },
@@ -1584,16 +1584,16 @@
     "txn_id": "T03-structuring-0009",
     "evaluator": "sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.92,
+    "fraud_probability": 0.93,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Multiple cash deposits just under the $10,000 reporting threshold at different branches within the same day, including one just prior at $9,925.17, indicate deliberate structuring.",
-    "latency_ms": 2052.3186539999188,
+    "reason": "Multiple cash deposits just under the $10,000 reporting threshold across different branches within the same day (9925.17 then 9382.96) indicate deliberate structuring to evade CTR filing.",
+    "latency_ms": 2570.985944,
     "input_tokens": 1783,
-    "output_tokens": 97,
-    "cost_usd": 0.004536,
+    "output_tokens": 113,
+    "cost_usd": 0.004696,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.92, \"pattern\": \"structuring\", \"reason\": \"Multiple cash deposits just under the $10,000 reporting threshold at different branches within the same day, including one just prior at $9,925.17, indicate deliberate structuring.\"}"
+     "content": "{\n  \"is_fraud\": true,\n  \"fraud_probability\": 0.93,\n  \"pattern\": \"structuring\",\n  \"reason\": \"Multiple cash deposits just under the $10,000 reporting threshold across different branches within the same day (9925.17 then 9382.96) indicate deliberate structuring to evade CTR filing.\"\n}"
     },
     "error": null
    },
@@ -1604,13 +1604,13 @@
     "fraud_probability": 0.02,
     "pattern": "none",
     "confidence": null,
-    "reason": "Small online purchase at a usual merchant category from the known device, consistent with normal spending behavior.",
-    "latency_ms": 1526.1020710001958,
+    "reason": "Small online purchase at a usual merchant category using the known device, consistent with the account's normal spending pattern.",
+    "latency_ms": 2215.1818039999966,
     "input_tokens": 1387,
-    "output_tokens": 70,
-    "cost_usd": 0.003474,
+    "output_tokens": 73,
+    "cost_usd": 0.003504,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Small online purchase at a usual merchant category from the known device, consistent with normal spending behavior.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Small online purchase at a usual merchant category using the known device, consistent with the account's normal spending pattern.\"}"
     },
     "error": null
    },
@@ -1621,13 +1621,13 @@
     "fraud_probability": 0.05,
     "pattern": "none",
     "confidence": null,
-    "reason": "Transaction is a routine card-present utility payment in the customer's home city, consistent with normal spending patterns and no signs of fraud.",
-    "latency_ms": 1628.6185069998282,
+    "reason": "A moderate-sized utility payment in the customer's home city is consistent with normal spending patterns despite being somewhat above typical transaction size.",
+    "latency_ms": 2483.6697510000076,
     "input_tokens": 1560,
-    "output_tokens": 82,
-    "cost_usd": 0.00394,
+    "output_tokens": 84,
+    "cost_usd": 0.00396,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.05, \"pattern\": \"none\", \"reason\": \"Transaction is a routine card-present utility payment in the customer's home city, consistent with normal spending patterns and no signs of fraud.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.05, \"pattern\": \"none\", \"reason\": \"A moderate-sized utility payment in the customer's home city is consistent with normal spending patterns despite being somewhat above typical transaction size.\"}"
     },
     "error": null
    },
@@ -1638,13 +1638,13 @@
     "fraud_probability": 0.04,
     "pattern": "none",
     "confidence": null,
-    "reason": "Routine in-person purchase in the home city at a modest amount consistent with normal spending patterns.",
-    "latency_ms": 2043.5057350000534,
+    "reason": "Routine in-town card-present purchase at a typical retailer consistent with the account's normal spending profile and location.",
+    "latency_ms": 2336.9512039999736,
     "input_tokens": 1731,
-    "output_tokens": 70,
-    "cost_usd": 0.004162,
+    "output_tokens": 74,
+    "cost_usd": 0.004202,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.04, \"pattern\": \"none\", \"reason\": \"Routine in-person purchase in the home city at a modest amount consistent with normal spending patterns.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.04, \"pattern\": \"none\", \"reason\": \"Routine in-town card-present purchase at a typical retailer consistent with the account's normal spending profile and location.\"}"
     },
     "error": null
    },
@@ -1655,13 +1655,13 @@
     "fraud_probability": 0.15,
     "pattern": "none",
     "confidence": null,
-    "reason": "This ACH debit to a routine wholesale supplier matches the account's normal recurring payment behavior, though the account's cash deposit pattern elsewhere shows signs of structuring that warrant separate monitoring.",
-    "latency_ms": 9078.979749999917,
+    "reason": "This transaction is a routine recurring ACH payment to a known wholesale supplier consistent with the account's normal business activity, though the account's recent cash deposit pattern (multiple sub-$10k deposits across different branches) warrants separate monitoring for structuring.",
+    "latency_ms": 11021.918453000013,
     "input_tokens": 1968,
-    "output_tokens": 780,
-    "cost_usd": 0.011736,
+    "output_tokens": 971,
+    "cost_usd": 0.013646000000000002,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.15, \"pattern\": \"none\", \"reason\": \"This ACH debit to a routine wholesale supplier matches the account's normal recurring payment behavior, though the account's cash deposit pattern elsewhere shows signs of structuring that warrant separate monitoring.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.15, \"pattern\": \"none\", \"reason\": \"This transaction is a routine recurring ACH payment to a known wholesale supplier consistent with the account's normal business activity, though the account's recent cash deposit pattern (multiple sub-$10k deposits across different branches) warrants separate monitoring for structuring.\"}"
     },
     "error": null
    },
@@ -1669,16 +1669,16 @@
     "txn_id": "T03-structuring-0014",
     "evaluator": "sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.94,
+    "fraud_probability": 0.92,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Multiple cash deposits just under the $10,000 reporting threshold across different branches within days indicates deliberate structuring to avoid CTR filing.",
-    "latency_ms": 2640.1146289999815,
+    "reason": "Multiple cash deposits just under the $10,000 reporting threshold made at different branches within days is consistent with deliberate structuring to evade CTR requirements.",
+    "latency_ms": 2082.4678930000005,
     "input_tokens": 2151,
-    "output_tokens": 90,
-    "cost_usd": 0.005201999999999999,
+    "output_tokens": 93,
+    "cost_usd": 0.005232,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.94, \"pattern\": \"structuring\", \"reason\": \"Multiple cash deposits just under the $10,000 reporting threshold across different branches within days indicates deliberate structuring to avoid CTR filing.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.92, \"pattern\": \"structuring\", \"reason\": \"Multiple cash deposits just under the $10,000 reporting threshold made at different branches within days is consistent with deliberate structuring to evade CTR requirements.\"}"
     },
     "error": null
    },
@@ -1689,13 +1689,13 @@
     "fraud_probability": 0.96,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Multiple cash deposits just under the $10,000 reporting threshold across different branches (Austin, Pflugerville, Round Rock) within days, despite the account being based in Seattle, indicates deliberate structuring to evade CTR reporting.",
-    "latency_ms": 2302.857113000073,
+    "reason": "Multiple cash deposits just under the $10,000 reporting threshold across different branches within days indicates deliberate structuring.",
+    "latency_ms": 2012.9589149999845,
     "input_tokens": 2336,
-    "output_tokens": 121,
-    "cost_usd": 0.005882,
+    "output_tokens": 81,
+    "cost_usd": 0.005482,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.96, \"pattern\": \"structuring\", \"reason\": \"Multiple cash deposits just under the $10,000 reporting threshold across different branches (Austin, Pflugerville, Round Rock) within days, despite the account being based in Seattle, indicates deliberate structuring to evade CTR reporting.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.96, \"pattern\": \"structuring\", \"reason\": \"Multiple cash deposits just under the $10,000 reporting threshold across different branches within days indicates deliberate structuring.\"}"
     },
     "error": null
    },
@@ -1706,13 +1706,13 @@
     "fraud_probability": 0.03,
     "pattern": "none",
     "confidence": null,
-    "reason": "This is a small, typical in-city purchase consistent with the account's normal spending pattern and location, showing no signs of fraud.",
-    "latency_ms": 5287.722959999883,
+    "reason": "A small, in-town, card-present purchase consistent with the account's normal spending pattern and location.",
+    "latency_ms": 2003.0227830000058,
     "input_tokens": 1901,
-    "output_tokens": 79,
-    "cost_usd": 0.004592,
+    "output_tokens": 69,
+    "cost_usd": 0.0044919999999999995,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"This is a small, typical in-city purchase consistent with the account's normal spending pattern and location, showing no signs of fraud.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A small, in-town, card-present purchase consistent with the account's normal spending pattern and location.\"}"
     },
     "error": null
    },
@@ -1723,13 +1723,13 @@
     "fraud_probability": 0.1,
     "pattern": "none",
     "confidence": null,
-    "reason": "This card-present transaction in the customer's home city is consistent with normal spending variety and slightly elevated but plausible amounts, showing no signs of structuring, takeover, or other fraud patterns.",
-    "latency_ms": 2095.072982999909,
+    "reason": "Transaction is a normal card-present travel purchase in the home city consistent with typical spending patterns, with no signs of structuring, ATO, or other fraud indicators.",
+    "latency_ms": 2476.9925600000133,
     "input_tokens": 2076,
-    "output_tokens": 102,
-    "cost_usd": 0.0051719999999999995,
+    "output_tokens": 93,
+    "cost_usd": 0.005082,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.1, \"pattern\": \"none\", \"reason\": \"This card-present transaction in the customer's home city is consistent with normal spending variety and slightly elevated but plausible amounts, showing no signs of structuring, takeover, or other fraud patterns.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.1, \"pattern\": \"none\", \"reason\": \"Transaction is a normal card-present travel purchase in the home city consistent with typical spending patterns, with no signs of structuring, ATO, or other fraud indicators.\"}"
     },
     "error": null
    },
@@ -1737,33 +1737,33 @@
     "txn_id": "T03-structuring-0018",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.12,
+    "fraud_probability": 0.15,
     "pattern": "none",
     "confidence": null,
-    "reason": "Higher-value travel-related purchase in the home city consistent with an apparent trip pattern, with no structuring, device change, or geographic anomaly indicative of fraud.",
-    "latency_ms": 2226.714645999891,
+    "reason": "The transaction is a card-present travel purchase in the customer's home city consistent with recent legitimate travel-related spending, showing no clear fraud pattern.",
+    "latency_ms": 2295.4762409999885,
     "input_tokens": 2251,
-    "output_tokens": 94,
-    "cost_usd": 0.005442,
+    "output_tokens": 89,
+    "cost_usd": 0.005392,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.12, \"pattern\": \"none\", \"reason\": \"Higher-value travel-related purchase in the home city consistent with an apparent trip pattern, with no structuring, device change, or geographic anomaly indicative of fraud.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.15, \"pattern\": \"none\", \"reason\": \"The transaction is a card-present travel purchase in the customer's home city consistent with recent legitimate travel-related spending, showing no clear fraud pattern.\"}"
     },
     "error": null
    },
    {
     "txn_id": "T03-structuring-0019",
     "evaluator": "sonnet-5",
-    "is_fraud": false,
-    "fraud_probability": 0.15,
-    "pattern": "none",
+    "is_fraud": true,
+    "fraud_probability": 0.72,
+    "pattern": "structuring",
     "confidence": null,
-    "reason": "This ACH payment to a regular wholesale supplier is consistent with the account's normal business spending pattern, even though the account's recent cash deposits show a separate structuring pattern worth flagging independently.",
-    "latency_ms": 10863.304943999992,
+    "reason": "This routine ACH debit is part of an account showing repeated cash deposits just under the $10,000 reporting threshold across multiple branches, consistent with a structuring scheme.",
+    "latency_ms": 2038.3397839999873,
     "input_tokens": 2521,
-    "output_tokens": 819,
-    "cost_usd": 0.013232,
+    "output_tokens": 97,
+    "cost_usd": 0.006012,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.15, \"pattern\": \"none\", \"reason\": \"This ACH payment to a regular wholesale supplier is consistent with the account's normal business spending pattern, even though the account's recent cash deposits show a separate structuring pattern worth flagging independently.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.72, \"pattern\": \"structuring\", \"reason\": \"This routine ACH debit is part of an account showing repeated cash deposits just under the $10,000 reporting threshold across multiple branches, consistent with a structuring scheme.\"}"
     },
     "error": null
    },
@@ -1774,13 +1774,13 @@
     "fraud_probability": 0.72,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "This ACH debit itself is routine, but it's embedded in a recent pattern of repeated cash deposits just under $10,000 at multiple branches, indicating the account is likely involved in structuring.",
-    "latency_ms": 2021.7910440001106,
+    "reason": "This payroll debit occurs amid a clear pattern of repeated cash deposits just under the $10,000 CTR threshold from multiple Texas branches despite the account being Seattle-based, indicating the funds cycling through this account are part of a structuring scheme.",
+    "latency_ms": 15457.511998000002,
     "input_tokens": 2706,
-    "output_tokens": 104,
-    "cost_usd": 0.006452,
+    "output_tokens": 1298,
+    "cost_usd": 0.018392,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.72, \"pattern\": \"structuring\", \"reason\": \"This ACH debit itself is routine, but it's embedded in a recent pattern of repeated cash deposits just under $10,000 at multiple branches, indicating the account is likely involved in structuring.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.72, \"pattern\": \"structuring\", \"reason\": \"This payroll debit occurs amid a clear pattern of repeated cash deposits just under the $10,000 CTR threshold from multiple Texas branches despite the account being Seattle-based, indicating the funds cycling through this account are part of a structuring scheme.\"}"
     },
     "error": null
    },
@@ -1788,16 +1788,16 @@
     "txn_id": "T03-structuring-0021",
     "evaluator": "sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.93,
+    "fraud_probability": 0.94,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Repeated cash deposits just under the $10,000 reporting threshold across multiple branches in different cities over consecutive days is a classic structuring pattern.",
-    "latency_ms": 1708.8105559998894,
+    "reason": "Repeated cash deposits just under the $10,000 reporting threshold across multiple Texas branches despite the account being based in Seattle, consistent with deliberate structuring to evade CTR filing.",
+    "latency_ms": 2050.6763700000192,
     "input_tokens": 2889,
-    "output_tokens": 91,
-    "cost_usd": 0.006688,
+    "output_tokens": 105,
+    "cost_usd": 0.006828000000000001,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.93, \"pattern\": \"structuring\", \"reason\": \"Repeated cash deposits just under the $10,000 reporting threshold across multiple branches in different cities over consecutive days is a classic structuring pattern.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.94, \"pattern\": \"structuring\", \"reason\": \"Repeated cash deposits just under the $10,000 reporting threshold across multiple Texas branches despite the account being based in Seattle, consistent with deliberate structuring to evade CTR filing.\"}"
     },
     "error": null
    },
@@ -1808,13 +1808,13 @@
     "fraud_probability": 0.97,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Repeated cash deposits just under $10,000 across multiple different branches (Austin, Pflugerville, Round Rock, Cedar Park) on consecutive days is a classic structuring pattern to evade CTR reporting thresholds.",
-    "latency_ms": 2748.6517930001355,
+    "reason": "Repeated cash deposits at multiple different branches (Austin, Pflugerville, Round Rock, Cedar Park) all just under the $10,000 reporting threshold within days indicates deliberate structuring to evade CTR filing.",
+    "latency_ms": 2480.463713000006,
     "input_tokens": 3073,
-    "output_tokens": 119,
-    "cost_usd": 0.007336,
+    "output_tokens": 118,
+    "cost_usd": 0.007325999999999999,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.97, \"pattern\": \"structuring\", \"reason\": \"Repeated cash deposits just under $10,000 across multiple different branches (Austin, Pflugerville, Round Rock, Cedar Park) on consecutive days is a classic structuring pattern to evade CTR reporting thresholds.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.97, \"pattern\": \"structuring\", \"reason\": \"Repeated cash deposits at multiple different branches (Austin, Pflugerville, Round Rock, Cedar Park) all just under the $10,000 reporting threshold within days indicates deliberate structuring to evade CTR filing.\"}"
     },
     "error": null
    },
@@ -1822,16 +1822,16 @@
     "txn_id": "T03-structuring-0023",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.03,
+    "fraud_probability": 0.02,
     "pattern": "none",
     "confidence": null,
-    "reason": "Small recurring subscription charge from the known device consistent with normal account activity.",
-    "latency_ms": 1850.4507090001425,
+    "reason": "Small recurring subscription charge from the known device matches typical account behavior with no signs of fraud.",
+    "latency_ms": 2380.3378780000057,
     "input_tokens": 2430,
-    "output_tokens": 63,
-    "cost_usd": 0.00549,
+    "output_tokens": 70,
+    "cost_usd": 0.00556,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"Small recurring subscription charge from the known device consistent with normal account activity.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Small recurring subscription charge from the known device matches typical account behavior with no signs of fraud.\"}"
     },
     "error": null
    },
@@ -1839,16 +1839,16 @@
     "txn_id": "T03-structuring-0024",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.05,
+    "fraud_probability": 0.03,
     "pattern": "none",
     "confidence": null,
-    "reason": "This is a routine, modest card-present purchase at a familiar merchant category in the customer's home city, consistent with normal spending behavior.",
-    "latency_ms": 1621.240539999917,
+    "reason": "This is a routine card-present pharmacy purchase in the customer's home city consistent with normal spending patterns.",
+    "latency_ms": 2034.0073609999934,
     "input_tokens": 2609,
-    "output_tokens": 82,
-    "cost_usd": 0.006038,
+    "output_tokens": 74,
+    "cost_usd": 0.005958,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.05, \"pattern\": \"none\", \"reason\": \"This is a routine, modest card-present purchase at a familiar merchant category in the customer's home city, consistent with normal spending behavior.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"This is a routine card-present pharmacy purchase in the customer's home city consistent with normal spending patterns.\"}"
     },
     "error": null
    },
@@ -1859,13 +1859,13 @@
     "fraud_probability": 0.04,
     "pattern": "none",
     "confidence": null,
-    "reason": "This card-present utility payment in the customer's home city is consistent with the account's ongoing legitimate spending pattern, with no signs of structuring, travel anomalies, or account compromise.",
-    "latency_ms": 2100.544255999921,
+    "reason": "This card-present utility payment in the home city is consistent with the account's normal spending pattern despite recent elevated travel-related purchases.",
+    "latency_ms": 1983.3341190000056,
     "input_tokens": 2782,
-    "output_tokens": 98,
-    "cost_usd": 0.0065439999999999995,
+    "output_tokens": 81,
+    "cost_usd": 0.0063739999999999995,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.04, \"pattern\": \"none\", \"reason\": \"This card-present utility payment in the customer's home city is consistent with the account's ongoing legitimate spending pattern, with no signs of structuring, travel anomalies, or account compromise.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.04, \"pattern\": \"none\", \"reason\": \"This card-present utility payment in the home city is consistent with the account's normal spending pattern despite recent elevated travel-related purchases.\"}"
     },
     "error": null
    },
@@ -1873,16 +1873,16 @@
     "txn_id": "T03-structuring-0026",
     "evaluator": "sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.68,
+    "fraud_probability": 0.72,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "This ACH debit itself is routine, but it is part of an account exhibiting a clear pattern of repeated cash deposits just under $10,000 across multiple Austin-area branches despite the account being based in Seattle, indicative of structuring to evade CTR thresholds.",
-    "latency_ms": 2186.528988999953,
+    "reason": "This ACH debit itself is routine, but it is part of an account pattern showing repeated multi-branch cash deposits just under $10,000 across several Austin-area branches despite the account being based in Seattle, consistent with structuring to avoid CTR reporting.",
+    "latency_ms": 2532.0786050000097,
     "input_tokens": 3073,
-    "output_tokens": 128,
-    "cost_usd": 0.0074259999999999994,
+    "output_tokens": 124,
+    "cost_usd": 0.007385999999999999,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.68, \"pattern\": \"structuring\", \"reason\": \"This ACH debit itself is routine, but it is part of an account exhibiting a clear pattern of repeated cash deposits just under $10,000 across multiple Austin-area branches despite the account being based in Seattle, indicative of structuring to evade CTR thresholds.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.72, \"pattern\": \"structuring\", \"reason\": \"This ACH debit itself is routine, but it is part of an account pattern showing repeated multi-branch cash deposits just under $10,000 across several Austin-area branches despite the account being based in Seattle, consistent with structuring to avoid CTR reporting.\"}"
     },
     "error": null
    },
@@ -1894,7 +1894,7 @@
     "pattern": "structuring",
     "confidence": null,
     "reason": "Repeated cash deposits just under the $10,000 reporting threshold across multiple Austin-area branches despite the account being based in Seattle, consistent with deliberate structuring to evade CTR filing.",
-    "latency_ms": 2021.4834010000686,
+    "latency_ms": 2154.65484500001,
     "input_tokens": 3073,
     "output_tokens": 107,
     "cost_usd": 0.007215999999999999,
@@ -1910,13 +1910,13 @@
     "fraud_probability": 0.97,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Repeated cash deposits just under $10,000 across multiple different branches (in Texas despite home city Seattle) within days is a classic structuring pattern to evade CTR reporting thresholds.",
-    "latency_ms": 2188.7647700000343,
+    "reason": "Repeated same-day cash deposits at multiple Austin-area branches (despite Seattle home city) consistently just under $10,000 indicate deliberate structuring to evade CTR reporting thresholds.",
+    "latency_ms": 2555.562863999995,
     "input_tokens": 3071,
-    "output_tokens": 104,
-    "cost_usd": 0.007182,
+    "output_tokens": 108,
+    "cost_usd": 0.007222,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.97, \"pattern\": \"structuring\", \"reason\": \"Repeated cash deposits just under $10,000 across multiple different branches (in Texas despite home city Seattle) within days is a classic structuring pattern to evade CTR reporting thresholds.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.97, \"pattern\": \"structuring\", \"reason\": \"Repeated same-day cash deposits at multiple Austin-area branches (despite Seattle home city) consistently just under $10,000 indicate deliberate structuring to evade CTR reporting thresholds.\"}"
     },
     "error": null
    },
@@ -1924,16 +1924,16 @@
     "txn_id": "T03-structuring-0029",
     "evaluator": "sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.97,
+    "fraud_probability": 0.98,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Repeated cash deposits just under the $10,000 reporting threshold across multiple different branches within days constitutes classic structuring behavior.",
-    "latency_ms": 1632.441364999977,
+    "reason": "Multiple cash deposits just under the $10,000 reporting threshold made repeatedly across different branches within short time windows over several days indicates deliberate structuring to evade CTR reporting.",
+    "latency_ms": 2386.705140999993,
     "input_tokens": 3070,
-    "output_tokens": 86,
-    "cost_usd": 0.006999999999999999,
+    "output_tokens": 102,
+    "cost_usd": 0.00716,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.97, \"pattern\": \"structuring\", \"reason\": \"Repeated cash deposits just under the $10,000 reporting threshold across multiple different branches within days constitutes classic structuring behavior.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.98, \"pattern\": \"structuring\", \"reason\": \"Multiple cash deposits just under the $10,000 reporting threshold made repeatedly across different branches within short time windows over several days indicates deliberate structuring to evade CTR reporting.\"}"
     },
     "error": null
    },
@@ -1944,13 +1944,13 @@
     "fraud_probability": 0.03,
     "pattern": "none",
     "confidence": null,
-    "reason": "A routine in-person grocery purchase in the customer's home city consistent with normal spending patterns, with no signs of structuring, travel anomalies, or account compromise.",
-    "latency_ms": 1924.6573299999454,
+    "reason": "A routine card-present grocery purchase in the customer's home city consistent with normal spending patterns and no signs of structuring, travel anomalies, or account compromise.",
+    "latency_ms": 2494.4354689999955,
     "input_tokens": 2958,
-    "output_tokens": 92,
-    "cost_usd": 0.006835999999999999,
+    "output_tokens": 91,
+    "cost_usd": 0.006826,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A routine in-person grocery purchase in the customer's home city consistent with normal spending patterns, with no signs of structuring, travel anomalies, or account compromise.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A routine card-present grocery purchase in the customer's home city consistent with normal spending patterns and no signs of structuring, travel anomalies, or account compromise.\"}"
     },
     "error": null
    },
@@ -1958,16 +1958,16 @@
     "txn_id": "T03-structuring-0031",
     "evaluator": "sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.05,
+    "fraud_probability": 0.04,
     "pattern": "none",
     "confidence": null,
-    "reason": "This is a normal in-person purchase at a home improvement store in the customer's home city, consistent with typical spending amounts despite slightly elevated overall activity.",
-    "latency_ms": 2001.3773270000002,
+    "reason": "This card-present purchase in the customer's home city is a normal, moderate-amount debit consistent with typical retail spending patterns.",
+    "latency_ms": 2263.6681409999824,
     "input_tokens": 2958,
-    "output_tokens": 89,
-    "cost_usd": 0.0068059999999999996,
+    "output_tokens": 80,
+    "cost_usd": 0.006716,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.05, \"pattern\": \"none\", \"reason\": \"This is a normal in-person purchase at a home improvement store in the customer's home city, consistent with typical spending amounts despite slightly elevated overall activity.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.04, \"pattern\": \"none\", \"reason\": \"This card-present purchase in the customer's home city is a normal, moderate-amount debit consistent with typical retail spending patterns.\"}"
     },
     "error": null
    },
@@ -1978,13 +1978,13 @@
     "fraud_probability": 0.03,
     "pattern": "none",
     "confidence": null,
-    "reason": "This is a small, routine card-present purchase at a familiar merchant category and location consistent with the account's normal spending pattern.",
-    "latency_ms": 2143.8824900001237,
+    "reason": "A small in-town card-present pharmacy purchase consistent with the account's normal spending pattern and location.",
+    "latency_ms": 2225.8199279999926,
     "input_tokens": 2958,
-    "output_tokens": 78,
-    "cost_usd": 0.006696,
+    "output_tokens": 72,
+    "cost_usd": 0.0066359999999999995,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"This is a small, routine card-present purchase at a familiar merchant category and location consistent with the account's normal spending pattern.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A small in-town card-present pharmacy purchase consistent with the account's normal spending pattern and location.\"}"
     },
     "error": null
    }
@@ -1997,13 +1997,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The Seattle ACH debit to a known wholesale merchant is consistent with the small business account profile and does not show indicators of fraud or AML activity.",
-    "latency_ms": 2008.1054220001988,
+    "reason": "This Seattle ACH debit to a wholesale supplier is consistent with the small business profile and typical transaction size, with no suspicious activity indicated.",
+    "latency_ms": 2083.0843180000047,
     "input_tokens": 571,
-    "output_tokens": 97,
-    "cost_usd": 0.0002306,
+    "output_tokens": 81,
+    "cost_usd": 0.0002114,
     "raw": {
-     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.01,\n  \"pattern\": \"none\",\n  \"reason\": \"The Seattle ACH debit to a known wholesale merchant is consistent with the small business account profile and does not show indicators of fraud or AML activity.\"\n}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"This Seattle ACH debit to a wholesale supplier is consistent with the small business profile and typical transaction size, with no suspicious activity indicated.\"}"
     },
     "error": null
    },
@@ -2014,13 +2014,13 @@
     "fraud_probability": 0.02,
     "pattern": "none",
     "confidence": null,
-    "reason": "The cash deposit is consistent with the account's usual cash-deposit activity and there is no evidence of repeated near-threshold deposits or another defined fraud pattern.",
-    "latency_ms": 2229.256360999898,
+    "reason": "A single $3,120 cash deposit is consistent with the account's usual cash-deposit activity and does not establish structuring or another defined fraud pattern.",
+    "latency_ms": 1765.1348050000024,
     "input_tokens": 703,
-    "output_tokens": 126,
-    "cost_usd": 0.0002918,
+    "output_tokens": 110,
+    "cost_usd": 0.0002726,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.02,\"pattern\":\"none\",\"reason\":\"The cash deposit is consistent with the account's usual cash-deposit activity and there is no evidence of repeated near-threshold deposits or another defined fraud pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.02,\"pattern\":\"none\",\"reason\":\"A single $3,120 cash deposit is consistent with the account's usual cash-deposit activity and does not establish structuring or another defined fraud pattern.\"}"
     },
     "error": null
    },
@@ -2028,16 +2028,16 @@
     "txn_id": "T03-structuring-0003",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": false,
-    "fraud_probability": 0.02,
+    "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "A single moderate card-present airline purchase in the customer’s home city is not inconsistent enough with the available account profile to indicate fraud.",
-    "latency_ms": 2061.8558779999603,
+    "reason": "A single moderate card-present airline purchase in the customer's home city provides no evidence of fraud or an AML pattern.",
+    "latency_ms": 4269.002190999999,
     "input_tokens": 570,
-    "output_tokens": 105,
-    "cost_usd": 0.00023999999999999998,
+    "output_tokens": 97,
+    "cost_usd": 0.0002304,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.02,\"pattern\":\"none\",\"reason\":\"A single moderate card-present airline purchase in the customer’s home city is not inconsistent enough with the available account profile to indicate fraud.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"A single moderate card-present airline purchase in the customer's home city provides no evidence of fraud or an AML pattern.\"}"
     },
     "error": null
    },
@@ -2048,13 +2048,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The Denver card-present pharmacy purchase is low value and geographically consistent with the customer's account history.",
-    "latency_ms": 2001.5234370000599,
+    "reason": "The Denver card-present pharmacy purchase is a low-value transaction consistent with the customer's local spending history and shows no defined fraud pattern.",
+    "latency_ms": 2182.0898479999755,
     "input_tokens": 700,
-    "output_tokens": 79,
-    "cost_usd": 0.0002348,
+    "output_tokens": 91,
+    "cost_usd": 0.0002492,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver card-present pharmacy purchase is low value and geographically consistent with the customer's account history.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver card-present pharmacy purchase is a low-value transaction consistent with the customer's local spending history and shows no defined fraud pattern.\"}"
     },
     "error": null
    },
@@ -2065,13 +2065,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The small Denver card-present fuel purchase is consistent with the customer's usual spending profile and shows no fraud or AML pattern.",
-    "latency_ms": 1653.6827779998475,
+    "reason": "The Denver card-present fuel purchase is consistent with the customer's location and ordinary spending history, with no evidence of fraud or AML activity.",
+    "latency_ms": 1775.4793250000205,
     "input_tokens": 827,
-    "output_tokens": 88,
-    "cost_usd": 0.000271,
+    "output_tokens": 94,
+    "cost_usd": 0.0002782,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The small Denver card-present fuel purchase is consistent with the customer's usual spending profile and shows no fraud or AML pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver card-present fuel purchase is consistent with the customer's location and ordinary spending history, with no evidence of fraud or AML activity.\"}"
     },
     "error": null
    },
@@ -2082,13 +2082,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The reviewed Seattle ACH debit to a known wholesale merchant is consistent with the account's typical business activity and does not show a defined fraud or AML pattern.",
-    "latency_ms": 1830.08387100017,
+    "reason": "The transaction is a routine Seattle ACH debit to a familiar wholesale merchant and is consistent with the account's spending profile.",
+    "latency_ms": 4663.872064999992,
     "input_tokens": 835,
-    "output_tokens": 108,
-    "cost_usd": 0.0002966,
+    "output_tokens": 97,
+    "cost_usd": 0.0002834,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The reviewed Seattle ACH debit to a known wholesale merchant is consistent with the account's typical business activity and does not show a defined fraud or AML pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a routine Seattle ACH debit to a familiar wholesale merchant and is consistent with the account's spending profile.\"}"
     },
     "error": null
    },
@@ -2099,30 +2099,30 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The payroll debit is consistent with this established small-business account's usual merchants, geography, and transaction activity, with no evidence of a defined fraud or AML pattern.",
-    "latency_ms": 2312.233638999942,
+    "reason": "The payroll debit is consistent with the small business account's established payroll and wholesale activity, with no evidence of a defined fraud or AML pattern.",
+    "latency_ms": 1979.4456570000136,
     "input_tokens": 967,
-    "output_tokens": 105,
-    "cost_usd": 0.00031939999999999996,
+    "output_tokens": 102,
+    "cost_usd": 0.0003158,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The payroll debit is consistent with this established small-business account's usual merchants, geography, and transaction activity, with no evidence of a defined fraud or AML pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The payroll debit is consistent with the small business account's established payroll and wholesale activity, with no evidence of a defined fraud or AML pattern.\"}"
     },
     "error": null
    },
    {
     "txn_id": "T03-structuring-0008",
     "evaluator": "gpt-5.6-luna",
-    "is_fraud": true,
-    "fraud_probability": 0.82,
-    "pattern": "structuring",
+    "is_fraud": false,
+    "fraud_probability": 0.25,
+    "pattern": "none",
     "confidence": null,
-    "reason": "A cash deposit of $9,925.17 just below the $10,000 reporting threshold, following another recent cash deposit, is consistent with potential structuring.",
-    "latency_ms": 2720.757909999975,
+    "reason": "Although this cash deposit is just below the reporting threshold, the available history shows only one prior cash deposit and does not establish repeated structuring.",
+    "latency_ms": 3168.4159000000136,
     "input_tokens": 1098,
-    "output_tokens": 179,
-    "cost_usd": 0.0004344,
+    "output_tokens": 212,
+    "cost_usd": 0.00047400000000000003,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.82,\"pattern\":\"structuring\",\"reason\":\"A cash deposit of $9,925.17 just below the $10,000 reporting threshold, following another recent cash deposit, is consistent with potential structuring.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.25,\"pattern\":\"none\",\"reason\":\"Although this cash deposit is just below the reporting threshold, the available history shows only one prior cash deposit and does not establish repeated structuring.\"}"
     },
     "error": null
    },
@@ -2133,13 +2133,13 @@
     "fraud_probability": 0.99,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Repeated cash deposits of $9,925.17 and $9,382.96, along with other recent cash deposits below $10,000 across branches and days, indicate deliberate structuring to avoid reporting thresholds.",
-    "latency_ms": 2589.8418630001743,
+    "reason": "This cash deposit of $9,382.96 is just below the $10,000 reporting threshold and follows repeated sub-threshold cash deposits across multiple days and branches.",
+    "latency_ms": 2573.279095999993,
     "input_tokens": 1230,
-    "output_tokens": 143,
-    "cost_usd": 0.00041759999999999996,
+    "output_tokens": 138,
+    "cost_usd": 0.0004115999999999999,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"Repeated cash deposits of $9,925.17 and $9,382.96, along with other recent cash deposits below $10,000 across branches and days, indicate deliberate structuring to avoid reporting thresholds.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"This cash deposit of $9,382.96 is just below the $10,000 reporting threshold and follows repeated sub-threshold cash deposits across multiple days and branches.\"}"
     },
     "error": null
    },
@@ -2150,13 +2150,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The transaction uses the known device, matches the customer's usual online retail activity, and is close to the typical transaction amount.",
-    "latency_ms": 2222.084381999821,
+    "reason": "The $35.48 Amazon online purchase uses the customer's known device and matches their usual merchant categories and spending pattern.",
+    "latency_ms": 3482.637983000018,
     "input_tokens": 960,
-    "output_tokens": 93,
-    "cost_usd": 0.0003036,
+    "output_tokens": 98,
+    "cost_usd": 0.0003096,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction uses the known device, matches the customer's usual online retail activity, and is close to the typical transaction amount.\"}"
+     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.01,\n  \"pattern\": \"none\",\n  \"reason\": \"The $35.48 Amazon online purchase uses the customer's known device and matches their usual merchant categories and spending pattern.\"\n}"
     },
     "error": null
    },
@@ -2167,13 +2167,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The Denver utility payment is a routine local card-present debit consistent with the account's established spending behavior and known location.",
-    "latency_ms": 2011.8918119999307,
+    "reason": "The Denver card-present utility payment is a modest transaction consistent with the customer's local spending history and shows no defined fraud or AML pattern.",
+    "latency_ms": 1890.807663000004,
     "input_tokens": 1087,
-    "output_tokens": 87,
-    "cost_usd": 0.0003218,
+    "output_tokens": 85,
+    "cost_usd": 0.0003194,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver utility payment is a routine local card-present debit consistent with the account's established spending behavior and known location.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver card-present utility payment is a modest transaction consistent with the customer's local spending history and shows no defined fraud or AML pattern.\"}"
     },
     "error": null
    },
@@ -2181,16 +2181,16 @@
     "txn_id": "T03-structuring-0012",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": false,
-    "fraud_probability": 0.001,
+    "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The transaction is a routine-sized Denver card-present retail purchase consistent with the customer's location and typical spending history.",
-    "latency_ms": 1989.6678760001123,
+    "reason": "The $86.41 Denver card-present Target purchase is consistent with the customer's established device-independent local spending history and shows no defined fraud or AML pattern.",
+    "latency_ms": 1796.1904599999912,
     "input_tokens": 1215,
-    "output_tokens": 84,
-    "cost_usd": 0.0003438,
+    "output_tokens": 95,
+    "cost_usd": 0.000357,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.001,\"pattern\":\"none\",\"reason\":\"The transaction is a routine-sized Denver card-present retail purchase consistent with the customer's location and typical spending history.\"}"
+     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.01,\n  \"pattern\": \"none\",\n  \"reason\": \"The $86.41 Denver card-present Target purchase is consistent with the customer's established device-independent local spending history and shows no defined fraud or AML pattern.\"\n}"
     },
     "error": null
    },
@@ -2198,16 +2198,16 @@
     "txn_id": "T03-structuring-0013",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": true,
-    "fraud_probability": 0.97,
+    "fraud_probability": 0.98,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "The transaction occurs amid repeated cash deposits of $9,925.17 and $9,382.96 below the $10,000 reporting threshold across consecutive days and branches, indicating likely structuring.",
-    "latency_ms": 8173.145810000051,
+    "reason": "The transaction occurs amid repeated cash deposits just below the $10,000 reporting threshold across consecutive days and branches, indicating a likely structuring scheme.",
+    "latency_ms": 2627.303197999993,
     "input_tokens": 1362,
-    "output_tokens": 181,
-    "cost_usd": 0.0004896,
+    "output_tokens": 167,
+    "cost_usd": 0.0004728,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.97,\"pattern\":\"structuring\",\"reason\":\"The transaction occurs amid repeated cash deposits of $9,925.17 and $9,382.96 below the $10,000 reporting threshold across consecutive days and branches, indicating likely structuring.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.98,\"pattern\":\"structuring\",\"reason\":\"The transaction occurs amid repeated cash deposits just below the $10,000 reporting threshold across consecutive days and branches, indicating a likely structuring scheme.\"}"
     },
     "error": null
    },
@@ -2218,13 +2218,13 @@
     "fraud_probability": 0.99,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Repeated cash deposits between approximately $9,300 and $9,925 across multiple branches and days indicate deliberate activity just below the $10,000 reporting threshold.",
-    "latency_ms": 3473.690863999991,
+    "reason": "Repeated cash deposits across multiple branches, including several amounts just below the $10,000 reporting threshold, indicate deliberate structuring.",
+    "latency_ms": 3887.213054,
     "input_tokens": 1493,
-    "output_tokens": 114,
-    "cost_usd": 0.00043539999999999996,
+    "output_tokens": 133,
+    "cost_usd": 0.00045819999999999997,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"Repeated cash deposits between approximately $9,300 and $9,925 across multiple branches and days indicate deliberate activity just below the $10,000 reporting threshold.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"Repeated cash deposits across multiple branches, including several amounts just below the $10,000 reporting threshold, indicate deliberate structuring.\"}"
     },
     "error": null
    },
@@ -2235,13 +2235,13 @@
     "fraud_probability": 0.99,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "The account shows repeated cash deposits of $9,925.17, $9,382.96, $9,431.67, and now $9,914.83 just below the $10,000 reporting threshold across multiple days and branches.",
-    "latency_ms": 3021.054954999954,
+    "reason": "The account shows repeated cash deposits just below $10,000 across multiple days and branches, including the current $9,914.83 deposit, consistent with deliberate structuring.",
+    "latency_ms": 1953.2231550000176,
     "input_tokens": 1624,
-    "output_tokens": 125,
-    "cost_usd": 0.00047479999999999994,
+    "output_tokens": 109,
+    "cost_usd": 0.00045559999999999996,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits of $9,925.17, $9,382.96, $9,431.67, and now $9,914.83 just below the $10,000 reporting threshold across multiple days and branches.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits just below $10,000 across multiple days and branches, including the current $9,914.83 deposit, consistent with deliberate structuring.\"}"
     },
     "error": null
    },
@@ -2252,13 +2252,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The Denver card-present Uber purchase is a low-value transaction consistent with the account's established local spending and shows no defined fraud or AML pattern.",
-    "latency_ms": 1942.9890730000352,
+    "reason": "The small Denver card-present Uber charge is consistent with the customer's established local spending and shows no defined fraud or AML pattern.",
+    "latency_ms": 1901.3964450000174,
     "input_tokens": 1341,
-    "output_tokens": 87,
-    "cost_usd": 0.0003726,
+    "output_tokens": 81,
+    "cost_usd": 0.0003654,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver card-present Uber purchase is a low-value transaction consistent with the account's established local spending and shows no defined fraud or AML pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The small Denver card-present Uber charge is consistent with the customer's established local spending and shows no defined fraud or AML pattern.\"}"
     },
     "error": null
    },
@@ -2269,13 +2269,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The transaction is a normal card-present purchase in the customer's home city and is consistent with their established spending and device history.",
-    "latency_ms": 2032.7867519999927,
+    "reason": "The transaction is a routine Denver card-present airline purchase with no evidence of cash structuring, account takeover, or another defined fraud pattern.",
+    "latency_ms": 2210.077130000002,
     "input_tokens": 1469,
-    "output_tokens": 103,
-    "cost_usd": 0.00041739999999999995,
+    "output_tokens": 116,
+    "cost_usd": 0.000433,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a normal card-present purchase in the customer's home city and is consistent with their established spending and device history.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a routine Denver card-present airline purchase with no evidence of cash structuring, account takeover, or another defined fraud pattern.\"}"
     },
     "error": null
    },
@@ -2286,13 +2286,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The transaction is a Denver card-present hotel purchase consistent with the account's established local spending and does not exhibit a defined fraud or AML pattern.",
-    "latency_ms": 2036.2027179999131,
+    "reason": "The Denver card-present hotel purchase is consistent with the account's recent local travel spending and shows no defined fraud or AML pattern.",
+    "latency_ms": 2006.0408810000183,
     "input_tokens": 1597,
-    "output_tokens": 111,
-    "cost_usd": 0.0004526,
+    "output_tokens": 109,
+    "cost_usd": 0.0004502,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a Denver card-present hotel purchase consistent with the account's established local spending and does not exhibit a defined fraud or AML pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver card-present hotel purchase is consistent with the account's recent local travel spending and shows no defined fraud or AML pattern.\"}"
     },
     "error": null
    },
@@ -2300,16 +2300,16 @@
     "txn_id": "T03-structuring-0019",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": true,
-    "fraud_probability": 0.98,
+    "fraud_probability": 0.99,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "The transaction occurs amid repeated cash deposits on consecutive days, many deliberately just below the $10,000 reporting threshold, indicating an ongoing structuring scheme despite this debit itself being a routine wholesale payment.",
-    "latency_ms": 2056.3876999999593,
+    "reason": "The account shows repeated cash deposits just below $10,000 across multiple days and branches, indicating deliberate structuring despite the reviewed wholesale ACH debit being routine.",
+    "latency_ms": 2332.1050069999956,
     "input_tokens": 1756,
     "output_tokens": 124,
     "cost_usd": 0.0005,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.98,\"pattern\":\"structuring\",\"reason\":\"The transaction occurs amid repeated cash deposits on consecutive days, many deliberately just below the $10,000 reporting threshold, indicating an ongoing structuring scheme despite this debit itself being a routine wholesale payment.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits just below $10,000 across multiple days and branches, indicating deliberate structuring despite the reviewed wholesale ACH debit being routine.\"}"
     },
     "error": null
    },
@@ -2317,16 +2317,16 @@
     "txn_id": "T03-structuring-0020",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": true,
-    "fraud_probability": 0.99,
+    "fraud_probability": 0.98,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "The transaction occurs amid repeated cash deposits just below $10,000 across multiple branches over consecutive days, indicating a likely structuring scheme despite the payroll debit itself being routine.",
-    "latency_ms": 2519.4943359999797,
+    "reason": "The transaction occurs amid repeated cash deposits just below $10,000 across multiple branches over consecutive days, indicating a likely structuring scheme.",
+    "latency_ms": 3694.710403999977,
     "input_tokens": 1888,
-    "output_tokens": 129,
-    "cost_usd": 0.0005323999999999999,
+    "output_tokens": 245,
+    "cost_usd": 0.0006716,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The transaction occurs amid repeated cash deposits just below $10,000 across multiple branches over consecutive days, indicating a likely structuring scheme despite the payroll debit itself being routine.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.98,\"pattern\":\"structuring\",\"reason\":\"The transaction occurs amid repeated cash deposits just below $10,000 across multiple branches over consecutive days, indicating a likely structuring scheme.\"}"
     },
     "error": null
    },
@@ -2337,13 +2337,13 @@
     "fraud_probability": 0.99,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "Repeated cash deposits of nearly $10,000 across multiple days and branches are consistent with deliberate structuring to avoid reporting thresholds.",
-    "latency_ms": 1884.9878789999366,
+    "reason": "This cash deposit is part of repeated deposits just below $10,000 across multiple days and branches, consistent with deliberate structuring.",
+    "latency_ms": 2215.513240000007,
     "input_tokens": 2019,
-    "output_tokens": 97,
-    "cost_usd": 0.0005202,
+    "output_tokens": 106,
+    "cost_usd": 0.000531,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"Repeated cash deposits of nearly $10,000 across multiple days and branches are consistent with deliberate structuring to avoid reporting thresholds.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"This cash deposit is part of repeated deposits just below $10,000 across multiple days and branches, consistent with deliberate structuring.\"}"
     },
     "error": null
    },
@@ -2354,13 +2354,13 @@
     "fraud_probability": 0.999,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "The account has repeated cash deposits just below $10,000 across multiple days and branches, including the current $9,841.32 deposit, consistent with deliberate structuring.",
-    "latency_ms": 2056.0238829998525,
+    "reason": "The account shows repeated cash deposits just below $10,000 across multiple days and branches, consistent with deliberate structuring to avoid reporting thresholds.",
+    "latency_ms": 2029.5242480000013,
     "input_tokens": 2150,
-    "output_tokens": 110,
-    "cost_usd": 0.000562,
+    "output_tokens": 105,
+    "cost_usd": 0.000556,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.999,\"pattern\":\"structuring\",\"reason\":\"The account has repeated cash deposits just below $10,000 across multiple days and branches, including the current $9,841.32 deposit, consistent with deliberate structuring.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.999,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits just below $10,000 across multiple days and branches, consistent with deliberate structuring to avoid reporting thresholds.\"}"
     },
     "error": null
    },
@@ -2368,16 +2368,16 @@
     "txn_id": "T03-structuring-0023",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": false,
-    "fraud_probability": 0.001,
+    "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The small Spotify subscription payment uses the customer's known device and is consistent with the account's established spending and transaction history.",
-    "latency_ms": 2041.7678849998993,
+    "reason": "The $11.99 Spotify subscription uses the known device and is consistent with the customer's established low-value subscription and retail spending history.",
+    "latency_ms": 2139.900855999997,
     "input_tokens": 1727,
-    "output_tokens": 102,
-    "cost_usd": 0.0004678,
+    "output_tokens": 91,
+    "cost_usd": 0.0004546,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.001,\"pattern\":\"none\",\"reason\":\"The small Spotify subscription payment uses the customer's known device and is consistent with the account's established spending and transaction history.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The $11.99 Spotify subscription uses the known device and is consistent with the customer's established low-value subscription and retail spending history.\"}"
     },
     "error": null
    },
@@ -2388,13 +2388,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The $55.81 Denver card-present CVS purchase is consistent with the customer's established device, location, transaction size, and ordinary retail spending history.",
-    "latency_ms": 2212.3573220001163,
+    "reason": "The transaction is a routine Denver card-present pharmacy purchase consistent with the account's established local spending history and known activity.",
+    "latency_ms": 2125.044198000012,
     "input_tokens": 1856,
-    "output_tokens": 95,
-    "cost_usd": 0.0004852,
+    "output_tokens": 87,
+    "cost_usd": 0.00047559999999999996,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The $55.81 Denver card-present CVS purchase is consistent with the customer's established device, location, transaction size, and ordinary retail spending history.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a routine Denver card-present pharmacy purchase consistent with the account's established local spending history and known activity.\"}"
     },
     "error": null
    },
@@ -2405,13 +2405,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The transaction is a routine Denver utility payment consistent with the account's established local card spending and shows no defined fraud or AML pattern.",
-    "latency_ms": 1969.1637480000281,
+    "reason": "The utility payment is a Denver card-present debit consistent with the account's established local spending and does not show any defined fraud or AML pattern.",
+    "latency_ms": 2559.903470000023,
     "input_tokens": 1983,
-    "output_tokens": 90,
-    "cost_usd": 0.0005046,
+    "output_tokens": 102,
+    "cost_usd": 0.0005189999999999999,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a routine Denver utility payment consistent with the account's established local card spending and shows no defined fraud or AML pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The utility payment is a Denver card-present debit consistent with the account's established local spending and does not show any defined fraud or AML pattern.\"}"
     },
     "error": null
    },
@@ -2422,13 +2422,13 @@
     "fraud_probability": 0.99,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "The transaction occurs amid repeated cash deposits just below $10,000 across multiple branches over consecutive days, indicating deliberate structuring.",
-    "latency_ms": 1963.6366699999144,
+    "reason": "The account shows repeated cash deposits just below $10,000 across multiple branches over several days, indicating deliberate structuring despite the current transaction being a routine wholesale ACH debit.",
+    "latency_ms": 2248.964758999989,
     "input_tokens": 2150,
-    "output_tokens": 109,
-    "cost_usd": 0.0005608,
+    "output_tokens": 126,
+    "cost_usd": 0.0005812,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The transaction occurs amid repeated cash deposits just below $10,000 across multiple branches over consecutive days, indicating deliberate structuring.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits just below $10,000 across multiple branches over several days, indicating deliberate structuring despite the current transaction being a routine wholesale ACH debit.\"}"
     },
     "error": null
    },
@@ -2439,13 +2439,13 @@
     "fraud_probability": 0.99,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "The account shows repeated cash deposits of nearly $10,000 across multiple branches on consecutive days, including the current $9,947.31 deposit, consistent with deliberate structuring to avoid reporting thresholds.",
-    "latency_ms": 1942.1212069999,
+    "reason": "The account shows repeated cash deposits just below $10,000 across multiple days and branches, including the current $9,947.31 deposit, consistent with deliberate structuring.",
+    "latency_ms": 2044.7769069999993,
     "input_tokens": 2150,
-    "output_tokens": 70,
-    "cost_usd": 0.000514,
+    "output_tokens": 65,
+    "cost_usd": 0.000508,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits of nearly $10,000 across multiple branches on consecutive days, including the current $9,947.31 deposit, consistent with deliberate structuring to avoid reporting thresholds.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits just below $10,000 across multiple days and branches, including the current $9,947.31 deposit, consistent with deliberate structuring.\"}"
     },
     "error": null
    },
@@ -2457,7 +2457,7 @@
     "pattern": "structuring",
     "confidence": null,
     "reason": "The account shows repeated cash deposits just below $10,000 across multiple branches on consecutive days, including the transaction under review.",
-    "latency_ms": 1528.2209770000463,
+    "latency_ms": 1184.9043170000186,
     "input_tokens": 2149,
     "output_tokens": 55,
     "cost_usd": 0.0004958,
@@ -2470,16 +2470,16 @@
     "txn_id": "T03-structuring-0029",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": true,
-    "fraud_probability": 0.99,
+    "fraud_probability": 0.999,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "The account shows repeated cash deposits just below $10,000 across multiple days and branches, consistent with deliberate structuring to avoid reporting thresholds.",
-    "latency_ms": 2493.8157849999243,
+    "reason": "The account shows repeated cash deposits just below the $10,000 reporting threshold across multiple days and branches, including this $9,760.64 deposit.",
+    "latency_ms": 2229.700809999997,
     "input_tokens": 2148,
-    "output_tokens": 58,
-    "cost_usd": 0.0004992,
+    "output_tokens": 90,
+    "cost_usd": 0.0005376,
     "raw": {
-     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits just below $10,000 across multiple days and branches, consistent with deliberate structuring to avoid reporting thresholds.\"}"
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.999,\"pattern\":\"structuring\",\"reason\":\"The account shows repeated cash deposits just below the $10,000 reporting threshold across multiple days and branches, including this $9,760.64 deposit.\"}"
     },
     "error": null
    },
@@ -2490,13 +2490,13 @@
     "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The Denver card-present grocery purchase is consistent with the customer's established location, merchant categories, device history, and spending behavior, with no evidence of a defined fraud or AML pattern.",
-    "latency_ms": 2665.0529070000175,
+    "reason": "The $96.09 in-person grocery purchase in Denver is consistent with the customer's location, spending behavior, and established merchant profile.",
+    "latency_ms": 1847.1137589999955,
     "input_tokens": 2112,
-    "output_tokens": 117,
-    "cost_usd": 0.0005628,
+    "output_tokens": 102,
+    "cost_usd": 0.0005448,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver card-present grocery purchase is consistent with the customer's established location, merchant categories, device history, and spending behavior, with no evidence of a defined fraud or AML pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The $96.09 in-person grocery purchase in Denver is consistent with the customer's location, spending behavior, and established merchant profile.\"}"
     },
     "error": null
    },
@@ -2504,16 +2504,16 @@
     "txn_id": "T03-structuring-0031",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": false,
-    "fraud_probability": 0.01,
+    "fraud_probability": 0.002,
     "pattern": "none",
     "confidence": null,
-    "reason": "The Denver card-present Home Depot purchase is consistent with the account's established local spending and shows no indicators of fraud or an AML scheme.",
-    "latency_ms": 2325.317036999877,
+    "reason": "The Denver card-present purchase is consistent with the customer's established device-free local spending and does not match any defined fraud or AML pattern.",
+    "latency_ms": 1816.1158620000037,
     "input_tokens": 2113,
-    "output_tokens": 99,
-    "cost_usd": 0.0005413999999999999,
+    "output_tokens": 88,
+    "cost_usd": 0.0005281999999999999,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Denver card-present Home Depot purchase is consistent with the account's established local spending and shows no indicators of fraud or an AML scheme.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.002,\"pattern\":\"none\",\"reason\":\"The Denver card-present purchase is consistent with the customer's established device-free local spending and does not match any defined fraud or AML pattern.\"}"
     },
     "error": null
    },
@@ -2521,16 +2521,16 @@
     "txn_id": "T03-structuring-0032",
     "evaluator": "gpt-5.6-luna",
     "is_fraud": false,
-    "fraud_probability": 0.002,
+    "fraud_probability": 0.01,
     "pattern": "none",
     "confidence": null,
-    "reason": "The Denver card-present pharmacy purchase is a low-value transaction consistent with the customer's established local retail spending and shows no defined fraud or AML pattern.",
-    "latency_ms": 2262.026447999915,
+    "reason": "The small Denver card-present pharmacy purchase is consistent with the account's established local spending history and shows no defined fraud or AML pattern.",
+    "latency_ms": 5065.8948980000105,
     "input_tokens": 2113,
-    "output_tokens": 98,
-    "cost_usd": 0.0005402,
+    "output_tokens": 102,
+    "cost_usd": 0.0005449999999999999,
     "raw": {
-     "content": "{\"is_fraud\":false,\"fraud_probability\":0.002,\"pattern\":\"none\",\"reason\":\"The Denver card-present pharmacy purchase is a low-value transaction consistent with the customer's established local retail spending and shows no defined fraud or AML pattern.\"}"
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The small Denver card-present pharmacy purchase is consistent with the account's established local spending history and shows no defined fraud or AML pattern.\"}"
     },
     "error": null
    }
@@ -2542,39 +2542,39 @@
     "is_fraud": false,
     "fraud_probability": 0.15,
     "pattern": "none",
-    "confidence": 0.96,
-    "reason": "jev decided (risk_score=0.48)",
-    "latency_ms": 286.2,
+    "confidence": 0.97,
+    "reason": "jev decided (risk_score=0.62)",
+    "latency_ms": 300.1360410000018,
     "input_tokens": 903,
     "output_tokens": 103,
     "cost_usd": 0.000037925999999999996,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.15,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.15
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
+        "mule_account": 0,
         "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0.97,
-        "structuring": 0.03
-       },
-       "type": "choice"
+        "structuring": 0.03,
+        "account_takeover": 0,
+        "none": 0.97
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.62,
        "probabilities": {
-        "0": 0.65,
-        "1": 0.24,
-        "2": 0.11,
+        "0": 0.55,
+        "1": 0.3,
+        "2": 0.15,
         "3": 0
-       },
-       "score": 0.48,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -2585,16 +2585,16 @@
     "txn_id": "T03-structuring-0002",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.15,
+    "fraud_probability": 0.2,
     "pattern": "none",
     "confidence": null,
-    "reason": "escalated (jev p=0.49): A single cash deposit of $3,120 is consistent with normal business cash deposit activity and shows no clear pattern of repeated sub-threshold structuring yet.",
-    "latency_ms": 2069.2235859999732,
+    "reason": "escalated (jev p=0.49): A single cash deposit well under the $10,000 threshold at a branch inconsistent with home city but within normal business cash-deposit activity does not yet show a repeated structuring pattern.",
+    "latency_ms": 2966.0581500000094,
     "input_tokens": 2101,
-    "output_tokens": 197,
-    "cost_usd": 0.0030523940000000004,
+    "output_tokens": 203,
+    "cost_usd": 0.0031123940000000005,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.15, \"pattern\": \"none\", \"reason\": \"A single cash deposit of $3,120 is consistent with normal business cash deposit activity and shows no clear pattern of repeated sub-threshold structuring yet.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.2, \"pattern\": \"none\", \"reason\": \"A single cash deposit well under the $10,000 threshold at a branch inconsistent with home city but within normal business cash-deposit activity does not yet show a repeated structuring pattern.\"}"
     },
     "error": null
    },
@@ -2604,39 +2604,39 @@
     "is_fraud": false,
     "fraud_probability": 0.17,
     "pattern": "none",
-    "confidence": 0.95,
-    "reason": "jev decided (risk_score=0.84)",
-    "latency_ms": 248.1,
+    "confidence": 0.97,
+    "reason": "jev decided (risk_score=0.79)",
+    "latency_ms": 307.0613529999946,
     "input_tokens": 898,
     "output_tokens": 103,
     "cost_usd": 0.000037715999999999996,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.17,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.17
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0.01,
-        "card_testing": 0,
+        "structuring": 0.02,
         "impossible_travel": 0,
+        "card_testing": 0,
+        "account_takeover": 0,
         "mule_account": 0,
-        "none": 0.96,
-        "structuring": 0.03
-       },
-       "type": "choice"
+        "none": 0.98
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.79,
        "probabilities": {
-        "0": 0.31,
-        "1": 0.54,
-        "2": 0.14,
-        "3": 0.01
-       },
-       "score": 0.84,
-       "type": "score"
+        "0": 0.35,
+        "1": 0.52,
+        "2": 0.13,
+        "3": 0
+       }
       }
      },
      "model": null
@@ -2647,41 +2647,41 @@
     "txn_id": "T03-structuring-0004",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.11,
+    "fraud_probability": 0.12,
     "pattern": "none",
-    "confidence": 0.99,
-    "reason": "jev decided (risk_score=0.48)",
-    "latency_ms": 312.9,
+    "confidence": 0.98,
+    "reason": "jev decided (risk_score=0.42)",
+    "latency_ms": 218.56848500002002,
     "input_tokens": 1050,
     "output_tokens": 103,
     "cost_usd": 0.0000441,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.11,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.12
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
         "impossible_travel": 0.01,
+        "structuring": 0,
         "mule_account": 0,
         "none": 0.99,
-        "structuring": 0
-       },
-       "type": "choice"
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.42,
        "probabilities": {
-        "0": 0.62,
-        "1": 0.3,
-        "2": 0.08,
+        "0": 0.67,
+        "1": 0.26,
+        "2": 0.07,
         "3": 0
-       },
-       "score": 0.48,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -2692,41 +2692,41 @@
     "txn_id": "T03-structuring-0005",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.14,
+    "fraud_probability": 0.13,
     "pattern": "none",
-    "confidence": 0.98,
-    "reason": "jev decided (risk_score=0.47)",
-    "latency_ms": 208.7,
+    "confidence": 0.97,
+    "reason": "jev decided (risk_score=0.54)",
+    "latency_ms": 254.36920800001417,
     "input_tokens": 1199,
     "output_tokens": 103,
     "cost_usd": 0.000050358,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.14,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.13
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
+        "impossible_travel": 0.02,
+        "none": 0.98,
+        "mule_account": 0,
         "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0.01,
-        "mule_account": 0,
-        "none": 0.98,
-        "structuring": 0.01
-       },
-       "type": "choice"
+        "structuring": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.54,
        "probabilities": {
-        "0": 0.64,
-        "1": 0.26,
-        "2": 0.1,
-        "3": 0
-       },
-       "score": 0.47,
-       "type": "score"
+        "0": 0.58,
+        "1": 0.29,
+        "2": 0.12,
+        "3": 0.01
+       }
       }
      },
      "model": null
@@ -2737,16 +2737,16 @@
     "txn_id": "T03-structuring-0006",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.1,
+    "fraud_probability": 0.15,
     "pattern": "none",
     "confidence": null,
-    "reason": "escalated (jev p=0.45): This is a routine ACH payment to a known wholesale supplier consistent with the account's typical business activity, showing no signs of structuring or other fraud patterns.",
-    "latency_ms": 2152.5673279998473,
+    "reason": "escalated (jev p=0.43): This is a routine ACH payment to a known wholesale vendor consistent with the account's normal business activity, though prior cash deposits near the reporting threshold warrant continued monitoring.",
+    "latency_ms": 2308.126762000029,
     "input_tokens": 2443,
-    "output_tokens": 193,
-    "cost_usd": 0.003408988,
+    "output_tokens": 201,
+    "cost_usd": 0.003488988,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.1, \"pattern\": \"none\", \"reason\": \"This is a routine ACH payment to a known wholesale supplier consistent with the account's typical business activity, showing no signs of structuring or other fraud patterns.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.15, \"pattern\": \"none\", \"reason\": \"This is a routine ACH payment to a known wholesale vendor consistent with the account's normal business activity, though prior cash deposits near the reporting threshold warrant continued monitoring.\"}"
     },
     "error": null
    },
@@ -2754,16 +2754,16 @@
     "txn_id": "T03-structuring-0007",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.08,
+    "fraud_probability": 0.05,
     "pattern": "none",
     "confidence": null,
-    "reason": "escalated (jev p=0.35): This is a routine payroll ACH debit consistent with the account's typical business activity and spending profile.",
-    "latency_ms": 1936.286749000022,
+    "reason": "escalated (jev p=0.34): This is a routine payroll ACH debit consistent with the account's normal business activity and typical transaction size, with no cash structuring indicators in this specific transaction.",
+    "latency_ms": 2159.4749089999823,
     "input_tokens": 2785,
-    "output_tokens": 173,
-    "cost_usd": 0.003585582,
+    "output_tokens": 193,
+    "cost_usd": 0.003785582,
     "raw": {
-     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.08, \"pattern\": \"none\", \"reason\": \"This is a routine payroll ACH debit consistent with the account's typical business activity and spending profile.\"}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.05, \"pattern\": \"none\", \"reason\": \"This is a routine payroll ACH debit consistent with the account's normal business activity and typical transaction size, with no cash structuring indicators in this specific transaction.\"}"
     },
     "error": null
    },
@@ -2771,41 +2771,41 @@
     "txn_id": "T03-structuring-0008",
     "evaluator": "jev+sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.72,
+    "fraud_probability": 0.74,
     "pattern": "structuring",
     "confidence": 0.99,
-    "reason": "jev decided (risk_score=2)",
-    "latency_ms": 219.0,
+    "reason": "jev decided (risk_score=2.04)",
+    "latency_ms": 224.4448380000108,
     "input_tokens": 1529,
     "output_tokens": 105,
     "cost_usd": 0.000064218,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.72,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.74
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
+        "card_testing": 0,
+        "account_takeover": 0,
         "none": 0.01,
-        "structuring": 0.99
-       },
-       "type": "choice"
+        "structuring": 0.99,
+        "impossible_travel": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.04,
        "probabilities": {
         "0": 0,
-        "1": 0.02,
-        "2": 0.94,
-        "3": 0.04
-       },
-       "score": 2,
-       "type": "score"
+        "1": 0.01,
+        "2": 0.93,
+        "3": 0.06
+       }
       }
      },
      "model": null
@@ -2816,41 +2816,41 @@
     "txn_id": "T03-structuring-0009",
     "evaluator": "jev+sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.75,
+    "fraud_probability": 0.74,
     "pattern": "structuring",
     "confidence": 1.0,
     "reason": "jev decided (risk_score=2.08)",
-    "latency_ms": 331.5,
+    "latency_ms": 353.2084770000097,
     "input_tokens": 1689,
     "output_tokens": 105,
     "cost_usd": 0.000070938,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.75,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.74
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
+        "structuring": 1,
         "mule_account": 0,
+        "account_takeover": 0,
+        "impossible_travel": 0,
         "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.08,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.9,
-        "3": 0.09
-       },
-       "score": 2.08,
-       "type": "score"
+        "2": 0.89,
+        "3": 0.1
+       }
       }
      },
      "model": null
@@ -2865,37 +2865,37 @@
     "pattern": "none",
     "confidence": 0.99,
     "reason": "jev decided (risk_score=0.29)",
-    "latency_ms": 291.3,
+    "latency_ms": 206.80537200001936,
     "input_tokens": 1356,
     "output_tokens": 103,
     "cost_usd": 0.000056952,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.12,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.12
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0.01,
         "mule_account": 0,
+        "impossible_travel": 0.01,
         "none": 0.99,
+        "account_takeover": 0,
         "structuring": 0
-       },
-       "type": "choice"
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.29,
        "probabilities": {
         "0": 0.76,
         "1": 0.2,
         "2": 0.04,
         "3": 0
-       },
-       "score": 0.29,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -2906,41 +2906,41 @@
     "txn_id": "T03-structuring-0011",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.15,
+    "fraud_probability": 0.13,
     "pattern": "none",
     "confidence": 0.98,
-    "reason": "jev decided (risk_score=0.57)",
-    "latency_ms": 265.7,
+    "reason": "jev decided (risk_score=0.51)",
+    "latency_ms": 289.7172690000218,
     "input_tokens": 1507,
     "output_tokens": 103,
     "cost_usd": 0.000063294,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.15,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.13
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
         "account_takeover": 0,
-        "card_testing": 0,
         "impossible_travel": 0.01,
+        "none": 0.99,
         "mule_account": 0,
-        "none": 0.98,
-        "structuring": 0.01
-       },
-       "type": "choice"
+        "card_testing": 0,
+        "structuring": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.51,
        "probabilities": {
-        "0": 0.54,
-        "1": 0.36,
-        "2": 0.1,
+        "0": 0.59,
+        "1": 0.33,
+        "2": 0.08,
         "3": 0
-       },
-       "score": 0.57,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -2951,41 +2951,41 @@
     "txn_id": "T03-structuring-0012",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.12,
+    "fraud_probability": 0.11,
     "pattern": "none",
-    "confidence": 0.99,
-    "reason": "jev decided (risk_score=0.27)",
-    "latency_ms": 256.5,
+    "confidence": 1.0,
+    "reason": "jev decided (risk_score=0.25)",
+    "latency_ms": 255.7450200000062,
     "input_tokens": 1658,
     "output_tokens": 103,
     "cost_usd": 0.000069636,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.12,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.11
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
+        "account_takeover": 0,
         "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "structuring": 0,
+        "mule_account": 0,
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.25,
        "probabilities": {
-        "0": 0.77,
-        "1": 0.19,
-        "2": 0.04,
+        "0": 0.79,
+        "1": 0.18,
+        "2": 0.03,
         "3": 0
-       },
-       "score": 0.27,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -2999,13 +2999,13 @@
     "fraud_probability": 0.12,
     "pattern": "none",
     "confidence": null,
-    "reason": "escalated (jev p=0.55): This ACH debit to Sysco Foods is consistent with the account's normal wholesale payment history, though the account's recent cash deposits just under the $10K threshold across multiple branches warrant separate scrutiny for structuring.",
-    "latency_ms": 9197.213274000092,
+    "reason": "escalated (jev p=0.54): This ACH payment to a regular wholesale supplier is consistent in size and counterparty with the account's normal business activity, even though other txns in the history show suspicious just-under-threshold cash deposits.",
+    "latency_ms": 16233.293687000014,
     "input_tokens": 3815,
-    "output_tokens": 833,
-    "cost_usd": 0.011293574,
+    "output_tokens": 1400,
+    "cost_usd": 0.016963574000000002,
     "raw": {
-     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.12,\n  \"pattern\": \"none\",\n  \"reason\": \"This ACH debit to Sysco Foods is consistent with the account's normal wholesale payment history, though the account's recent cash deposits just under the $10K threshold across multiple branches warrant separate scrutiny for structuring.\"\n}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.12, \"pattern\": \"none\", \"reason\": \"This ACH payment to a regular wholesale supplier is consistent in size and counterparty with the account's normal business activity, even though other txns in the history show suspicious just-under-threshold cash deposits.\"}"
     },
     "error": null
    },
@@ -3013,41 +3013,41 @@
     "txn_id": "T03-structuring-0014",
     "evaluator": "jev+sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.77,
+    "fraud_probability": 0.79,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "jev decided (risk_score=2.11)",
-    "latency_ms": 262.5,
+    "reason": "jev decided (risk_score=2.12)",
+    "latency_ms": 252.93655400000148,
     "input_tokens": 2005,
     "output_tokens": 105,
     "cost_usd": 0.00008421,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.77,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.79
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
+        "structuring": 1,
+        "card_testing": 0,
         "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "impossible_travel": 0,
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.12,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.87,
-        "3": 0.12
-       },
-       "score": 2.11,
-       "type": "score"
+        "2": 0.86,
+        "3": 0.13
+       }
       }
      },
      "model": null
@@ -3061,38 +3061,38 @@
     "fraud_probability": 0.82,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "jev decided (risk_score=2.12)",
-    "latency_ms": 294.5,
+    "reason": "jev decided (risk_score=2.18)",
+    "latency_ms": 266.49585100000195,
     "input_tokens": 2163,
     "output_tokens": 105,
     "cost_usd": 0.000090846,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.82,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.82
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0,
-        "mule_account": 0,
         "none": 0,
+        "account_takeover": 0,
+        "mule_account": 0,
+        "impossible_travel": 0,
         "structuring": 1
-       },
-       "type": "choice"
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.18,
        "probabilities": {
         "0": 0,
         "1": 0,
-        "2": 0.88,
-        "3": 0.12
-       },
-       "score": 2.12,
-       "type": "score"
+        "2": 0.81,
+        "3": 0.19
+       }
       }
      },
      "model": null
@@ -3103,41 +3103,41 @@
     "txn_id": "T03-structuring-0016",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.09,
+    "fraud_probability": 0.1,
     "pattern": "none",
-    "confidence": 1.0,
+    "confidence": 0.99,
     "reason": "jev decided (risk_score=0.14)",
-    "latency_ms": 243.7,
+    "latency_ms": 279.44057900000985,
     "input_tokens": 1807,
     "output_tokens": 103,
     "cost_usd": 0.000075894,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.09,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.1
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
+        "structuring": 0,
         "impossible_travel": 0,
+        "account_takeover": 0,
         "mule_account": 0,
         "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.14,
        "probabilities": {
         "0": 0.88,
         "1": 0.1,
         "2": 0.02,
         "3": 0
-       },
-       "score": 0.14,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3148,41 +3148,41 @@
     "txn_id": "T03-structuring-0017",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.25,
+    "fraud_probability": 0.24,
     "pattern": "none",
     "confidence": 0.96,
-    "reason": "jev decided (risk_score=1.25)",
-    "latency_ms": 259.6,
+    "reason": "jev decided (risk_score=1.19)",
+    "latency_ms": 208.54422799999384,
     "input_tokens": 1959,
     "output_tokens": 103,
     "cost_usd": 0.000082278,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.25,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.24
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
         "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0.01,
-        "mule_account": 0,
         "none": 0.97,
-        "structuring": 0.02
-       },
-       "type": "choice"
+        "impossible_travel": 0.01,
+        "structuring": 0.02,
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.19,
        "probabilities": {
-        "0": 0.14,
-        "1": 0.49,
-        "2": 0.36,
+        "0": 0.17,
+        "1": 0.47,
+        "2": 0.35,
         "3": 0.01
-       },
-       "score": 1.25,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3196,38 +3196,38 @@
     "fraud_probability": 0.29,
     "pattern": "none",
     "confidence": 0.98,
-    "reason": "jev decided (risk_score=1.32)",
-    "latency_ms": 314.8,
+    "reason": "jev decided (risk_score=1.31)",
+    "latency_ms": 252.25246400000856,
     "input_tokens": 2111,
     "output_tokens": 103,
     "cost_usd": 0.000088662,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.29,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.29
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
+        "none": 0.99,
         "impossible_travel": 0,
         "mule_account": 0,
-        "none": 0.99,
-        "structuring": 0.01
-       },
-       "type": "choice"
+        "structuring": 0.01,
+        "account_takeover": 0,
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 1.31,
        "probabilities": {
-        "0": 0.12,
-        "1": 0.45,
+        "0": 0.13,
+        "1": 0.44,
         "2": 0.42,
         "3": 0.01
-       },
-       "score": 1.32,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3241,30 +3241,30 @@
     "fraud_probability": 0.72,
     "pattern": "structuring",
     "confidence": null,
-    "reason": "escalated (jev p=0.64): The account shows a repeated pattern of near-$10,000 cash deposits at multiple Austin-area branches just under the reporting threshold despite being a Seattle business, and while this specific transaction is a routine ACH payment, it is part of the same account exhibiting an ongoing structuring sche",
-    "latency_ms": 2621.817911999943,
+    "reason": "escalated (jev p=0.66): This routine wholesale debit is embedded in a broader pattern of repeated near-$10,000 cash deposits across multiple Texas branches despite the account being based in Seattle, consistent with structuring to evade CTR reporting.",
+    "latency_ms": 2660.094146000006,
     "input_tokens": 4842,
-    "output_tokens": 242,
-    "cost_usd": 0.006509482,
+    "output_tokens": 220,
+    "cost_usd": 0.006289482,
     "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.72, \"pattern\": \"structuring\", \"reason\": \"The account shows a repeated pattern of near-$10,000 cash deposits at multiple Austin-area branches just under the reporting threshold despite being a Seattle business, and while this specific transaction is a routine ACH payment, it is part of the same account exhibiting an ongoing structuring scheme.\"}"
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.72, \"pattern\": \"structuring\", \"reason\": \"This routine wholesale debit is embedded in a broader pattern of repeated near-$10,000 cash deposits across multiple Texas branches despite the account being based in Seattle, consistent with structuring to evade CTR reporting.\"}"
     },
     "error": null
    },
    {
     "txn_id": "T03-structuring-0020",
     "evaluator": "jev+sonnet-5",
-    "is_fraud": true,
-    "fraud_probability": 0.72,
-    "pattern": "structuring",
+    "is_fraud": false,
+    "fraud_probability": 0.12,
+    "pattern": "none",
     "confidence": null,
-    "reason": "escalated (jev p=0.48): While this specific payroll debit looks routine, it occurs amid a clear pattern of repeated cash deposits just under the $10,000 reporting threshold at out-of-state Texas branches for a Seattle-based business, indicating the account is actively engaged in a structuring scheme.",
-    "latency_ms": 14306.958060999923,
+    "reason": "escalated (jev p=0.51): This is a routine ACH payroll debit to a known counterparty consistent with the account's typical business activity, distinct from the suspicious near-threshold cash deposits occurring elsewhere in the history.",
+    "latency_ms": 18368.42766000001,
     "input_tokens": 5185,
-    "output_tokens": 1248,
-    "cost_usd": 0.016946118000000003,
+    "output_tokens": 1679,
+    "cost_usd": 0.021256118,
     "raw": {
-     "content": "{\n  \"is_fraud\": true,\n  \"fraud_probability\": 0.72,\n  \"pattern\": \"structuring\",\n  \"reason\": \"While this specific payroll debit looks routine, it occurs amid a clear pattern of repeated cash deposits just under the $10,000 reporting threshold at out-of-state Texas branches for a Seattle-based business, indicating the account is actively engaged in a structuring scheme.\"\n}"
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.12, \"pattern\": \"none\", \"reason\": \"This is a routine ACH payroll debit to a known counterparty consistent with the account's typical business activity, distinct from the suspicious near-threshold cash deposits occurring elsewhere in the history.\"}"
     },
     "error": null
    },
@@ -3272,41 +3272,41 @@
     "txn_id": "T03-structuring-0021",
     "evaluator": "jev+sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.8,
+    "fraud_probability": 0.78,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "jev decided (risk_score=2.06)",
-    "latency_ms": 294.1,
+    "reason": "jev decided (risk_score=2.07)",
+    "latency_ms": 244.27126199998384,
     "input_tokens": 2637,
     "output_tokens": 105,
     "cost_usd": 0.000110754,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.8,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.78
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
+        "none": 0,
         "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "structuring": 1,
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.07,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.91,
-        "3": 0.08
-       },
-       "score": 2.06,
-       "type": "score"
+        "2": 0.9,
+        "3": 0.09
+       }
       }
      },
      "model": null
@@ -3317,41 +3317,41 @@
     "txn_id": "T03-structuring-0022",
     "evaluator": "jev+sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.82,
+    "fraud_probability": 0.83,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "jev decided (risk_score=2.15)",
-    "latency_ms": 229.8,
+    "reason": "jev decided (risk_score=2.14)",
+    "latency_ms": 411.84844,
     "input_tokens": 2795,
     "output_tokens": 105,
     "cost_usd": 0.00011739,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.82,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.83
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
-        "mule_account": 0,
         "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "impossible_travel": 0,
+        "card_testing": 0,
+        "structuring": 1,
+        "mule_account": 0,
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.14,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.82,
-        "3": 0.17
-       },
-       "score": 2.15,
-       "type": "score"
+        "2": 0.84,
+        "3": 0.15
+       }
       }
      },
      "model": null
@@ -3362,41 +3362,41 @@
     "txn_id": "T03-structuring-0023",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.09,
+    "fraud_probability": 0.08,
     "pattern": "none",
     "confidence": 1.0,
     "reason": "jev decided (risk_score=0.08)",
-    "latency_ms": 248.1,
+    "latency_ms": 306.84979700001236,
     "input_tokens": 2266,
     "output_tokens": 103,
     "cost_usd": 0.000095172,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.09,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.08
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
+        "structuring": 0,
         "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "account_takeover": 0,
+        "impossible_travel": 0,
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.08,
        "probabilities": {
         "0": 0.94,
         "1": 0.05,
         "2": 0.01,
         "3": 0
-       },
-       "score": 0.08,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3407,41 +3407,41 @@
     "txn_id": "T03-structuring-0024",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.13,
+    "fraud_probability": 0.14,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "jev decided (risk_score=0.29)",
-    "latency_ms": 261.6,
+    "reason": "jev decided (risk_score=0.3)",
+    "latency_ms": 240.38291099998332,
     "input_tokens": 2419,
     "output_tokens": 103,
     "cost_usd": 0.000101598,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.13,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.14
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
+        "mule_account": 0,
         "account_takeover": 0,
         "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "structuring": 0,
+        "none": 1
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.3,
        "probabilities": {
-        "0": 0.76,
+        "0": 0.75,
         "1": 0.2,
-        "2": 0.04,
+        "2": 0.05,
         "3": 0
-       },
-       "score": 0.29,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3455,38 +3455,38 @@
     "fraud_probability": 0.15,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "jev decided (risk_score=0.66)",
-    "latency_ms": 271.7,
+    "reason": "jev decided (risk_score=0.6)",
+    "latency_ms": 318.72994699998003,
     "input_tokens": 2570,
     "output_tokens": 103,
     "cost_usd": 0.00010794,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.15,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.15
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
         "mule_account": 0,
         "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "structuring": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "account_takeover": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.6,
        "probabilities": {
-        "0": 0.46,
-        "1": 0.44,
+        "0": 0.51,
+        "1": 0.39,
         "2": 0.1,
         "3": 0
-       },
-       "score": 0.66,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3496,59 +3496,57 @@
    {
     "txn_id": "T03-structuring-0026",
     "evaluator": "jev+sonnet-5",
-    "is_fraud": true,
-    "fraud_probability": 0.72,
-    "pattern": "structuring",
+    "is_fraud": false,
+    "fraud_probability": null,
+    "pattern": null,
     "confidence": null,
-    "reason": "escalated (jev p=0.51): This ACH debit itself is routine, but it is part of an account exhibiting a clear pattern of repeated cash deposits just under 10,000 USD across multiple Austin-area branches despite the account being based in Seattle, consistent with structuring to evade reporting thresholds.",
-    "latency_ms": 2553.458755999839,
-    "input_tokens": 5869,
-    "output_tokens": 233,
-    "cost_usd": 0.007563431999999999,
-    "raw": {
-     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.72, \"pattern\": \"structuring\", \"reason\": \"This ACH debit itself is routine, but it is part of an account exhibiting a clear pattern of repeated cash deposits just under 10,000 USD across multiple Austin-area branches despite the account being based in Seattle, consistent with structuring to evade reporting thresholds.\"}"
-    },
-    "error": null
+    "reason": "escalated (jev p=0.5): None",
+    "latency_ms": 2855.013995999997,
+    "input_tokens": 2796,
+    "output_tokens": 103,
+    "cost_usd": 0.000117432,
+    "raw": null,
+    "error": "ValueError: no JSON object in LLM output: '{\\n  \"is_fraud\": true,\\n  \"fraud_probability\": 0.72,\\n  \"pattern\": \"structuring\",\\n  \"reason\": \"This routine ACH payment its'"
    },
    {
     "txn_id": "T03-structuring-0027",
     "evaluator": "jev+sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.81,
+    "fraud_probability": 0.8,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "jev decided (risk_score=2.14)",
-    "latency_ms": 215.7,
+    "reason": "jev decided (risk_score=2.11)",
+    "latency_ms": 258.2764969999971,
     "input_tokens": 2799,
     "output_tokens": 105,
     "cost_usd": 0.000117558,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.81,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.8
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
+        "none": 0,
         "card_testing": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "structuring": 1,
+        "account_takeover": 0,
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.11,
        "probabilities": {
-        "0": 0,
+        "0": 0.01,
         "1": 0.01,
-        "2": 0.83,
-        "3": 0.16
-       },
-       "score": 2.14,
-       "type": "score"
+        "2": 0.85,
+        "3": 0.13
+       }
       }
      },
      "model": null
@@ -3559,41 +3557,41 @@
     "txn_id": "T03-structuring-0028",
     "evaluator": "jev+sonnet-5",
     "is_fraud": true,
-    "fraud_probability": 0.82,
+    "fraud_probability": 0.83,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "jev decided (risk_score=2.1)",
-    "latency_ms": 213.6,
+    "reason": "jev decided (risk_score=2.14)",
+    "latency_ms": 288.34558799999854,
     "input_tokens": 2800,
     "output_tokens": 105,
     "cost_usd": 0.0001176,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.82,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.83
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
+        "none": 0,
         "impossible_travel": 0,
         "mule_account": 0,
-        "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "structuring": 1,
+        "account_takeover": 0,
+        "card_testing": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.14,
        "probabilities": {
         "0": 0,
         "1": 0.01,
-        "2": 0.87,
-        "3": 0.12
-       },
-       "score": 2.1,
-       "type": "score"
+        "2": 0.84,
+        "3": 0.15
+       }
       }
      },
      "model": null
@@ -3607,38 +3605,38 @@
     "fraud_probability": 0.88,
     "pattern": "structuring",
     "confidence": 1.0,
-    "reason": "jev decided (risk_score=2.24)",
-    "latency_ms": 280.3,
+    "reason": "jev decided (risk_score=2.27)",
+    "latency_ms": 285.97174099999734,
     "input_tokens": 2801,
     "output_tokens": 105,
     "cost_usd": 0.000117642,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.88,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.88
       },
       "pattern": {
+       "type": "choice",
        "choice": "structuring",
        "probabilities": {
-        "account_takeover": 0,
         "card_testing": 0,
+        "account_takeover": 0,
         "impossible_travel": 0,
-        "mule_account": 0,
+        "structuring": 1,
         "none": 0,
-        "structuring": 1
-       },
-       "type": "choice"
+        "mule_account": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 2.27,
        "probabilities": {
         "0": 0,
         "1": 0,
-        "2": 0.75,
-        "3": 0.25
-       },
-       "score": 2.24,
-       "type": "score"
+        "2": 0.73,
+        "3": 0.27
+       }
       }
      },
      "model": null
@@ -3652,38 +3650,38 @@
     "fraud_probability": 0.11,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "jev decided (risk_score=0.18)",
-    "latency_ms": 274.0,
+    "reason": "jev decided (risk_score=0.21)",
+    "latency_ms": 211.96133899999836,
     "input_tokens": 2723,
     "output_tokens": 103,
     "cost_usd": 0.000114366,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.11,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.11
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
+        "none": 1,
         "card_testing": 0,
         "impossible_travel": 0,
+        "account_takeover": 0,
         "mule_account": 0,
-        "none": 0.99,
-        "structuring": 0.01
-       },
-       "type": "choice"
+        "structuring": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.21,
        "probabilities": {
-        "0": 0.85,
-        "1": 0.12,
+        "0": 0.83,
+        "1": 0.14,
         "2": 0.03,
         "3": 0
-       },
-       "score": 0.18,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3694,41 +3692,41 @@
     "txn_id": "T03-structuring-0031",
     "evaluator": "jev+sonnet-5",
     "is_fraud": false,
-    "fraud_probability": 0.12,
+    "fraud_probability": 0.13,
     "pattern": "none",
     "confidence": 0.99,
-    "reason": "jev decided (risk_score=0.38)",
-    "latency_ms": 224.9,
+    "reason": "jev decided (risk_score=0.36)",
+    "latency_ms": 295.25263700000437,
     "input_tokens": 2725,
     "output_tokens": 103,
     "cost_usd": 0.00011445,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.12,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.13
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
-        "account_takeover": 0,
-        "card_testing": 0,
-        "impossible_travel": 0,
-        "mule_account": 0,
         "none": 1,
+        "impossible_travel": 0,
+        "card_testing": 0,
+        "account_takeover": 0,
+        "mule_account": 0,
         "structuring": 0
-       },
-       "type": "choice"
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.36,
        "probabilities": {
-        "0": 0.66,
+        "0": 0.68,
         "1": 0.29,
-        "2": 0.05,
+        "2": 0.03,
         "3": 0
-       },
-       "score": 0.38,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3742,38 +3740,38 @@
     "fraud_probability": 0.09,
     "pattern": "none",
     "confidence": 1.0,
-    "reason": "jev decided (risk_score=0.08)",
-    "latency_ms": 225.4,
+    "reason": "jev decided (risk_score=0.1)",
+    "latency_ms": 201.54920699999934,
     "input_tokens": 2725,
     "output_tokens": 103,
     "cost_usd": 0.00011445,
     "raw": {
      "answers": {
       "is_fraud": {
-       "probability": 0.09,
-       "type": "boolean"
+       "type": "boolean",
+       "probability": 0.09
       },
       "pattern": {
+       "type": "choice",
        "choice": "none",
        "probabilities": {
+        "structuring": 0,
+        "none": 1,
+        "mule_account": 0,
         "account_takeover": 0,
         "card_testing": 0,
-        "impossible_travel": 0,
-        "mule_account": 0,
-        "none": 1,
-        "structuring": 0
-       },
-       "type": "choice"
+        "impossible_travel": 0
+       }
       },
       "risk": {
+       "type": "score",
+       "score": 0.1,
        "probabilities": {
-        "0": 0.92,
-        "1": 0.07,
+        "0": 0.91,
+        "1": 0.08,
         "2": 0.01,
         "3": 0
-       },
-       "score": 0.08,
-       "type": "score"
+       }
       }
      },
      "model": null
@@ -3787,46 +3785,6 @@
    "evaluator": "jev",
    "n": 32,
    "tp": 9,
-   "fp": 3,
-   "tn": 20,
-   "fn": 0,
-   "precision": 0.75,
-   "recall": 1.0,
-   "f1": 0.8571428571428571,
-   "accuracy": 0.90625,
-   "pattern_accuracy": 1.0,
-   "errors": 0,
-   "latency_p50_ms": 258.65,
-   "latency_p95_ms": 331.5,
-   "latency_total_ms": 8394.5,
-   "cost_usd": 0.002695517999999999,
-   "input_tokens": 64179,
-   "output_tokens": 3322
-  },
-  "sonnet-5": {
-   "evaluator": "sonnet-5",
-   "n": 32,
-   "tp": 9,
-   "fp": 2,
-   "tn": 21,
-   "fn": 0,
-   "precision": 0.8181818181818182,
-   "recall": 1.0,
-   "f1": 0.9,
-   "accuracy": 0.9375,
-   "pattern_accuracy": 1.0,
-   "errors": 0,
-   "latency_p50_ms": 2021.6372225000896,
-   "latency_p95_ms": 5287.722959999883,
-   "latency_total_ms": 81758.05230500032,
-   "cost_usd": 0.180024,
-   "input_tokens": 68542,
-   "output_tokens": 4294
-  },
-  "gpt-5.6-luna": {
-   "evaluator": "gpt-5.6-luna",
-   "n": 32,
-   "tp": 9,
    "fp": 4,
    "tn": 19,
    "fn": 0,
@@ -3836,15 +3794,15 @@
    "accuracy": 0.875,
    "pattern_accuracy": 1.0,
    "errors": 0,
-   "latency_p50_ms": 2056.205791499906,
-   "latency_p95_ms": 3021.054954999954,
-   "latency_total_ms": 76231.22918499939,
-   "cost_usd": 0.013634199999999997,
-   "input_tokens": 47963,
-   "output_tokens": 3368
+   "latency_p50_ms": 276.87397199999,
+   "latency_p95_ms": 364.94653299999413,
+   "latency_total_ms": 9241.950781999862,
+   "cost_usd": 0.002695517999999999,
+   "input_tokens": 64179,
+   "output_tokens": 3324
   },
-  "jev+sonnet-5": {
-   "evaluator": "jev+sonnet-5",
+  "sonnet-5": {
+   "evaluator": "sonnet-5",
    "n": 32,
    "tp": 9,
    "fp": 3,
@@ -3856,12 +3814,52 @@
    "accuracy": 0.90625,
    "pattern_accuracy": 1.0,
    "errors": 0,
-   "latency_p50_ms": 272.85,
-   "latency_p95_ms": 2621.817911999943,
-   "latency_total_ms": 41371.72566599964,
-   "cost_usd": 0.05450551800000001,
-   "input_tokens": 78134,
-   "output_tokens": 5712
+   "latency_p50_ms": 2336.4255849999863,
+   "latency_p95_ms": 2971.748052999999,
+   "latency_total_ms": 94953.452969,
+   "cost_usd": 0.18659399999999998,
+   "input_tokens": 68542,
+   "output_tokens": 4951
+  },
+  "gpt-5.6-luna": {
+   "evaluator": "gpt-5.6-luna",
+   "n": 32,
+   "tp": 8,
+   "fp": 4,
+   "tn": 19,
+   "fn": 1,
+   "precision": 0.6666666666666666,
+   "recall": 0.8888888888888888,
+   "f1": 0.761904761904762,
+   "accuracy": 0.84375,
+   "pattern_accuracy": 1.0,
+   "errors": 0,
+   "latency_p50_ms": 2160.9953519999863,
+   "latency_p95_ms": 4269.002190999999,
+   "latency_total_ms": 79748.86590900009,
+   "cost_usd": 0.013796199999999998,
+   "input_tokens": 47963,
+   "output_tokens": 3503
+  },
+  "jev+sonnet-5": {
+   "evaluator": "jev+sonnet-5",
+   "n": 32,
+   "tp": 9,
+   "fp": 1,
+   "tn": 22,
+   "fn": 0,
+   "precision": 0.9,
+   "recall": 1.0,
+   "f1": 0.9473684210526316,
+   "accuracy": 0.96875,
+   "pattern_accuracy": 1.0,
+   "errors": 1,
+   "latency_p50_ms": 287.15866449999794,
+   "latency_p95_ms": 2966.0581500000094,
+   "latency_total_ms": 54283.654415000114,
+   "cost_usd": 0.05715951800000001,
+   "input_tokens": 75061,
+   "output_tokens": 6592
   }
  }
 }
