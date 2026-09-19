@@ -1,8 +1,10 @@
 # Slides brief: "System One for the transaction stream"
 
-Instructions for Claude Design. Build a 16-slide deck from this outline (13 slides as
-numbered, plus a three-slide second act on the adversarial e2e swarm, slides 11a to 11c,
-placed after slide 11). Audience is
+Instructions for Claude Design. Build an 18-slide deck from this outline (13 slides as
+numbered, plus a two-slide Jev primer, slides 4a and 4b, placed after slide 4, plus a
+three-slide second act on the adversarial e2e swarm, slides 11a to 11c, placed after
+slide 11). The "Running the demos" appendix at the end is for the presenter's runbook and
+optionally one backup slide per experiment. Audience is
 senior engineers and engineering leaders at a technology enterprise (thousands of
 engineers, regulated data, real-time decision systems). Tone: precise, no hype, every
 number traceable to the repo. Dark background, one idea per slide, large type, charts
@@ -12,8 +14,9 @@ not for the slide body.
 Source of truth for all numbers: `results/summary.json`, `results/T0*.json` and
 `results/pii-check.json` (fraud bake-off and PII check) and `results/swarm/*-summary.json`,
 `results/swarm/*-findings.md` (swarm) in
-https://github.com/jburns24/jev-demo (branch `claude/fraud-detection-jev-demo-6w42lx`).
-Do not invent numbers. If a number is not in this brief or those files, leave it out.
+https://github.com/liatrio/jev-demo-jburns24 (branch `main`). `results/report.html` is a
+rendered single-page view of the same files. Do not invent numbers. If a number is not in
+this brief or those files, leave it out.
 
 ---
 
@@ -101,6 +104,99 @@ call per decision cycle, code validates the answer, code acts.
 
 ---
 
+## Slide 4a: Primer. A Jev call is three things: state, questions, criteria
+
+**Headline:** You describe the situation, you list the options, Jev returns probabilities
+
+Three labelled boxes, left to right, each with a tiny example. Keep the example small enough
+to read from the back of the room.
+
+**State**: any JSON. It is the thing being judged. No prompt, no role-play, no instructions
+hidden in prose.
+```
+{ "log_statement": "logger.info('reset link sent to %s', user.email)" }
+```
+
+**Question**: a name, a type and one sentence of instructions. Three types exist:
+```
+"leaks_pii":  { "type": "boolean",
+                "instructions": "The statement writes personal data to the log." }
+```
+
+**Criteria**: for `choice` and `score`, the options Jev must pick between. The text of each
+option is the rubric.
+```
+"kind": { "type": "choice",
+          "instructions": "What kind of personal data does the statement write?",
+          "criteria": { "none": "opaque ids, counts, masked or hashed values",
+                        "contact": "email, phone, postal address",
+                        "credential": "password, token, secret" } }
+```
+
+**Answer** (right edge of the slide):
+```
+leaks_pii: { probability: 0.98 }
+kind:      { choice: "contact",
+             probabilities: { none: 0.01, contact: 0.97, credential: 0.02 } }
+```
+
+Callouts:
+- `boolean` returns one probability. `choice` returns a probability per option and the
+  argmax. `score` returns a probability per ordered level and an expected value.
+- Many questions travel in one call and are answered in parallel (speculative fan-out).
+  Twenty log statements are twenty `choice` questions in one round trip.
+- Nothing in the answer is free text. There is nothing to parse and nothing outside the
+  offered options for the model to invent.
+
+Speaker notes: Say "the criteria are the rubric" out loud. Changing the policy is editing
+those strings, not re-engineering a prompt. This exact shape is what `pii_questions()` in
+`src/jev_demo/pii_check.py` builds, minus the four lines of code context.
+
+---
+
+## Slide 4b: Primer. Two layers: Jev judges meaning, code decides
+
+**Headline:** The semantic layer answers "what is this?"; the deterministic layer answers
+"so what do we do?"
+
+Split slide. Left column "semantic (Jev)", right column "deterministic (code)". Walk one
+example down both columns.
+
+Example, a real row: `T03-structuring-0014`, a 9,431.67 USD cash deposit, the third
+under-threshold deposit the bank has seen on this account. Jev's actual answers from
+`results/T03-structuring.json`:
+
+| semantic layer (Jev) | deterministic layer (code) |
+|---|---|
+| `is_fraud`: probability 0.77 | `p >= 0.5` -> flag the row |
+| `pattern`: choice `structuring`, probabilities { structuring 1.00, none 0, mule_account 0, ... } | `validate_choice`: choice offered? keys match? sum to 1? choice is argmax? Reject anything else |
+| `risk`: score 2.09, probabilities { approve 0, monitor 0.01, hold 0.89, block 0.10 } | `0.3 < p < 0.7` -> escalate to Sonnet; here p is 0.77, so Jev acts alone |
+| (no text) | write the verdict, the probability and the rule that fired to the audit log |
+
+Two contrasting examples under the table, one line each, to show why both layers are needed:
+- **Semantic wins over regex.** `logger.info("welcome email queued for %s", mask_email(email))`
+  and `logger.info("welcome email queued for %s", customer.email)` match the same keyword
+  scanner. Jev returns P(pii) 0.20 for the first and 1.00 for the second
+  (`results/pii-check.json`).
+- **Deterministic wins over the model.** A page that returned HTTP 500 with a Python
+  traceback is a defect whether or not a model thinks so. The swarm passes that as a fact;
+  Jev only names the category and grades the severity.
+
+Callouts:
+- Every threshold in this repo is a number in code: 0.5 to flag a fraud row, 0.3 to 0.7 for
+  the escalation band, 0.5 to block a commit, 0.35 to warn, severity 2 to block a push.
+- Because thresholds are code, they are unit-tested, diffable and explainable to an auditor.
+  Because the judgement is calibrated, tuning a threshold changes behaviour predictably.
+- The contract check (`validate_choice`, ported from jev-ultrafast) sits between the two
+  layers. A malformed answer is an error, never a silent default.
+
+Speaker notes: This is the slide that answers "why not just use an LLM with JSON mode".
+JSON mode gives you a shape. It does not give you a calibrated number to put a threshold
+on, and it does not stop the model inventing an option you did not offer. Point at the
+right column and say: all of this is plain Python you can read in five minutes.
+
+---
+
 ## Slide 5: The demo setup
 
 **Headline:** Six tapes, one known situation each, three evaluators, identical input
@@ -126,24 +222,26 @@ on textbook patterns, not a production benchmark.
 
 ## Slide 6: Results, pooled across all tapes
 
-**Headline:** Same recall as the frontier LLM, 8x faster, 62x cheaper
+**Headline:** Recall 1.00 against the frontier LLM's 0.97, 8x faster, 63x cheaper
 
 Chart 1 (bar, log scale): p50 latency per row, jev vs sonnet-5 vs gpt-5.6-luna.
 Chart 2 (bar, log scale): total cost for all 212 rows.
 Small table: precision, recall, F1, pattern accuracy per evaluator.
 
-Numbers from the recorded run (results/summary.json):
+Numbers from the live run on main (results/summary.json):
 
 | evaluator | rows | TP | FP | FN | precision | recall | F1 | pattern acc | errors | p50 ms | p95 ms | total cost |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| jev | 212 | 39 | 4 | 0 | 0.91 | 1.00 | 0.95 | 0.97 | 0 | 251 | 356 | $0.0183 |
-| sonnet-5 | 212 | 39 | 5 | 0 | 0.89 | 1.00 | 0.94 | 1.00 | 0 | 1,902 | 3,584 | $1.1406 |
-| gpt-5.6-luna | 212 | 35 | 7 | 4 | 0.83 | 0.90 | 0.86 | 1.00 | 0 | 2,069 | 3,474 | $0.0914 |
-| jev+sonnet-5 | 212 | 38 | 5 | 1 | 0.88 | 0.97 | 0.93 | 0.97 | 0 | 254 | 2,153 | $0.1175 |
+| jev | 212 | 39 | 5 | 0 | 0.89 | 1.00 | 0.94 | 0.97 | 1 | 269 | 620 | $0.0182 |
+| sonnet-5 | 212 | 38 | 6 | 1 | 0.86 | 0.97 | 0.92 | 1.00 | 0 | 2,188 | 3,103 | $1.1424 |
+| gpt-5.6-luna | 212 | 33 | 6 | 6 | 0.85 | 0.85 | 0.85 | 1.00 | 0 | 2,068 | 3,695 | $0.0914 |
+| jev+sonnet-5 | 212 | 38 | 3 | 1 | 0.93 | 0.97 | 0.95 | 0.97 | 1 | 266 | 2,308 | $0.1156 |
 
-- vs **sonnet-5**: Jev is 8x faster at p50 and 62x cheaper
+- vs **sonnet-5**: Jev is 8x faster at p50 and 63x cheaper
 - vs **gpt-5.6-luna**: Jev is 8x faster at p50 and 5x cheaper
 - vs **jev+sonnet-5**: Jev is 1x faster at p50 and 6x cheaper
+
+The one Jev error is a gateway connection failure on a clean row, scored as "not fraud".
 
 Speaker notes: Read the multiples out loud. Then say what the F1 gap is and whether it
 favours Jev or the LLM, honestly.
@@ -234,7 +332,7 @@ Numbers from `results/pii-check.json` (four fixture files in Python, TypeScript 
 
 | statements | Jev calls | leaks caught | false positives | p50 per call | wall clock | cost |
 |--:|--:|--:|--:|--:|--:|--:|
-| 26 | 4 | 7 of 7 | 0 | 594 ms | 765 ms | $0.00048 |
+| 26 | 4 | 7 of 7 | 0 | 663 ms | 1,102 ms | $0.00048 |
 
 Callouts:
 - Adding a statement adds a question, not a call. A 20-statement file costs one round trip.
@@ -324,8 +422,10 @@ that reproduced it (from `results/swarm/injected-findings.md`):
 | `/transfer` zero-amount transfer accepted | validation_gap (report only) | 1 | 0.88 | none |
 
 Two small stat tiles, both runs from `results/swarm/*-summary.json`:
-- Injected: 200 agents, 806 browser steps, 813 Jev calls, 38 s wall, $0.048, FAIL (6 blocking).
-- Clean: 200 agents, 815 browser steps, 815 Jev calls, 37 s wall, $0.050, PASS (0 findings).
+- Injected: 200 agents, 800 browser steps, 808 Jev calls, 53 s wall, $0.048, FAIL (6 blocking).
+- Clean: 200 agents, 818 browser steps, 818 Jev calls, 45 s wall, $0.050, PASS (0 findings).
+- Both runs with every Jev call live (no cassette replay). Agents that reproduced each
+  finding: take the column from `results/swarm/injected-findings.md` on main.
 
 Callouts:
 - Two-stage judgement: agents flag, a second Jev call triages each deduplicated incident
@@ -399,7 +499,7 @@ Speaker notes: Say these before someone else does.
 **Headline:** Try it
 
 ```
-git clone https://github.com/jburns24/jev-demo
+git clone https://github.com/liatrio/jev-demo-jburns24
 cp .env.example .env    # API_KEY
 task setup && task demo
 ```
@@ -413,8 +513,126 @@ Proposed follow-ups, as a short list:
 5. Point the swarm at a staging deployment of one of our own web apps, with personas
    written by that team, and run it as its pre-push hook for a sprint.
 
-Then switch to the terminal and run `task play -- T01`, and if time allows `task pii:demo`
-and `task swarm:demo`.
+Then switch to the terminal and run the demos in the appendix below: `task play -- T01`,
+then if time allows `task pii:demo` and `task swarm:demo`.
 
 Speaker notes: End on the live run. The point of the deck is to earn the two minutes of
 terminal time.
+
+---
+
+## Appendix: Running the demos (presenter runbook)
+
+One-time setup, from a clean clone. Needs `uv`, `task` and a Vercel AI Gateway key.
+
+```
+git clone https://github.com/liatrio/jev-demo-jburns24 && cd jev-demo-jburns24
+cp .env.example .env        # paste API_KEY=... (one key reaches Jev, Sonnet 5 and GPT-5.6 Luna)
+task setup                  # venv + install
+task browser:install        # Chromium for the swarm (or export JEV_SWARM_CHROMIUM=/path/to/chrome)
+```
+
+Modes matter for what the audience sees. `JEV_DEMO_MODE=record` (the CLI default) replays
+any request that has a cassette and calls the gateway only for new ones, so a demo of the
+committed tapes is instant and free. Add `--mode live` to force real calls and real
+latency numbers; that is the honest version for a "how fast is it" question.
+
+### Demo 1: fraud bake-off (3 to 5 minutes)
+
+```
+task tapes:list                          # 1. show the six tapes and what each one plants
+task play -- T01                         # 2. account takeover: jev vs sonnet vs gpt, replayed
+task play -- T05 -e jev,sonnet,gpt,hybrid --mode live   # 3. mule tape, live, adds the gated hybrid
+task play:all                            # 4. pooled table across all six tapes
+```
+
+What the audience sees:
+1. A card per tape: title, the situation in plain English, row count and planted fraud rows.
+2. A live progress line as each evaluator works through the 38 rows, then a metrics table
+   (precision, recall, F1, pattern accuracy, p50 and p95 latency, cost) and a disagreement
+   table listing the rows where the evaluators split, with each model's verdict and
+   probability. Point at the first ATO row: Jev flags it at the new-device login, before
+   any money moves.
+3. The same for the mule tape, but with real latency: Jev's counter finishes in a few
+   seconds, the two LLM counters take about a minute. The hybrid column shows which gray-zone
+   rows were escalated to Sonnet. Cost for the tape prints at the bottom.
+4. The pooled table from slide 6 and the "Jev is Nx faster and Nx cheaper" summary line.
+   Every number on slide 6 comes from this command's `results/summary.json`.
+
+Fallback if the gateway is down: `task play:all` in the default mode replays cassettes and
+prints the same tables with the recorded latencies.
+
+### Demo 2: PII lint in pre-commit (2 minutes)
+
+```
+task pii:demo                            # 1. clean fixtures pass, leaky fixtures block
+```
+Then live on a real commit. Plant the leak in a new, lint-clean file so ruff (which runs
+first) passes and the PII hook is the one that fails:
+```
+cat > src/jev_demo/reminders.py <<'EOF'      # 2. plant a leak
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def remind(user) -> None:
+    logger.info("reminder sent to %s", user.email)
+EOF
+git add -A && git commit -m "demo"           # 3. hook fires and blocks
+sed -i 's/user.email/user.id/' src/jev_demo/reminders.py
+git add -A && git commit -m "demo"           # 4. redacted: the same commit goes through
+git reset --hard HEAD~1                      # 5. clean up after the demo
+```
+
+What the audience sees:
+1. Two runs of `jev-demo pii-check --mode live -v`. The clean Python and Go files print
+   every statement as `ok` with its P(pii), including a masked email at 0.20 and a hashed
+   key at 0.00. The leaky Python and TypeScript files print `BLOCK` lines with the kind of
+   data (identity, credential, financial, network_location), the probability and the
+   offending code, then "commit blocked" and exit 1. The footer shows the count: 26
+   statements, 4 files, 4 Jev calls, wall clock about a second, cost under a twentieth of a
+   cent.
+2. to 4. The pre-commit output from slide 10, for real: lint and tests pass in seconds,
+   then `pii in log statements (jev, live)` fails with the planted line, its file and line
+   number, and P(pii). After the revert the same commit passes. Say that the hook only
+   receives staged files, so it costs one call per changed file, not per repo.
+
+Requires `API_KEY` in `.env`; the hook runs live on purpose so it never records cassettes
+for work-in-progress code.
+
+### Demo 3: adversarial swarm on pre-push (2 to 3 minutes)
+
+```
+task swarm:demo                          # 1. 200 agents, all seven regressions injected, replayed (no key needed)
+task swarm                               # 2. the pre-push hook: 200 agents vs the clean portal
+task swarm -- --inject idor,dead_link    # 3. plant two regressions and watch only those come back
+task swarm:live -- --inject all          # 4. optional: every Jev call live, real timing and cost
+```
+
+What the audience sees:
+1. A progress line every 25 agents, then a findings report: one row per deduplicated
+   finding with severity, category, path, the number of agents that reproduced it,
+   P(defect), the automatic checks that fired and BLOCK or report. Six blocking findings
+   (negative transfer, dead Statements link, another customer's account and SSN digits,
+   traceback on the transfer memo, traceback on a non-ASCII profile name, reflected script
+   executing) and one report-only (zero-amount transfer). Footer: 200 agents, about 800
+   browser steps, about 800 Jev calls, wall time, cost, `FAIL`. Exit code 1, which is what
+   blocks the push.
+2. The same swarm against the unbroken portal: "No defects confirmed by triage", `PASS`,
+   exit 0. This is the false-positive check; say it out loud.
+3. Only the two planted regressions come back, found by the url-tamperer and link-walker
+   personas. Shows the finding is caused by the injected bug, not by the agents' payloads.
+4. Same as 1 with `(0 replayed, N live)` in the footer, about 45 to 55 seconds of wall
+   time and about five cents. Use this if someone asks whether the replay is hiding the cost.
+
+Needs a Chromium that Playwright can launch (`task browser:install`, or set
+`JEV_SWARM_CHROMIUM`). Step 1 needs no API key; steps 2 to 4 need `API_KEY` for any page
+state that has no cassette yet.
+
+### Backup: the rendered report
+
+`results/report.html` (open it in a browser, no server needed) is the single-page view of
+all three experiments with the live numbers: KPI tiles, cost and latency and F1 bars,
+per-tape and per-finding tables, and an enterprise-scale cost extrapolation. Regenerate
+after any rerun with `uv run python scripts/report_html.py`.
