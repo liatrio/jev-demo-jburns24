@@ -1,0 +1,111 @@
+# https://taskfile.dev
+version: "3"
+
+dotenv: [".env"]
+
+vars:
+  PY: uv run
+
+tasks:
+  default:
+    cmds: [task --list]
+    silent: true
+
+  setup:
+    desc: Create the venv and install the package with dev extras
+    cmds:
+      - uv venv --allow-existing
+      - uv pip install -e ".[dev]"
+    sources: [pyproject.toml]
+    generates: [.venv/pyvenv.cfg]
+
+  lint:
+    desc: Ruff lint + format check
+    deps: [setup]
+    cmds:
+      - "{{.PY}} ruff check ."
+      - "{{.PY}} ruff format --check ."
+
+  fmt:
+    desc: Auto-fix lint and format
+    deps: [setup]
+    cmds:
+      - "{{.PY}} ruff check . --fix"
+      - "{{.PY}} ruff format ."
+
+  tapes:generate:
+    desc: Regenerate tapes/*.json from the seeded generators (idempotent)
+    deps: [setup]
+    cmds: ["{{.PY}} jev-demo generate-tapes"]
+
+  tapes:list:
+    desc: Show every tape and the situation it encodes
+    deps: [setup]
+    cmds: ["{{.PY}} jev-demo tapes"]
+
+  test:unit:
+    desc: Fast offline unit tests (no cassettes, no network)
+    deps: [setup]
+    cmds: ["{{.PY}} pytest tests/unit -q"]
+
+  test:e2e:
+    desc: Deterministic e2e suite - Jev-driven, replayed from tests/cassettes, no network
+    deps: [setup]
+    env:
+      JEV_DEMO_MODE: replay
+    cmds: ["{{.PY}} pytest tests/e2e -q {{.CLI_ARGS}}"]
+
+  test:
+    desc: Everything that runs offline (what pre-commit runs)
+    cmds:
+      - task: lint
+      - task: test:unit
+      - task: test:e2e
+
+  e2e:record:
+    desc: Fill in missing cassettes from the live gateway (needs API_KEY). Existing cassettes are kept.
+    deps: [setup]
+    preconditions:
+      - sh: test -n "$API_KEY"
+        msg: "API_KEY must be set (Vercel AI Gateway key)"
+    env:
+      JEV_DEMO_MODE: record
+    cmds:
+      - "{{.PY}} jev-demo play-all -e jev,sonnet,gpt,hybrid --quiet"
+      - "{{.PY}} pytest tests/e2e -q"
+
+  e2e:rerecord:
+    desc: Delete all cassettes and record fresh ones (needs API_KEY, makes paid calls)
+    prompt: This deletes tests/cassettes and re-records every request. Continue?
+    cmds:
+      - rm -rf tests/cassettes
+      - task: e2e:record
+
+  test:live:
+    desc: Run the e2e suite against the live gateway, bypassing cassettes (needs API_KEY)
+    deps: [setup]
+    env:
+      JEV_DEMO_MODE: live
+    cmds: ["{{.PY}} pytest tests/e2e -q -m 'e2e or live'"]
+
+  play:
+    desc: "Play one tape: task play -- T01 [--evaluators jev,sonnet,gpt,hybrid] [--mode live]"
+    deps: [setup]
+    cmds: ["{{.PY}} jev-demo play {{.CLI_ARGS}}"]
+
+  play:all:
+    desc: Play every tape and print the pooled comparison (replays cassettes when present)
+    deps: [setup]
+    cmds: ["{{.PY}} jev-demo play-all {{.CLI_ARGS}}"]
+
+  demo:
+    desc: Live demo run of all tapes with all evaluators, ignoring cassettes (needs API_KEY)
+    deps: [setup]
+    env:
+      JEV_DEMO_MODE: live
+    cmds: ["{{.PY}} jev-demo play-all -e jev,sonnet,gpt --no-save"]
+
+  hooks:install:
+    desc: Install the pre-commit hook
+    cmds:
+      - uv tool run pre-commit install

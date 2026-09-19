@@ -1,0 +1,139 @@
+# jev-demo: Jev vs generative LLMs on fraud-classification tapes
+
+A bake-off between [TypeSafe's Jev](https://docs.typesafe.ai/introduction) (a "System One"
+evaluation model that returns typed, calibrated decisions instead of text) and two
+generative LLMs, **Claude Sonnet 5** and **GPT-5.6 Luna**, on the same job: reading a stream
+of bank transaction log rows and deciding, row by row, whether each one is fraud.
+
+Every model is reached through one Vercel AI Gateway key (`API_KEY`), sees byte-identical
+input, and is scored against ground truth it never sees.
+
+## What is on the tapes
+
+A *tape* is a synthetic, seeded stream of transactions for an enterprise bank, with one
+known situation planted in it. Ground truth is stored on every row and stripped before an
+evaluator sees it.
+
+| Tape | Situation | Rows | Fraud rows |
+|------|-----------|-----:|-----------:|
+| `T00-clean` | Two normal customers, one legitimately large travel booking. Zero fraud; measures false positives. | 47 | 0 |
+| `T01-ato` | Account takeover: new device in Romania at 02:40 UTC, crypto, Zelle to a stranger, electronics, all within 11 minutes. | 38 | 4 |
+| `T02-cardtest` | Card testing: 14 sub-3 USD digital-goods charges in 12 minutes from a headless device, then a 1,490 USD purchase. | 39 | 15 |
+| `T03-structuring` | Smurfing: repeated 9,300 to 9,950 USD cash deposits across four branches, each under the 10,000 USD CTR threshold. | 32 | 9 |
+| `T04-travel` | Impossible travel: card-present in London, then swiped twice in Sao Paulo 22 minutes later. | 31 | 2 |
+| `T05-mule` | Money mule: six-week-old account receives seven Zelle credits from strangers, wires 93 percent to a UAE company, cashes out the rest. | 25 | 9 |
+
+At row *i* an evaluator sees the account profile, the previous rows for that account
+(rolling window of 12) and the row under review. Nothing from the future.
+
+## Quick start
+
+```bash
+cp .env.example .env          # add API_KEY (Vercel AI Gateway)
+task setup
+task tapes:list               # what each tape encodes
+task play -- T01              # one tape, jev vs sonnet vs gpt, live results table
+task play:all                 # every tape + pooled metrics
+task demo                     # all tapes, all models, bypassing cassettes (paid calls)
+```
+
+Without `task`: `uv run jev-demo --help`.
+
+`task play -- T05 -e jev,sonnet,gpt,hybrid` adds the **confidence-gated** evaluator: Jev
+decides alone when its fraud probability is outside the 0.3 to 0.7 gray zone and escalates
+only the uncertain rows to Sonnet.
+
+## How the two evaluator families are called
+
+**Jev** gets one request per row with three typed questions evaluated in parallel
+(TypeSafe's speculative fan-out):
+
+- `is_fraud` (boolean): probability the row is fraud or part of a fraud/AML scheme
+- `pattern` (choice): which of the six situations best fits
+- `risk` (score): four ordered levels from "approve automatically" to "block and alert"
+
+Every answer is checked against the typed contract before it counts: the choice must be one
+we offered, probabilities must cover exactly the offered options and sum to one, and the
+choice must be the argmax. This is a port of `validate_choice` from
+[browser-use/jev-ultrafast](https://github.com/browser-use/jev-ultrafast).
+
+**LLMs** get the same state as JSON plus a system prompt asking for the same three fields
+as a JSON object. Provider default reasoning settings are used unless `--effort` is passed.
+
+## Results
+
+RESULTS_PLACEHOLDER
+
+## Determinism, tests and the pre-commit hook
+
+The gateway client has a record/replay layer. Every request is hashed (path, canonical
+JSON body, model); responses live in `tests/cassettes/`, one file per hash.
+
+| `JEV_DEMO_MODE` | Behaviour |
+|---|---|
+| `replay` (tests default) | Serve from cassettes. A miss fails loudly. No network, no key. |
+| `record` (CLI default) | Use a cassette if present, otherwise call the gateway and save. |
+| `live` | Always call the gateway; never read or write cassettes. |
+
+This is the pattern we took from jev-ultrafast ("tests must not call paid APIs", offline
+pytest with a faked transport, live smoke runs kept separate), with one change: instead of
+hand-written fake answers we replay real recorded model answers, so the suite tests the
+real contract.
+
+```bash
+task test          # lint + unit + e2e, all offline (what pre-commit runs)
+task test:e2e      # the Jev-driven e2e suite from cassettes
+task e2e:record    # fill in missing cassettes from the live gateway (needs API_KEY)
+task test:live     # run the e2e suite against the live gateway
+task hooks:install # pre-commit install
+```
+
+The e2e suite uses Jev in two roles:
+
+1. **System under test.** Each tape is played through Jev and held to ground truth:
+   minimum recall on the planted fraud rows, a cap on false positives, pattern accuracy
+   on true positives, and the typed-answer contract on every row.
+2. **Test oracle.** Jev grades things a plain assertion cannot: whether each synthetic tape
+   really encodes the situation its title claims (a fixture-quality gate over the whole
+   stream), and whether the plain-text analyst report the pipeline emits is actionable
+   (`identifies_situation` boolean plus a four-level `usefulness` score). Both are one
+   Jev call with several typed questions, thresholded on the calibrated probability.
+
+A third file guards the headline comparison itself (Jev at least 3x faster and cheaper than
+both LLMs on the recorded runs, F1 within 0.15 of the best LLM), so if a re-record closes
+the gap the build goes red before the slides go stale.
+
+The pre-commit hook runs lint, the tape-sync check (committed `tapes/*.json` must equal
+generator output), unit tests, and the e2e suite in replay mode. A commit takes seconds and
+costs nothing.
+
+## Layout
+
+```
+src/jev_demo/
+  models.py      Transaction, AccountProfile, Tape, Verdict, Metrics
+  tapes.py       seeded generators for the six situations + loader
+  gateway.py     Vercel AI Gateway client, chat + evaluation dialects, record/replay
+  evaluators.py  JevEvaluator, LLMEvaluator, ConfidenceGatedEvaluator, contract checks
+  runner.py      stream semantics, play_tape, scoring, pooling
+  report.py      rich tables and the plain-text analyst report
+  cli.py         jev-demo tapes | play | play-all | generate-tapes
+tapes/           committed tape JSON (regenerate with task tapes:generate)
+tests/unit       offline contract tests
+tests/e2e        Jev-driven e2e suite (replay by default)
+tests/cassettes  recorded gateway responses
+results/         last CLI run, per tape + pooled summary
+slides-outline.md  brief for the slide deck
+```
+
+## Caveats worth saying out loud
+
+- Tapes are synthetic and small (212 rows, 39 fraud). They demonstrate behaviour on
+  textbook patterns; they are not a benchmark of production fraud performance.
+- Latency is wall-clock through the gateway from this machine, at concurrency 8.
+- Cost uses the gateway's listed per-token prices at record time.
+- Jev is `typesafe-ai/jev` on the gateway, which resolves to the current release. For a
+  production threshold you would pin a version.
+- TypeSafe documents calibration, not bit-for-bit determinism. The replayed suite is
+  deterministic because it replays; `task test:live` includes an empirical repeatability
+  check.

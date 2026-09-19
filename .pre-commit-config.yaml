@@ -1,0 +1,45 @@
+# Install with: task hooks:install   (or: uv tool run pre-commit install)
+#
+# Every hook here is offline and deterministic. The e2e suite is driven by
+# Jev but replays recorded cassettes, so no API key or network is needed and
+# a commit takes seconds, not dollars.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-json
+      - id: check-yaml
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff lint
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+      - id: tapes-in-sync
+        name: tapes match generators
+        entry: uv run pytest tests/unit/test_tapes.py -q
+        language: system
+        pass_filenames: false
+        files: ^(src/jev_demo/tapes\.py|tapes/.*\.json)$
+      - id: unit-tests
+        name: unit tests
+        entry: uv run pytest tests/unit -q
+        language: system
+        pass_filenames: false
+        files: ^(src/|tests/unit/)
+      - id: e2e-jev-replay
+        name: e2e (jev-driven, cassette replay)
+        entry: env JEV_DEMO_MODE=replay uv run pytest tests/e2e -q
+        language: system
+        pass_filenames: false
+        files: ^(src/|tests/|tapes/)
