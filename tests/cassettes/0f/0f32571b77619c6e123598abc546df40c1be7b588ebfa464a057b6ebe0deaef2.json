@@ -1,0 +1,141 @@
+{
+ "latency_ms": 1882.3,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-6002\",\n  \"customer_segment\": \"retail_checking\",\n  \"home_city\": \"Chicago\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 3200.0,\n  \"typical_txn_usd\": 48.0,\n  \"usual_merchant_categories\": [\n   \"grocery\",\n   \"fuel\",\n   \"restaurant\",\n   \"online_retail\",\n   \"subscription\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 1460\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T05-mule-0002\",\n   \"timestamp\": \"2026-03-02T08:24:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 12.5,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Starbucks\",\n   \"merchant_category\": \"restaurant\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0004\",\n   \"timestamp\": \"2026-03-02T14:15:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 75.99,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Verizon Wireless\",\n   \"merchant_category\": \"telecom\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T05-mule-0005\",\n  \"timestamp\": \"2026-03-02T17:27:00Z\",\n  \"account_id\": \"ACC-6002\",\n  \"amount_usd\": 11.99,\n  \"currency\": \"USD\",\n  \"channel\": \"card_not_present\",\n  \"direction\": \"debit\",\n  \"merchant\": \"Spotify\",\n  \"merchant_category\": \"subscription\",\n  \"city\": \"Chicago\",\n  \"country\": \"US\",\n  \"device_id\": \"ios-a1\",\n  \"counterparty\": null\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "openai/gpt-5.6-luna",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.01,\n  \"pattern\": \"none\",\n  \"reason\": \"The small Spotify subscription charge uses the customer's known device and is consistent with the account's ordinary Chicago spending history.\"\n}",
+     "phase": "final_answer",
+     "provider_metadata": {
+      "azure": {
+       "reasoningContext": "all_turns",
+       "responseId": "resp_00ebba79883eac5f016aae4333be6c8194b734b32aaa7c11a0",
+       "serviceTier": "default"
+      },
+      "gateway": {
+       "cost": "0.0002768",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.0004768",
+       "generationId": "gen_01M2WBD0EZBAP5W1KP1EN4KD40",
+       "inferenceCost": "0.0002768",
+       "inputInferenceCost": "0.0001652",
+       "marketCost": "0.0002768",
+       "outputInferenceCost": "0.0001116",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "openai/gpt-5.6-luna",
+        "fallbacksAvailable": [
+         "bedrock",
+         "azure"
+        ],
+        "finalProvider": "azure",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "openai/gpt-5.6-luna",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805365499,
+            "provider": "azure",
+            "providerRequestId": "dbf8a87e-bde5-48e0-bcfd-1cb5920782dd",
+            "providerResponseId": "resp_00ebba79883eac5f016aae4333be6c8194b734b32aaa7c11a0",
+            "startTime": 1789805363696,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "openai/gpt-5.6-luna",
+        "planningReasoning": "System credentials planned for: openai, bedrock, azure. ZDR requested: 3 attempts → 1 ZDR attempts. Pre-ZDR order: openai(system) → bedrock(system) → azure(system). ZDR execution order: azure(system)",
+        "resolvedProvider": "openai",
+        "skippedProviderAttempts": [
+         {
+          "credentialType": "system",
+          "provider": "openai",
+          "reason": "zdr_not_supported"
+         },
+         {
+          "credentialType": "system",
+          "provider": "bedrock",
+          "reason": "zdr_ineligible_model"
+         }
+        ],
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "reasoning_details": [
+      {
+       "data": "gAAAAABqrkM1Pd_QvEJEDRGLkjzp1SnosO4XDXMucR9R-8hn0FGnpNB2lHRLgFTgv4ZytibMPYTfqGP9pQPkPdZYZmsHYCbSCI4WgmHidDjEpKg7EIV_uRXg0W_yT3EAd7tCOyKRhJwEi38RHotX0VOGc342guAya9D7qgJvaB7bEjiZk7FsklNOm3SNRHV8rgt9b9BUNtax-AR9EHjG546Ts4vJyMtGZcAFB-eduLUg7kqcI8GvCJ8abqxYkUY8vi8O82sdWnn1zqqnRLz1Lbhyu5p_l2Xav5IRb3-7cC_ALLdKSl_JiRPruwhe-tDz4w682KndparocK1xxKWmX63Pf8HjAAcVsqsSJLn4GBIYr_qaH95bda7NbMk5ZE1xKe5IXacec6dewwRuvtZrr3b0xjW-u1h8z0lfgmOmZFYJIa674tbRhiaNw7g2nPWsvzXL4IvYOhDLOAqKwogNV8Bp5m9iMdMO4PCoILY_X3-ISpcpioRWrawO-Ab9swNzHHNTte4qnXExfvmZeR33xpHvJctNdN749KoPxCc0t2RSwaEGLn7_JDvoUMhysmHoE9AItMQmr_nMdYHcogOlnUTMycZEjpw6DdqR9RHe-lPHfyDu-pjpBYTJPbh_9vKsc68doFy-pTxTWNQaJzplg0sbyEXc0IeBmzQAVnJS1S64I8o4p2EHNR3Q3Ex2JeOTy3xXIaOmEXSC3T5j-mZ-e-tGbJE1VcH3WzhBRZ55BU6tTyVYZITNhXiO4JnnMvGuBEBP7Hamtd0REMw8TtKN9w0IX7r_lW02qjWBONKvawOUqjuy_KXp5bY1AyZSaDlKJ3UH3EDqbFB2FzBGbPcuf6uYiHAfsadFkoMbXdcybejk_rSRyS17nN2ETwmOKoKrplmatac5x8B0DpBqqePg8A4-_Zu9D-V-z3IbA0YdNTfT8NZ_-qC0mJNKM4E9uBBbujhym9CG0F8oruyuQaGbsww9UqSJieoNmPXG9cTgetffxWyDnSxbfLNZc2PxVeTAOBShrW15Nu3FRZtUYNL_8M9K5nbGg1kM8p0B_8_2UvusA2lu4NsKR51FZ7Cwwr-2RQw8PUURl3SrBAtnMHO7p_P-0ddkBma5G4EQyimlp8SXiD9EH590y69n6dlmz2G9nkCJ36jCYI_kRtTL52FzndluffMVkSJ0ij3T1Z-TkrH1D31eu-GybOHIBNG1I_0okhHS-CyDoaURbeSPy6Cg9bjvfjBv3gNz7cCAgwgWH4Z8BUDBMIaMmjSLJG-NU65BeZz3OtlBreYxms5ZJhQrwQxtTCd1t62vo1bMnUvURxt4Bdu_P1KhJPQbHMcJeySzmYKms9vkFuTziJr_J5_V_i2D3_B8h8IMdXoLaNSs30bvpLQSIqNt3w4LPpKv66LrE3RHTTy30vah",
+       "format": "openai-responses-v1",
+       "id": "rs_00ebba79883eac5f016aae433448148194b6115539aebc2ff3",
+       "index": 0,
+       "type": "reasoning.encrypted"
+      }
+     ],
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805365,
+  "generationId": "gen_01M2WBD0EZBAP5W1KP1EN4KD40",
+  "id": "gen_01M2WBD0EZBAP5W1KP1EN4KD40",
+  "model": "openai/gpt-5.6-luna",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_5q837smppq",
+  "usage": {
+   "cache_creation_input_tokens": 0,
+   "completion_tokens": 93,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 29
+   },
+   "cost": 0.0002768,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.0004768,
+   "is_byok": false,
+   "market_cost": 0.0002768,
+   "prompt_tokens": 826,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 919,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

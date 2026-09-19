@@ -1,0 +1,95 @@
+{
+ "latency_ms": 573.7,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "identifies_situation": {
+    "instructions": "The report's flagged transactions and labels make the expected_situation evident to a bank fraud analyst. If expected_situation says there is no fraud, this is true when the report flags nothing or only a few rows.",
+    "type": "boolean"
+   },
+   "usefulness": {
+    "criteria": [
+     "Useless: no flags or no context",
+     "Weak: flags rows but labels are missing or wrong",
+     "Good: flags the right rows with a plausible pattern label",
+     "Excellent: complete, correctly labelled, nothing spurious"
+    ],
+    "instructions": "How useful is this report to an analyst deciding what to do next?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "expected_situation": "A six-week-old account with 22 USD typical spend receives seven Zelle credits from unrelated senders totalling around 11,000 USD in three hours, then wires 93 percent of it to a UAE trading company. Everyday spend surrounds it.",
+   "report": "FRAUD REVIEW REPORT - tape T05-mule (Money mule account)\nevaluator: jev   transactions reviewed: 25   flagged: 9\n\nFlagged transactions:\n- 2026-03-03T06:11:00Z T05-mule-0009 ACC-6001 credit 1,373.26 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.51\n- 2026-03-03T06:30:00Z T05-mule-0010 ACC-6001 credit 2,362.11 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.54\n- 2026-03-03T07:03:00Z T05-mule-0011 ACC-6001 credit 2,330.24 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.67\n- 2026-03-03T07:43:00Z T05-mule-0012 ACC-6001 credit 1,708.67 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.75\n- 2026-03-03T08:22:00Z T05-mule-0013 ACC-6001 credit 2,121.76 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.78\n- 2026-03-03T09:02:00Z T05-mule-0014 ACC-6001 credit 1,404.93 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.82\n- 2026-03-03T09:28:00Z T05-mule-0015 ACC-6001 credit 2,341.64 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.84\n- 2026-03-03T10:43:00Z T05-mule-0016 ACC-6001 debit 12,687.63 USD wire at International Wire (Chicago, US) -> mule_account p=0.86\n- 2026-03-03T11:13:00Z T05-mule-0017 ACC-6001 debit 682.13 USD cash at ATM Withdrawal (Boston, US) -> mule_account p=0.75"
+  }
+ },
+ "response": {
+  "answers": {
+   "identifies_situation": {
+    "probability": 0.37,
+    "type": "boolean"
+   },
+   "usefulness": {
+    "probabilities": {
+     "0": 0,
+     "1": 0.07,
+     "2": 0.63,
+     "3": 0.3
+    },
+    "score": 2.23,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WBDMQYQPMW07GJTA8NNRJB",
+    "marketCost": "0.00004809",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805384635,
+         "provider": "typesafe-ai",
+         "startTime": 1789805384466,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "usefulness": 0.62
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1145,
+   "outputTokens": 39
+  },
+  "warnings": []
+ }
+}

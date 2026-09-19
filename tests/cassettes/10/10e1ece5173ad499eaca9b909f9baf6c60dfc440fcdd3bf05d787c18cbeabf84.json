@@ -1,0 +1,196 @@
+{
+ "latency_ms": 248.6,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "is_fraud": {
+    "instructions": "The transaction under review is fraudulent or is part of a fraud or money-laundering scheme, judged against the account profile and the recent history the bank has already seen.",
+    "type": "boolean"
+   },
+   "pattern": {
+    "criteria": {
+     "account_takeover": "Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history",
+     "card_testing": "Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase",
+     "impossible_travel": "Two card-present transactions in locations too far apart to travel between in the elapsed time",
+     "mule_account": "Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+     "none": "Legitimate activity consistent with the account's history",
+     "structuring": "Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches"
+    },
+    "instructions": "Which situation best describes the transaction under review?",
+    "type": "choice"
+   },
+   "risk": {
+    "criteria": [
+     "Routine; approve automatically",
+     "Mildly unusual; log and monitor",
+     "Suspicious; hold and review",
+     "Almost certainly fraud; block and alert"
+    ],
+    "instructions": "How much investigation does the transaction under review warrant?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "account_profile": {
+    "account_age_days": 41,
+    "account_id": "ACC-6001",
+    "customer_segment": "retail_checking",
+    "home_city": "Boston",
+    "home_country": "US",
+    "known_devices": [
+     "ios-a1"
+    ],
+    "typical_monthly_spend_usd": 900.0,
+    "typical_txn_usd": 22.0,
+    "usual_merchant_categories": [
+     "grocery",
+     "restaurant"
+    ]
+   },
+   "recent_history": [
+    {
+     "account_id": "ACC-6001",
+     "amount_usd": 79.08,
+     "channel": "card_not_present",
+     "city": "Boston",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Amazon.com",
+     "merchant_category": "online_retail",
+     "timestamp": "2026-03-02T06:35:00Z",
+     "txn_id": "T05-mule-0001"
+    },
+    {
+     "account_id": "ACC-6001",
+     "amount_usd": 74.59,
+     "channel": "card_present",
+     "city": "Boston",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Verizon Wireless",
+     "merchant_category": "telecom",
+     "timestamp": "2026-03-02T12:11:00Z",
+     "txn_id": "T05-mule-0003"
+    },
+    {
+     "account_id": "ACC-6001",
+     "amount_usd": 134.85,
+     "channel": "card_not_present",
+     "city": "Boston",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Amazon.com",
+     "merchant_category": "online_retail",
+     "timestamp": "2026-03-03T00:06:00Z",
+     "txn_id": "T05-mule-0007"
+    }
+   ],
+   "transaction_under_review": {
+    "account_id": "ACC-6001",
+    "amount_usd": 1373.26,
+    "channel": "p2p",
+    "city": "Boston",
+    "counterparty": "J. Okafor",
+    "country": "US",
+    "currency": "USD",
+    "device_id": null,
+    "direction": "credit",
+    "merchant": "Zelle Transfer",
+    "merchant_category": "p2p_transfer",
+    "timestamp": "2026-03-03T06:11:00Z",
+    "txn_id": "T05-mule-0009"
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "is_fraud": {
+    "probability": 0.51,
+    "type": "boolean"
+   },
+   "pattern": {
+    "choice": "mule_account",
+    "probabilities": {
+     "account_takeover": 0.16,
+     "card_testing": 0,
+     "impossible_travel": 0,
+     "mule_account": 0.46,
+     "none": 0.38,
+     "structuring": 0
+    },
+    "type": "choice"
+   },
+   "risk": {
+    "probabilities": {
+     "0": 0.01,
+     "1": 0.12,
+     "2": 0.76,
+     "3": 0.11
+    },
+    "score": 1.97,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WB5VYJC8XFAFM2R8FZFG2X",
+    "marketCost": "0.000056826",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805129877,
+         "provider": "typesafe-ai",
+         "startTime": 1789805129698,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "pattern": 0.34,
+     "risk": 0.76
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1353,
+   "outputTokens": 105
+  },
+  "warnings": []
+ }
+}

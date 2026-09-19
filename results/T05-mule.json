@@ -1,0 +1,3111 @@
+{
+ "tape_id": "T05-mule",
+ "verdicts": {
+  "jev": [
+   {
+    "txn_id": "T05-mule-0001",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.15,
+    "pattern": "none",
+    "confidence": 0.96,
+    "reason": "risk_score=0.44",
+    "latency_ms": 205.9,
+    "input_tokens": 885,
+    "output_tokens": 103,
+    "cost_usd": 0.00003717,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.15,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0.02,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.97,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.6,
+        "1": 0.37,
+        "2": 0.03,
+        "3": 0
+       },
+       "score": 0.44,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0002",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.06,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "risk_score=0.09",
+    "latency_ms": 229.4,
+    "input_tokens": 895,
+    "output_tokens": 103,
+    "cost_usd": 0.00003759,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.06,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.91,
+        "1": 0.09,
+        "2": 0,
+        "3": 0
+       },
+       "score": 0.09,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0003",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.19,
+    "pattern": "none",
+    "confidence": 0.92,
+    "reason": "risk_score=0.71",
+    "latency_ms": 229.7,
+    "input_tokens": 1035,
+    "output_tokens": 103,
+    "cost_usd": 0.00004347,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.19,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0.04,
+        "card_testing": 0,
+        "impossible_travel": 0.01,
+        "mule_account": 0.02,
+        "none": 0.9299999999999999,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.41,
+        "1": 0.47,
+        "2": 0.11,
+        "3": 0.01
+       },
+       "score": 0.71,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0004",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.13,
+    "pattern": "none",
+    "confidence": 0.99,
+    "reason": "risk_score=0.53",
+    "latency_ms": 229.6,
+    "input_tokens": 1045,
+    "output_tokens": 103,
+    "cost_usd": 0.00004389,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.13,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.5,
+        "1": 0.47,
+        "2": 0.03,
+        "3": 0
+       },
+       "score": 0.53,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0005",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.07,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "risk_score=0.05",
+    "latency_ms": 239.2,
+    "input_tokens": 1199,
+    "output_tokens": 103,
+    "cost_usd": 0.000050358,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.07,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0.01,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.96,
+        "1": 0.04,
+        "2": 0,
+        "3": 0
+       },
+       "score": 0.05,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0006",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.07,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "risk_score=0.03",
+    "latency_ms": 266.0,
+    "input_tokens": 1349,
+    "output_tokens": 103,
+    "cost_usd": 0.000056658,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.07,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.98,
+        "1": 0.02,
+        "2": 0,
+        "3": 0
+       },
+       "score": 0.03,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0007",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.2,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "risk_score=0.75",
+    "latency_ms": 242.1,
+    "input_tokens": 1192,
+    "output_tokens": 103,
+    "cost_usd": 0.000050064,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.2,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.37,
+        "1": 0.53,
+        "2": 0.1,
+        "3": 0
+       },
+       "score": 0.75,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0008",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.17,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "risk_score=0.7",
+    "latency_ms": 257.1,
+    "input_tokens": 1500,
+    "output_tokens": 103,
+    "cost_usd": 0.000063,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.17,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0.01,
+        "mule_account": 0.02,
+        "none": 0.97,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.44,
+        "1": 0.43,
+        "2": 0.12,
+        "3": 0.01
+       },
+       "score": 0.7,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0009",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.51,
+    "pattern": "mule_account",
+    "confidence": 0.34,
+    "reason": "risk_score=1.97",
+    "latency_ms": 248.6,
+    "input_tokens": 1353,
+    "output_tokens": 105,
+    "cost_usd": 0.000056826,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.51,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.16,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.46,
+        "none": 0.38,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.12,
+        "2": 0.76,
+        "3": 0.11
+       },
+       "score": 1.97,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0010",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.54,
+    "pattern": "mule_account",
+    "confidence": 0.61,
+    "reason": "risk_score=1.95",
+    "latency_ms": 257.3,
+    "input_tokens": 1512,
+    "output_tokens": 105,
+    "cost_usd": 0.000063504,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.54,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.03,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.68,
+        "none": 0.28,
+        "structuring": 0.01
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.12,
+        "2": 0.78,
+        "3": 0.09
+       },
+       "score": 1.95,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0011",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.67,
+    "pattern": "mule_account",
+    "confidence": 0.76,
+    "reason": "risk_score=2.22",
+    "latency_ms": 239.5,
+    "input_tokens": 1673,
+    "output_tokens": 105,
+    "cost_usd": 0.000070266,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.67,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.03,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.8,
+        "none": 0.16,
+        "structuring": 0.01
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.06,
+        "2": 0.64,
+        "3": 0.29
+       },
+       "score": 2.22,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0012",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.75,
+    "pattern": "mule_account",
+    "confidence": 0.89,
+    "reason": "risk_score=2.42",
+    "latency_ms": 195.9,
+    "input_tokens": 1834,
+    "output_tokens": 105,
+    "cost_usd": 0.000077028,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.75,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.92,
+        "none": 0.07,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.04,
+        "2": 0.48,
+        "3": 0.47
+       },
+       "score": 2.42,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0013",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.78,
+    "pattern": "mule_account",
+    "confidence": 0.9,
+    "reason": "risk_score=2.56",
+    "latency_ms": 184.8,
+    "input_tokens": 1994,
+    "output_tokens": 105,
+    "cost_usd": 0.000083748,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.78,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.92,
+        "none": 0.07,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.03,
+        "2": 0.37,
+        "3": 0.59
+       },
+       "score": 2.56,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0014",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.82,
+    "pattern": "mule_account",
+    "confidence": 0.93,
+    "reason": "risk_score=2.6",
+    "latency_ms": 260.1,
+    "input_tokens": 2154,
+    "output_tokens": 105,
+    "cost_usd": 0.000090468,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.82,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.94,
+        "none": 0.05,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.03,
+        "2": 0.32,
+        "3": 0.64
+       },
+       "score": 2.6,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0015",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.84,
+    "pattern": "mule_account",
+    "confidence": 0.93,
+    "reason": "risk_score=2.69",
+    "latency_ms": 258.9,
+    "input_tokens": 2313,
+    "output_tokens": 105,
+    "cost_usd": 0.000097146,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.84,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.95,
+        "none": 0.04,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0,
+        "1": 0.02,
+        "2": 0.26,
+        "3": 0.72
+       },
+       "score": 2.69,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0016",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.86,
+    "pattern": "mule_account",
+    "confidence": 1.0,
+    "reason": "risk_score=2.88",
+    "latency_ms": 222.2,
+    "input_tokens": 2474,
+    "output_tokens": 105,
+    "cost_usd": 0.000103908,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.86,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 1,
+        "none": 0,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0,
+        "1": 0,
+        "2": 0.11,
+        "3": 0.89
+       },
+       "score": 2.88,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0017",
+    "evaluator": "jev",
+    "is_fraud": true,
+    "fraud_probability": 0.75,
+    "pattern": "mule_account",
+    "confidence": 1.0,
+    "reason": "risk_score=2.08",
+    "latency_ms": 228.2,
+    "input_tokens": 2626,
+    "output_tokens": 105,
+    "cost_usd": 0.000110292,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.75,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 1,
+        "none": 0,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.04,
+        "1": 0.16,
+        "2": 0.47,
+        "3": 0.33
+       },
+       "score": 2.08,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0018",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.14,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "risk_score=0.66",
+    "latency_ms": 260.8,
+    "input_tokens": 1650,
+    "output_tokens": 103,
+    "cost_usd": 0.0000693,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.14,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.41,
+        "1": 0.52,
+        "2": 0.07,
+        "3": 0
+       },
+       "score": 0.66,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0019",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.22,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "risk_score=0.74",
+    "latency_ms": 208.3,
+    "input_tokens": 1801,
+    "output_tokens": 103,
+    "cost_usd": 0.00007564199999999999,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.22,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.02,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.44,
+        "1": 0.39,
+        "2": 0.15,
+        "3": 0.02
+       },
+       "score": 0.74,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0020",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.09,
+    "pattern": "none",
+    "confidence": 0.99,
+    "reason": "risk_score=0.13",
+    "latency_ms": 230.7,
+    "input_tokens": 1954,
+    "output_tokens": 103,
+    "cost_usd": 0.000082068,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.09,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0,
+        "none": 1,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.89,
+        "1": 0.1,
+        "2": 0.01,
+        "3": 0
+       },
+       "score": 0.13,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0021",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.12,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "risk_score=0.5",
+    "latency_ms": 242.4,
+    "input_tokens": 2106,
+    "output_tokens": 103,
+    "cost_usd": 0.000088452,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.12,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.02,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.55,
+        "1": 0.41,
+        "2": 0.04,
+        "3": 0
+       },
+       "score": 0.5,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0022",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.09,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "risk_score=0.18",
+    "latency_ms": 235.8,
+    "input_tokens": 2254,
+    "output_tokens": 103,
+    "cost_usd": 0.000094668,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.09,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.02,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.84,
+        "1": 0.15,
+        "2": 0.01,
+        "3": 0
+       },
+       "score": 0.18,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0023",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.08,
+    "pattern": "none",
+    "confidence": 0.99,
+    "reason": "risk_score=0.1",
+    "latency_ms": 291.3,
+    "input_tokens": 2408,
+    "output_tokens": 103,
+    "cost_usd": 0.000101136,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.08,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0,
+        "none": 1,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.91,
+        "1": 0.08,
+        "2": 0.01,
+        "3": 0
+       },
+       "score": 0.1,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0024",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.21,
+    "pattern": "none",
+    "confidence": 0.95,
+    "reason": "risk_score=1.06",
+    "latency_ms": 270.2,
+    "input_tokens": 2559,
+    "output_tokens": 103,
+    "cost_usd": 0.000107478,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.21,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0.01,
+        "mule_account": 0.01,
+        "none": 0.97,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.18,
+        "1": 0.59,
+        "2": 0.22,
+        "3": 0.01
+       },
+       "score": 1.06,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0025",
+    "evaluator": "jev",
+    "is_fraud": false,
+    "fraud_probability": 0.08,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "risk_score=0.1",
+    "latency_ms": 263.8,
+    "input_tokens": 2709,
+    "output_tokens": 103,
+    "cost_usd": 0.000113778,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.08,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.92,
+        "1": 0.07,
+        "2": 0.01,
+        "3": 0
+       },
+       "score": 0.1,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   }
+  ],
+  "sonnet-5": [
+   {
+    "txn_id": "T05-mule-0001",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "A modest online purchase from a known device and home city, consistent with normal retail spending despite being a slightly new merchant category.",
+    "latency_ms": 1901.682363999953,
+    "input_tokens": 831,
+    "output_tokens": 77,
+    "cost_usd": 0.002432,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A modest online purchase from a known device and home city, consistent with normal retail spending despite being a slightly new merchant category.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0002",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.02,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Small in-person purchase at a familiar merchant category in the customer's home city is consistent with normal spending behavior.",
+    "latency_ms": 1678.9724650000153,
+    "input_tokens": 849,
+    "output_tokens": 76,
+    "cost_usd": 0.002458,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Small in-person purchase at a familiar merchant category in the customer's home city is consistent with normal spending behavior.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0003",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "A modest in-city, card-present purchase at a common telecom merchant is consistent with normal account activity despite being outside usual categories.",
+    "latency_ms": 1776.5634730001238,
+    "input_tokens": 1009,
+    "output_tokens": 81,
+    "cost_usd": 0.002828,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"A modest in-city, card-present purchase at a common telecom merchant is consistent with normal account activity despite being outside usual categories.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0004",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.02,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "A routine in-person telecom purchase in the customer's home city consistent with normal spending patterns.",
+    "latency_ms": 1902.0464279999487,
+    "input_tokens": 1028,
+    "output_tokens": 70,
+    "cost_usd": 0.002756,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"A routine in-person telecom purchase in the customer's home city consistent with normal spending patterns.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0005",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.02,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Small subscription charge from a known device consistent with the account's normal spending pattern.",
+    "latency_ms": 1903.1063019999692,
+    "input_tokens": 1207,
+    "output_tokens": 65,
+    "cost_usd": 0.003064,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Small subscription charge from a known device consistent with the account's normal spending pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0006",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.02,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Small in-person restaurant purchase in the customer's home city consistent with normal spending patterns and history.",
+    "latency_ms": 1795.1559870000438,
+    "input_tokens": 1381,
+    "output_tokens": 72,
+    "cost_usd": 0.003482,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Small in-person restaurant purchase in the customer's home city consistent with normal spending patterns and history.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0007",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Transaction is a modest online purchase from a known device and merchant consistent with the account's normal spending pattern.",
+    "latency_ms": 2155.6143039999824,
+    "input_tokens": 1190,
+    "output_tokens": 74,
+    "cost_usd": 0.00312,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"Transaction is a modest online purchase from a known device and merchant consistent with the account's normal spending pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0008",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Transaction is a normal-sized card-present purchase in the customer's home city consistent with their usual spending pattern.",
+    "latency_ms": 1731.6153529998246,
+    "input_tokens": 1557,
+    "output_tokens": 76,
+    "cost_usd": 0.003874,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"Transaction is a normal-sized card-present purchase in the customer's home city consistent with their usual spending pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0009",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.62,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "A single inbound P2P transfer of $1373 from an unfamiliar counterparty is far above this account's typical spend/transaction size and could indicate early-stage mule activity pending outbound forwarding.",
+    "latency_ms": 4638.129688999925,
+    "input_tokens": 1377,
+    "output_tokens": 346,
+    "cost_usd": 0.006214000000000001,
+    "raw": {
+     "content": "{\n  \"is_fraud\": true,\n  \"fraud_probability\": 0.62,\n  \"pattern\": \"mule_account\",\n  \"reason\": \"A single inbound P2P transfer of $1373 from an unfamiliar counterparty is far above this account's typical spend/transaction size and could indicate early-stage mule activity pending outbound forwarding.\"\n}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0010",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.68,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "Account with low typical spend is receiving large inbound P2P transfers from multiple unrelated senders in rapid succession, consistent with fund aggregation prior to outbound forwarding.",
+    "latency_ms": 2162.123240000028,
+    "input_tokens": 1564,
+    "output_tokens": 102,
+    "cost_usd": 0.004148,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.68, \"pattern\": \"mule_account\", \"reason\": \"Account with low typical spend is receiving large inbound P2P transfers from multiple unrelated senders in rapid succession, consistent with fund aggregation prior to outbound forwarding.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0011",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.88,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "Account with typical monthly spend of $900 is suddenly receiving multiple large P2P transfers from unrelated senders within hours, consistent with mule account layering activity.",
+    "latency_ms": 2117.9919960000007,
+    "input_tokens": 1753,
+    "output_tokens": 97,
+    "cost_usd": 0.004476,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.88, \"pattern\": \"mule_account\", \"reason\": \"Account with typical monthly spend of $900 is suddenly receiving multiple large P2P transfers from unrelated senders within hours, consistent with mule account layering activity.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0012",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.92,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "Account with typical $900 monthly spend suddenly receives multiple large Zelle credits from unrelated senders in rapid succession, consistent with a mule account staging inbound funds for rapid outbound transfer.",
+    "latency_ms": 2240.4275909998432,
+    "input_tokens": 1941,
+    "output_tokens": 111,
+    "cost_usd": 0.004992,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.92, \"pattern\": \"mule_account\", \"reason\": \"Account with typical $900 monthly spend suddenly receives multiple large Zelle credits from unrelated senders in rapid succession, consistent with a mule account staging inbound funds for rapid outbound transfer.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0013",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.93,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "This retail checking account with typical spend near $900/month is suddenly receiving a rapid succession of large, unrelated P2P inbound transfers from five different senders within two hours, a classic mule account fan-in pattern.",
+    "latency_ms": 2163.73478599985,
+    "input_tokens": 2128,
+    "output_tokens": 112,
+    "cost_usd": 0.005376000000000001,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.93, \"pattern\": \"mule_account\", \"reason\": \"This retail checking account with typical spend near $900/month is suddenly receiving a rapid succession of large, unrelated P2P inbound transfers from five different senders within two hours, a classic mule account fan-in pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0014",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.96,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "The account, with typical monthly spend under $1,000, has received six large Zelle credits from unrelated senders within a few hours, a classic pattern of rapid inbound fund aggregation from disparate parties consistent with a mule account awaiting onward transfer.",
+    "latency_ms": 2353.9065469999514,
+    "input_tokens": 2315,
+    "output_tokens": 125,
+    "cost_usd": 0.00588,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.96, \"pattern\": \"mule_account\", \"reason\": \"The account, with typical monthly spend under $1,000, has received six large Zelle credits from unrelated senders within a few hours, a classic pattern of rapid inbound fund aggregation from disparate parties consistent with a mule account awaiting onward transfer.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0015",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.97,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "This retail checking account with typical monthly spend of $900 is suddenly receiving a rapid succession of large, unrelated P2P credits from many different individuals within hours, a classic mule account fan-in pattern indicating imminent outbound consolidation.",
+    "latency_ms": 2210.582026000111,
+    "input_tokens": 2501,
+    "output_tokens": 123,
+    "cost_usd": 0.006232,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.97, \"pattern\": \"mule_account\", \"reason\": \"This retail checking account with typical monthly spend of $900 is suddenly receiving a rapid succession of large, unrelated P2P credits from many different individuals within hours, a classic mule account fan-in pattern indicating imminent outbound consolidation.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0016",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.98,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "The account received numerous rapid Zelle credits from unrelated individuals totaling over $13,000 within hours, then immediately forwarded nearly all of it out via a large international wire, a classic mule account layering pattern.",
+    "latency_ms": 2280.1990430000387,
+    "input_tokens": 2691,
+    "output_tokens": 112,
+    "cost_usd": 0.006502,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.98, \"pattern\": \"mule_account\", \"reason\": \"The account received numerous rapid Zelle credits from unrelated individuals totaling over $13,000 within hours, then immediately forwarded nearly all of it out via a large international wire, a classic mule account layering pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0017",
+    "evaluator": "sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.95,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "This account received a rapid succession of large P2P credits from many unrelated senders and is now rapidly disbursing the funds via a large international wire and ATM withdrawal, consistent with mule layering/cash-out activity.",
+    "latency_ms": 2132.0489459999408,
+    "input_tokens": 2865,
+    "output_tokens": 121,
+    "cost_usd": 0.00694,
+    "raw": {
+     "content": "{\n  \"is_fraud\": true,\n  \"fraud_probability\": 0.95,\n  \"pattern\": \"mule_account\",\n  \"reason\": \"This account received a rapid succession of large P2P credits from many unrelated senders and is now rapidly disbursing the funds via a large international wire and ATM withdrawal, consistent with mule layering/cash-out activity.\"\n}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0018",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.04,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "A moderately higher but plausible in-person utility payment in the customer's home city, consistent with normal spending patterns and no signs of compromise or unusual transfers.",
+    "latency_ms": 2106.9675969999935,
+    "input_tokens": 1730,
+    "output_tokens": 91,
+    "cost_usd": 0.00437,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.04, \"pattern\": \"none\", \"reason\": \"A moderately higher but plausible in-person utility payment in the customer's home city, consistent with normal spending patterns and no signs of compromise or unusual transfers.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0019",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Transaction amount, merchant category, and location are consistent with the account's normal spending pattern in Chicago.",
+    "latency_ms": 1832.5069640000038,
+    "input_tokens": 1906,
+    "output_tokens": 74,
+    "cost_usd": 0.004552,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"Transaction amount, merchant category, and location are consistent with the account's normal spending pattern in Chicago.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0020",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.02,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Small recurring subscription charge from known device in home city, consistent with normal account behavior.",
+    "latency_ms": 1808.71470399984,
+    "input_tokens": 2085,
+    "output_tokens": 67,
+    "cost_usd": 0.0048400000000000006,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Small recurring subscription charge from known device in home city, consistent with normal account behavior.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0021",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "This is a routine in-person purchase amount and location consistent with the account's normal Chicago spending pattern.",
+    "latency_ms": 1533.39876799987,
+    "input_tokens": 2260,
+    "output_tokens": 73,
+    "cost_usd": 0.0052499999999999995,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"This is a routine in-person purchase amount and location consistent with the account's normal Chicago spending pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0022",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "This small card-present Uber charge in the customer's home city is consistent with typical spending patterns and history.",
+    "latency_ms": 1771.7710960000659,
+    "input_tokens": 2430,
+    "output_tokens": 71,
+    "cost_usd": 0.005569999999999999,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"This small card-present Uber charge in the customer's home city is consistent with typical spending patterns and history.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0023",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.02,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Small recurring subscription charge from the known device, consistent with the account's normal spending pattern.",
+    "latency_ms": 1647.063992999847,
+    "input_tokens": 2609,
+    "output_tokens": 69,
+    "cost_usd": 0.005908,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.02, \"pattern\": \"none\", \"reason\": \"Small recurring subscription charge from the known device, consistent with the account's normal spending pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0024",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.1,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "This is a moderate-value card-present transaction in the customer's home city consistent with normal spending patterns, with no signs of mule activity, structuring, or travel anomalies.",
+    "latency_ms": 2070.2064960000826,
+    "input_tokens": 2784,
+    "output_tokens": 94,
+    "cost_usd": 0.006508,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.1, \"pattern\": \"none\", \"reason\": \"This is a moderate-value card-present transaction in the customer's home city consistent with normal spending patterns, with no signs of mule activity, structuring, or travel anomalies.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0025",
+    "evaluator": "sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Small in-person restaurant purchase in the home city consistent with the account's normal spending pattern and merchant categories.",
+    "latency_ms": 1957.7916529999584,
+    "input_tokens": 2958,
+    "output_tokens": 76,
+    "cost_usd": 0.006676,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.03, \"pattern\": \"none\", \"reason\": \"Small in-person restaurant purchase in the home city consistent with the account's normal spending pattern and merchant categories.\"}"
+    },
+    "error": null
+   }
+  ],
+  "gpt-5.6-luna": [
+   {
+    "txn_id": "T05-mule-0001",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "This single $79.08 online retail purchase from the customer's known device and home country provides insufficient evidence of fraud or an AML pattern.",
+    "latency_ms": 1880.6956920000175,
+    "input_tokens": 558,
+    "output_tokens": 97,
+    "cost_usd": 0.00022799999999999999,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.03,\"pattern\":\"none\",\"reason\":\"This single $79.08 online retail purchase from the customer's known device and home country provides insufficient evidence of fraud or an AML pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0002",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.001,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "A small card-present Starbucks purchase in the customer's home city is consistent with the account profile and does not show a suspicious pattern.",
+    "latency_ms": 1994.540509999979,
+    "input_tokens": 568,
+    "output_tokens": 86,
+    "cost_usd": 0.0002168,
+    "raw": {
+     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.001,\n  \"pattern\": \"none\",\n  \"reason\": \"A small card-present Starbucks purchase in the customer's home city is consistent with the account profile and does not show a suspicious pattern.\"\n}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0003",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The Boston card-present telecom purchase is a modest debit consistent with the customer's location and recent spending, with no observed fraud pattern.",
+    "latency_ms": 3003.092499999866,
+    "input_tokens": 687,
+    "output_tokens": 90,
+    "cost_usd": 0.0002454,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Boston card-present telecom purchase is a modest debit consistent with the customer's location and recent spending, with no observed fraud pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0004",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The Chicago card-present telecom purchase is a modest amount and does not show a pattern consistent with fraud or AML activity.",
+    "latency_ms": 1940.0454920000811,
+    "input_tokens": 697,
+    "output_tokens": 88,
+    "cost_usd": 0.000245,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Chicago card-present telecom purchase is a modest amount and does not show a pattern consistent with fraud or AML activity.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0005",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The small Spotify subscription charge uses the customer's known device and is consistent with the account's ordinary Chicago spending history.",
+    "latency_ms": 1882.3391759999595,
+    "input_tokens": 826,
+    "output_tokens": 93,
+    "cost_usd": 0.0002768,
+    "raw": {
+     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.01,\n  \"pattern\": \"none\",\n  \"reason\": \"The small Spotify subscription charge uses the customer's known device and is consistent with the account's ordinary Chicago spending history.\"\n}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0006",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The Chicago restaurant purchase is low value and consistent with the customer's established local card spending and recent history.",
+    "latency_ms": 2715.1474000002054,
+    "input_tokens": 952,
+    "output_tokens": 99,
+    "cost_usd": 0.0003092,
+    "raw": {
+     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.01,\n  \"pattern\": \"none\",\n  \"reason\": \"The Chicago restaurant purchase is low value and consistent with the customer's established local card spending and recent history.\"\n}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0007",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The transaction uses the known device and location and is consistent with recent domestic retail activity without evidence of a defined fraud pattern.",
+    "latency_ms": 2068.6117879999983,
+    "input_tokens": 819,
+    "output_tokens": 102,
+    "cost_usd": 0.0002862,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.03,\"pattern\":\"none\",\"reason\":\"The transaction uses the known device and location and is consistent with recent domestic retail activity without evidence of a defined fraud pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0008",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The Chicago card-present telecom purchase is consistent with the customer's established location and ordinary spending history.",
+    "latency_ms": 3674.965028000088,
+    "input_tokens": 1080,
+    "output_tokens": 78,
+    "cost_usd": 0.0003096,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Chicago card-present telecom purchase is consistent with the customer's established location and ordinary spending history.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0009",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.08,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "This is a single inbound P2P transfer from one counterparty, with no observed pattern of multiple unrelated senders or rapid outbound forwarding.",
+    "latency_ms": 2248.6943970000084,
+    "input_tokens": 955,
+    "output_tokens": 107,
+    "cost_usd": 0.00031939999999999996,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.08,\"pattern\":\"none\",\"reason\":\"This is a single inbound P2P transfer from one counterparty, with no observed pattern of multiple unrelated senders or rapid outbound forwarding.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0010",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.03,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "This inbound Zelle transfer is not sufficient to establish a mule-account pattern because the recent history shows only two senders and no rapid forwarding of funds.",
+    "latency_ms": 2683.191969000063,
+    "input_tokens": 1089,
+    "output_tokens": 131,
+    "cost_usd": 0.000375,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.03,\"pattern\":\"none\",\"reason\":\"This inbound Zelle transfer is not sufficient to establish a mule-account pattern because the recent history shows only two senders and no rapid forwarding of funds.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0011",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": true,
+    "fraud_probability": 0.88,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "This account is receiving three sizable Zelle credits from unrelated senders within about an hour, far outside its low-spend history and consistent with mule-account fund aggregation.",
+    "latency_ms": 6610.552796000093,
+    "input_tokens": 1225,
+    "output_tokens": 521,
+    "cost_usd": 0.0008702,
+    "raw": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.88,\"pattern\":\"mule_account\",\"reason\":\"This account is receiving three sizable Zelle credits from unrelated senders within about an hour, far outside its low-spend history and consistent with mule-account fund aggregation.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0012",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.12,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "Although this is the fourth sizable inbound P2P transfer from an unrelated sender within about two hours, no rapid forwarding or other confirmed fraudulent behavior is present in the observed history.",
+    "latency_ms": 2651.8303580000975,
+    "input_tokens": 1360,
+    "output_tokens": 183,
+    "cost_usd": 0.0004916,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.12,\"pattern\":\"none\",\"reason\":\"Although this is the fourth sizable inbound P2P transfer from an unrelated sender within about two hours, no rapid forwarding or other confirmed fraudulent behavior is present in the observed history.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0013",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": true,
+    "fraud_probability": 0.93,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "The account is receiving multiple substantial Zelle credits from unrelated senders within a short period, sharply inconsistent with its retail profile and indicative of mule activity.",
+    "latency_ms": 4083.2209609998245,
+    "input_tokens": 1495,
+    "output_tokens": 290,
+    "cost_usd": 0.000647,
+    "raw": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.93,\"pattern\":\"mule_account\",\"reason\":\"The account is receiving multiple substantial Zelle credits from unrelated senders within a short period, sharply inconsistent with its retail profile and indicative of mule activity.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0014",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": true,
+    "fraud_probability": 0.94,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "This credit is the sixth large Zelle transfer from a different unrelated sender within three hours, sharply inconsistent with the customer's low-spend history and indicative of mule-account activity.",
+    "latency_ms": 3473.5922429999846,
+    "input_tokens": 1630,
+    "output_tokens": 233,
+    "cost_usd": 0.0006056,
+    "raw": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.94,\"pattern\":\"mule_account\",\"reason\":\"This credit is the sixth large Zelle transfer from a different unrelated sender within three hours, sharply inconsistent with the customer's low-spend history and indicative of mule-account activity.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0015",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": true,
+    "fraud_probability": 0.97,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "This transaction is the seventh large Zelle credit from a different unrelated sender within hours, sharply inconsistent with the account's normal activity and indicative of mule-account fund aggregation.",
+    "latency_ms": 3262.9832239999814,
+    "input_tokens": 1764,
+    "output_tokens": 176,
+    "cost_usd": 0.000564,
+    "raw": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.97,\"pattern\":\"mule_account\",\"reason\":\"This transaction is the seventh large Zelle credit from a different unrelated sender within hours, sharply inconsistent with the account's normal activity and indicative of mule-account fund aggregation.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0016",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": true,
+    "fraud_probability": 0.99,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "The account received seven sizable Zelle credits from unrelated senders within hours and is now forwarding a large portion through an international wire.",
+    "latency_ms": 2007.9551819999324,
+    "input_tokens": 1898,
+    "output_tokens": 101,
+    "cost_usd": 0.0005007999999999999,
+    "raw": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"mule_account\",\"reason\":\"The account received seven sizable Zelle credits from unrelated senders within hours and is now forwarding a large portion through an international wire.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0017",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": true,
+    "fraud_probability": 0.99,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "The account received numerous large Zelle transfers from unrelated senders and rapidly forwarded most of the funds internationally, followed by an atypical cash withdrawal.",
+    "latency_ms": 2397.909395999932,
+    "input_tokens": 2023,
+    "output_tokens": 121,
+    "cost_usd": 0.0005498,
+    "raw": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"mule_account\",\"reason\":\"The account received numerous large Zelle transfers from unrelated senders and rapidly forwarded most of the funds internationally, followed by an atypical cash withdrawal.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0018",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The Chicago card-present utility payment is consistent with the customer's location and ordinary spending history, with no indicators of fraud or AML activity.",
+    "latency_ms": 1850.9915719998844,
+    "input_tokens": 1206,
+    "output_tokens": 83,
+    "cost_usd": 0.0003408,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Chicago card-present utility payment is consistent with the customer's location and ordinary spending history, with no indicators of fraud or AML activity.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0019",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The transaction is a routine Chicago card-present telecom purchase consistent with the account's established domestic spending history and shows no fraud or AML pattern.",
+    "latency_ms": 2863.0848340001194,
+    "input_tokens": 1334,
+    "output_tokens": 89,
+    "cost_usd": 0.0003736,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a routine Chicago card-present telecom purchase consistent with the account's established domestic spending history and shows no fraud or AML pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0020",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The transaction is a low-value subscription debit from the customer's known device and is consistent with the account's established Chicago-based spending history.",
+    "latency_ms": 2494.920039999897,
+    "input_tokens": 1463,
+    "output_tokens": 89,
+    "cost_usd": 0.0003994,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a low-value subscription debit from the customer's known device and is consistent with the account's established Chicago-based spending history.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0021",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The Chicago card-present purchase is a moderate-value transaction broadly consistent with the account's established local spending and shows no takeover, testing, structuring, travel, or mule-account indicators.",
+    "latency_ms": 2320.1562839999497,
+    "input_tokens": 1591,
+    "output_tokens": 106,
+    "cost_usd": 0.0004454,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Chicago card-present purchase is a moderate-value transaction broadly consistent with the account's established local spending and shows no takeover, testing, structuring, travel, or mule-account indicators.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0022",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The $26.32 Chicago Uber card-present transaction is consistent with the account's established local, low-value spending pattern.",
+    "latency_ms": 2077.7790950000963,
+    "input_tokens": 1716,
+    "output_tokens": 96,
+    "cost_usd": 0.0004584,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The $26.32 Chicago Uber card-present transaction is consistent with the account's established local, low-value spending pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0023",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The Spotify subscription debit matches the account's known device, location, merchant category, and prior recurring spending pattern.",
+    "latency_ms": 1773.032978999936,
+    "input_tokens": 1845,
+    "output_tokens": 89,
+    "cost_usd": 0.00047579999999999996,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Spotify subscription debit matches the account's known device, location, merchant category, and prior recurring spending pattern.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0024",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The Chicago card-present hotel purchase is consistent with the account's established local spending and shows no takeover, testing, structuring, travel, or mule-account indicators.",
+    "latency_ms": 1915.5735800000002,
+    "input_tokens": 1972,
+    "output_tokens": 103,
+    "cost_usd": 0.000518,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Chicago card-present hotel purchase is consistent with the account's established local spending and shows no takeover, testing, structuring, travel, or mule-account indicators.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0025",
+    "evaluator": "gpt-5.6-luna",
+    "is_fraud": false,
+    "fraud_probability": 0.01,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "The transaction is a small Chicago card-present restaurant purchase consistent with the customer's established spending and location history.",
+    "latency_ms": 1793.1138809999538,
+    "input_tokens": 2098,
+    "output_tokens": 89,
+    "cost_usd": 0.0005264,
+    "raw": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a small Chicago card-present restaurant purchase consistent with the customer's established spending and location history.\"}"
+    },
+    "error": null
+   }
+  ],
+  "jev+sonnet-5": [
+   {
+    "txn_id": "T05-mule-0001",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.15,
+    "pattern": "none",
+    "confidence": 0.96,
+    "reason": "jev decided (risk_score=0.44)",
+    "latency_ms": 205.9,
+    "input_tokens": 885,
+    "output_tokens": 103,
+    "cost_usd": 0.00003717,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.15,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0.02,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.97,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.6,
+        "1": 0.37,
+        "2": 0.03,
+        "3": 0
+       },
+       "score": 0.44,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0002",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.06,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "jev decided (risk_score=0.09)",
+    "latency_ms": 229.4,
+    "input_tokens": 895,
+    "output_tokens": 103,
+    "cost_usd": 0.00003759,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.06,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.91,
+        "1": 0.09,
+        "2": 0,
+        "3": 0
+       },
+       "score": 0.09,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0003",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.19,
+    "pattern": "none",
+    "confidence": 0.92,
+    "reason": "jev decided (risk_score=0.71)",
+    "latency_ms": 229.7,
+    "input_tokens": 1035,
+    "output_tokens": 103,
+    "cost_usd": 0.00004347,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.19,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0.04,
+        "card_testing": 0,
+        "impossible_travel": 0.01,
+        "mule_account": 0.02,
+        "none": 0.9299999999999999,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.41,
+        "1": 0.47,
+        "2": 0.11,
+        "3": 0.01
+       },
+       "score": 0.71,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0004",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.13,
+    "pattern": "none",
+    "confidence": 0.99,
+    "reason": "jev decided (risk_score=0.53)",
+    "latency_ms": 229.6,
+    "input_tokens": 1045,
+    "output_tokens": 103,
+    "cost_usd": 0.00004389,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.13,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.5,
+        "1": 0.47,
+        "2": 0.03,
+        "3": 0
+       },
+       "score": 0.53,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0005",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.07,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "jev decided (risk_score=0.05)",
+    "latency_ms": 239.2,
+    "input_tokens": 1199,
+    "output_tokens": 103,
+    "cost_usd": 0.000050358,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.07,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0.01,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.96,
+        "1": 0.04,
+        "2": 0,
+        "3": 0
+       },
+       "score": 0.05,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0006",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.07,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "jev decided (risk_score=0.03)",
+    "latency_ms": 266.0,
+    "input_tokens": 1349,
+    "output_tokens": 103,
+    "cost_usd": 0.000056658,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.07,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.98,
+        "1": 0.02,
+        "2": 0,
+        "3": 0
+       },
+       "score": 0.03,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0007",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.2,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "jev decided (risk_score=0.75)",
+    "latency_ms": 242.1,
+    "input_tokens": 1192,
+    "output_tokens": 103,
+    "cost_usd": 0.000050064,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.2,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.37,
+        "1": 0.53,
+        "2": 0.1,
+        "3": 0
+       },
+       "score": 0.75,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0008",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.17,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "jev decided (risk_score=0.7)",
+    "latency_ms": 257.1,
+    "input_tokens": 1500,
+    "output_tokens": 103,
+    "cost_usd": 0.000063,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.17,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0.01,
+        "mule_account": 0.02,
+        "none": 0.97,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.44,
+        "1": 0.43,
+        "2": 0.12,
+        "3": 0.01
+       },
+       "score": 0.7,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0009",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.35,
+    "pattern": "none",
+    "confidence": null,
+    "reason": "escalated (jev p=0.51): A single inbound P2P credit larger than typical spend is notable but not yet evidence of a mule pattern without multiple unrelated senders or rapid outbound forwarding.",
+    "latency_ms": 2312.679956000114,
+    "input_tokens": 2730,
+    "output_tokens": 200,
+    "cost_usd": 0.0037608259999999997,
+    "raw": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.35, \"pattern\": \"none\", \"reason\": \"A single inbound P2P credit larger than typical spend is notable but not yet evidence of a mule pattern without multiple unrelated senders or rapid outbound forwarding.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0010",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.78,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "escalated (jev p=0.54): Account with a small typical spend profile is suddenly receiving large, rapid P2P credits from multiple unrelated senders within hours, consistent with a mule account collecting funds for onward transfer.",
+    "latency_ms": 4604.8006030000715,
+    "input_tokens": 3076,
+    "output_tokens": 370,
+    "cost_usd": 0.005841504,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.78, \"pattern\": \"mule_account\", \"reason\": \"Account with a small typical spend profile is suddenly receiving large, rapid P2P credits from multiple unrelated senders within hours, consistent with a mule account collecting funds for onward transfer.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0011",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.87,
+    "pattern": "mule_account",
+    "confidence": null,
+    "reason": "escalated (jev p=0.67): Multiple large inbound P2P transfers from unrelated senders within hours, far exceeding the account's typical spend, is consistent with mule account layering activity.",
+    "latency_ms": 2179.9617110001254,
+    "input_tokens": 3426,
+    "output_tokens": 198,
+    "cost_usd": 0.004506266,
+    "raw": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.87, \"pattern\": \"mule_account\", \"reason\": \"Multiple large inbound P2P transfers from unrelated senders within hours, far exceeding the account's typical spend, is consistent with mule account layering activity.\"}"
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0012",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.75,
+    "pattern": "mule_account",
+    "confidence": 0.89,
+    "reason": "jev decided (risk_score=2.42)",
+    "latency_ms": 195.9,
+    "input_tokens": 1834,
+    "output_tokens": 105,
+    "cost_usd": 0.000077028,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.75,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.92,
+        "none": 0.07,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.04,
+        "2": 0.48,
+        "3": 0.47
+       },
+       "score": 2.42,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0013",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.78,
+    "pattern": "mule_account",
+    "confidence": 0.9,
+    "reason": "jev decided (risk_score=2.56)",
+    "latency_ms": 184.8,
+    "input_tokens": 1994,
+    "output_tokens": 105,
+    "cost_usd": 0.000083748,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.78,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.92,
+        "none": 0.07,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.03,
+        "2": 0.37,
+        "3": 0.59
+       },
+       "score": 2.56,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0014",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.82,
+    "pattern": "mule_account",
+    "confidence": 0.93,
+    "reason": "jev decided (risk_score=2.6)",
+    "latency_ms": 260.1,
+    "input_tokens": 2154,
+    "output_tokens": 105,
+    "cost_usd": 0.000090468,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.82,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.94,
+        "none": 0.05,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.01,
+        "1": 0.03,
+        "2": 0.32,
+        "3": 0.64
+       },
+       "score": 2.6,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0015",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.84,
+    "pattern": "mule_account",
+    "confidence": 0.93,
+    "reason": "jev decided (risk_score=2.69)",
+    "latency_ms": 258.9,
+    "input_tokens": 2313,
+    "output_tokens": 105,
+    "cost_usd": 0.000097146,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.84,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.95,
+        "none": 0.04,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0,
+        "1": 0.02,
+        "2": 0.26,
+        "3": 0.72
+       },
+       "score": 2.69,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0016",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.86,
+    "pattern": "mule_account",
+    "confidence": 1.0,
+    "reason": "jev decided (risk_score=2.88)",
+    "latency_ms": 222.2,
+    "input_tokens": 2474,
+    "output_tokens": 105,
+    "cost_usd": 0.000103908,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.86,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 1,
+        "none": 0,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0,
+        "1": 0,
+        "2": 0.11,
+        "3": 0.89
+       },
+       "score": 2.88,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0017",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": true,
+    "fraud_probability": 0.75,
+    "pattern": "mule_account",
+    "confidence": 1.0,
+    "reason": "jev decided (risk_score=2.08)",
+    "latency_ms": 228.2,
+    "input_tokens": 2626,
+    "output_tokens": 105,
+    "cost_usd": 0.000110292,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.75,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "mule_account",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 1,
+        "none": 0,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.04,
+        "1": 0.16,
+        "2": 0.47,
+        "3": 0.33
+       },
+       "score": 2.08,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0018",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.14,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "jev decided (risk_score=0.66)",
+    "latency_ms": 260.8,
+    "input_tokens": 1650,
+    "output_tokens": 103,
+    "cost_usd": 0.0000693,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.14,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.41,
+        "1": 0.52,
+        "2": 0.07,
+        "3": 0
+       },
+       "score": 0.66,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0019",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.22,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "jev decided (risk_score=0.74)",
+    "latency_ms": 208.3,
+    "input_tokens": 1801,
+    "output_tokens": 103,
+    "cost_usd": 0.00007564199999999999,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.22,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.02,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.44,
+        "1": 0.39,
+        "2": 0.15,
+        "3": 0.02
+       },
+       "score": 0.74,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0020",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.09,
+    "pattern": "none",
+    "confidence": 0.99,
+    "reason": "jev decided (risk_score=0.13)",
+    "latency_ms": 230.7,
+    "input_tokens": 1954,
+    "output_tokens": 103,
+    "cost_usd": 0.000082068,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.09,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0,
+        "none": 1,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.89,
+        "1": 0.1,
+        "2": 0.01,
+        "3": 0
+       },
+       "score": 0.13,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0021",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.12,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "jev decided (risk_score=0.5)",
+    "latency_ms": 242.4,
+    "input_tokens": 2106,
+    "output_tokens": 103,
+    "cost_usd": 0.000088452,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.12,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.02,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.55,
+        "1": 0.41,
+        "2": 0.04,
+        "3": 0
+       },
+       "score": 0.5,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0022",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.09,
+    "pattern": "none",
+    "confidence": 0.97,
+    "reason": "jev decided (risk_score=0.18)",
+    "latency_ms": 235.8,
+    "input_tokens": 2254,
+    "output_tokens": 103,
+    "cost_usd": 0.000094668,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.09,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.02,
+        "none": 0.98,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.84,
+        "1": 0.15,
+        "2": 0.01,
+        "3": 0
+       },
+       "score": 0.18,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0023",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.08,
+    "pattern": "none",
+    "confidence": 0.99,
+    "reason": "jev decided (risk_score=0.1)",
+    "latency_ms": 291.3,
+    "input_tokens": 2408,
+    "output_tokens": 103,
+    "cost_usd": 0.000101136,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.08,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0,
+        "none": 1,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.91,
+        "1": 0.08,
+        "2": 0.01,
+        "3": 0
+       },
+       "score": 0.1,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0024",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.21,
+    "pattern": "none",
+    "confidence": 0.95,
+    "reason": "jev decided (risk_score=1.06)",
+    "latency_ms": 270.2,
+    "input_tokens": 2559,
+    "output_tokens": 103,
+    "cost_usd": 0.000107478,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.21,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0.01,
+        "card_testing": 0,
+        "impossible_travel": 0.01,
+        "mule_account": 0.01,
+        "none": 0.97,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.18,
+        "1": 0.59,
+        "2": 0.22,
+        "3": 0.01
+       },
+       "score": 1.06,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   },
+   {
+    "txn_id": "T05-mule-0025",
+    "evaluator": "jev+sonnet-5",
+    "is_fraud": false,
+    "fraud_probability": 0.08,
+    "pattern": "none",
+    "confidence": 0.98,
+    "reason": "jev decided (risk_score=0.1)",
+    "latency_ms": 263.8,
+    "input_tokens": 2709,
+    "output_tokens": 103,
+    "cost_usd": 0.000113778,
+    "raw": {
+     "answers": {
+      "is_fraud": {
+       "probability": 0.08,
+       "type": "boolean"
+      },
+      "pattern": {
+       "choice": "none",
+       "probabilities": {
+        "account_takeover": 0,
+        "card_testing": 0,
+        "impossible_travel": 0,
+        "mule_account": 0.01,
+        "none": 0.99,
+        "structuring": 0
+       },
+       "type": "choice"
+      },
+      "risk": {
+       "probabilities": {
+        "0": 0.92,
+        "1": 0.07,
+        "2": 0.01,
+        "3": 0
+       },
+       "score": 0.1,
+       "type": "score"
+      }
+     },
+     "model": null
+    },
+    "error": null
+   }
+  ]
+ },
+ "metrics": {
+  "jev": {
+   "evaluator": "jev",
+   "n": 25,
+   "tp": 9,
+   "fp": 0,
+   "tn": 16,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "accuracy": 1.0,
+   "pattern_accuracy": 1.0,
+   "errors": 0,
+   "latency_p50_ms": 239.5,
+   "latency_p95_ms": 270.2,
+   "latency_total_ms": 5997.8,
+   "cost_usd": 0.001867908,
+   "input_tokens": 44474,
+   "output_tokens": 2593
+  },
+  "sonnet-5": {
+   "evaluator": "sonnet-5",
+   "n": 25,
+   "tp": 9,
+   "fp": 0,
+   "tn": 16,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "accuracy": 1.0,
+   "pattern_accuracy": 1.0,
+   "errors": 0,
+   "latency_p50_ms": 1957.7916529999584,
+   "latency_p95_ms": 2353.9065469999514,
+   "latency_total_ms": 51872.3218109992,
+   "cost_usd": 0.11844800000000001,
+   "input_tokens": 46949,
+   "output_tokens": 2455
+  },
+  "gpt-5.6-luna": {
+   "evaluator": "gpt-5.6-luna",
+   "n": 25,
+   "tp": 6,
+   "fp": 0,
+   "tn": 16,
+   "fn": 3,
+   "precision": 1.0,
+   "recall": 0.6666666666666666,
+   "f1": 0.8,
+   "accuracy": 0.88,
+   "pattern_accuracy": 1.0,
+   "errors": 0,
+   "latency_p50_ms": 2320.1562839999497,
+   "latency_p95_ms": 4083.2209609998245,
+   "latency_total_ms": 65668.02037699995,
+   "cost_usd": 0.0105782,
+   "input_tokens": 32851,
+   "output_tokens": 3340
+  },
+  "jev+sonnet-5": {
+   "evaluator": "jev+sonnet-5",
+   "n": 25,
+   "tp": 8,
+   "fp": 0,
+   "tn": 16,
+   "fn": 1,
+   "precision": 1.0,
+   "recall": 0.8888888888888888,
+   "f1": 0.9411764705882353,
+   "accuracy": 0.96,
+   "pattern_accuracy": 1.0,
+   "errors": 0,
+   "latency_p50_ms": 242.1,
+   "latency_p95_ms": 2312.679956000114,
+   "latency_total_ms": 14349.84227000031,
+   "cost_usd": 0.015785907999999994,
+   "input_tokens": 49168,
+   "output_tokens": 3046
+  }
+ }
+}

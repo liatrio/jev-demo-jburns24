@@ -1,0 +1,141 @@
+{
+ "latency_ms": 3309.7,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-3002\",\n  \"customer_segment\": \"retail_checking\",\n  \"home_city\": \"Boston\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 3200.0,\n  \"typical_txn_usd\": 48.0,\n  \"usual_merchant_categories\": [\n   \"grocery\",\n   \"fuel\",\n   \"restaurant\",\n   \"online_retail\",\n   \"subscription\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 1460\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T02-cardtest-0001\",\n   \"timestamp\": \"2026-03-02T07:18:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 34.65,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Uber\",\n   \"merchant_category\": \"transport\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0007\",\n   \"timestamp\": \"2026-03-03T01:53:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 115.52,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"City Utilities\",\n   \"merchant_category\": \"utilities\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0009\",\n   \"timestamp\": \"2026-03-03T07:59:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 43.55,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Shell Oil\",\n   \"merchant_category\": \"fuel\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T02-cardtest-0011\",\n  \"timestamp\": \"2026-03-03T13:45:00Z\",\n  \"account_id\": \"ACC-3002\",\n  \"amount_usd\": 143.54,\n  \"currency\": \"USD\",\n  \"channel\": \"card_present\",\n  \"direction\": \"debit\",\n  \"merchant\": \"Home Depot\",\n  \"merchant_category\": \"home_improvement\",\n  \"city\": \"Boston\",\n  \"country\": \"US\",\n  \"device_id\": null,\n  \"counterparty\": null\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "openai/gpt-5.6-luna",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a local card-present purchase in Boston for a moderate amount, consistent with ordinary account activity and without signs of a defined fraud pattern.\"}",
+     "phase": "final_answer",
+     "provider_metadata": {
+      "azure": {
+       "reasoningContext": "all_turns",
+       "responseId": "resp_02af7098641d6921016aae42e88fd48193874d277e9ce34d0b",
+       "serviceTier": "default"
+      },
+      "gateway": {
+       "cost": "0.0003372",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.0005372",
+       "generationId": "gen_01M2WBAQ0T87PE9EBJ1C7D2BZR",
+       "inferenceCost": "0.0003372",
+       "inputInferenceCost": "0.0001896",
+       "marketCost": "0.0003372",
+       "outputInferenceCost": "0.0001476",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "openai/gpt-5.6-luna",
+        "fallbacksAvailable": [
+         "bedrock",
+         "azure"
+        ],
+        "finalProvider": "azure",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "openai/gpt-5.6-luna",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805290922,
+            "provider": "azure",
+            "providerRequestId": "bfe87c5a-a57c-49a1-bd54-d245c418b141",
+            "providerResponseId": "resp_02af7098641d6921016aae42e88fd48193874d277e9ce34d0b",
+            "startTime": 1789805288508,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "openai/gpt-5.6-luna",
+        "planningReasoning": "System credentials planned for: openai, bedrock, azure. ZDR requested: 3 attempts → 1 ZDR attempts. Pre-ZDR order: openai(system) → bedrock(system) → azure(system). ZDR execution order: azure(system)",
+        "resolvedProvider": "openai",
+        "skippedProviderAttempts": [
+         {
+          "credentialType": "system",
+          "provider": "openai",
+          "reason": "zdr_not_supported"
+         },
+         {
+          "credentialType": "system",
+          "provider": "bedrock",
+          "reason": "zdr_ineligible_model"
+         }
+        ],
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "reasoning_details": [
+      {
+       "data": "gAAAAABqrkLq38xSrOws-oRkXRNIwP8m6TcFMAy0YS6iVJXeG1B4FKnrBbW1VJG21caoZvYpBYMBmi3C9vz5BQVaqHYIVSY0A_YzmQZFEz5XKdIwnnLc19EEi98VpGXhW5vAV_iZlWmZsthgd7Hetywavd1gq8ru040o6hXIwdYNyaV5UZJKZwthnap43bhenLQq2PCPRu7AOtZjQhtf2vYeijs0GUEEMKeJ3qZCYkqoQPOO9cyRJEOydRvPk9DTxIZz6prl83qW2pykgvxnIDp3QweIA1bm7baJjPw08ribU_orJNZrGVlV1frFhSFF5ZEfqFK8DNnVUFeTRStuPmHvthigpA5j5Rj50NK0GevB0-RrHxvDqgpkg9xah6dNzJSEXoKSktjoB_TZbPVsK6ypPZgJONSwVKZ4Dwa6jGJObdP-_74g9tlA4JPcr8jC6f1ZHBGzJItbEEu_yrAUb7biTtnD0pXEwNr4HkoNsITd-xbDrLPgXPety_2gCMyOVzqm3L54ArKB6dMSva4J9k_rlgvg0d4CcQ9_xkxkrPLO11Zpr9GTt2Zd6yRIFMtKherfHjg2x84kwya5_oFAUTKGmH6IJZISwq6hwG-gq7icw-LqlCn1X5CudxAlg6_7Gp2F7pA6n5GWCre9Q740rsGKJgjeFGXzJI461mhBScBsUMADE0precUrIE-QKlFW1HDs5IEkgBGIY-Lro1rho1dE77TQv7NTebPsPjZrbitkg9zYISsVEI8j_LCRv7lqfxpr_5sjB-kSAzGH2VDN5kddftFS1fgCBcMBJbIodE4wW5v6zHBjJcTJk6RpedR9kOiaJDFTici2_S5oI6dhBNyDKkA3memM0cxYQhksRs3F7vkqH_OcwWMZELs-nfn7mAcumtjUHRZoZo-2BWajX--Vb05LAuw6adupupQvdUhF-D3UVzjS5-cH1dckg5kEL_o4vRJDtQl0i-4AhqaQyM1Rhsw0gMWgogGEKUtqMYXuQ0VuBnUWiJutFaN6_-A2GVW89ZRCFVDamBRaIikkWr_uo9CbHhNhstlP2NYqZAOiuzYuhhKt8evG_zY1oa_U_zLC0c3zfSre5FtH3YVqP28QpxeJkBhTubhjnAD3cZN5fazI47q_Hy2552VkMzRjkqwX4MDUh33qcnUV5ux2YBwHp2rMR10KSGgG2WIGeyo3Ut9HIEFlhBjh1xKPy6FvHEmdkmKoFKr1tV4BB9x1vCdM2VK_UEceXigmoLBDa-bF3Sq-yUNqw6DzsOGgepW_T9VsDG_l9aDPDyyNZ9sjGSgkS13mUNKrxL8ssRbsrj4Sq7K1oo1tiX-wLFEEEB3mTalVZpJrlV8iH3xKbLpE7_I92QXlCNZ3iWR_JfBU89XQDuVt2eDDSouNkSFq9gJ6ysEcvnSgqnmS9IQbiYJ4eC58spKMUXvfFtS96nBjpRdKMZCotZyp2pwlwHsM69s3u_uER2GLXk9g4o4nU0I33DoU1BwX87XrLpMrQFuYS54T1ePkkCOqfsidH1FKMB4OFkqsYhdAMQMclXugE_omvaxwo53GDednNh9_aZfFysKRq6BGP1pBVQWZ74Fg9wHmCi7c3xxqwcxDZlr73ThxHW6Z9S-E6uE50w==",
+       "format": "openai-responses-v1",
+       "id": "rs_02af7098641d6921016aae42e91f188193892e1b1c07c2bc3f",
+       "index": 0,
+       "type": "reasoning.encrypted"
+      }
+     ],
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805290,
+  "generationId": "gen_01M2WBAQ0T87PE9EBJ1C7D2BZR",
+  "id": "gen_01M2WBAQ0T87PE9EBJ1C7D2BZR",
+  "model": "openai/gpt-5.6-luna",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_hdkup3zsbp",
+  "usage": {
+   "cache_creation_input_tokens": 0,
+   "completion_tokens": 123,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 63
+   },
+   "cost": 0.0003372,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.0005372,
+   "is_byok": false,
+   "market_cost": 0.0003372,
+   "prompt_tokens": 948,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 1071,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

@@ -1,0 +1,319 @@
+{
+ "latency_ms": 270.2,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "is_fraud": {
+    "instructions": "The transaction under review is fraudulent or is part of a fraud or money-laundering scheme, judged against the account profile and the recent history the bank has already seen.",
+    "type": "boolean"
+   },
+   "pattern": {
+    "criteria": {
+     "account_takeover": "Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history",
+     "card_testing": "Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase",
+     "impossible_travel": "Two card-present transactions in locations too far apart to travel between in the elapsed time",
+     "mule_account": "Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+     "none": "Legitimate activity consistent with the account's history",
+     "structuring": "Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches"
+    },
+    "instructions": "Which situation best describes the transaction under review?",
+    "type": "choice"
+   },
+   "risk": {
+    "criteria": [
+     "Routine; approve automatically",
+     "Mildly unusual; log and monitor",
+     "Suspicious; hold and review",
+     "Almost certainly fraud; block and alert"
+    ],
+    "instructions": "How much investigation does the transaction under review warrant?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "account_profile": {
+    "account_age_days": 1460,
+    "account_id": "ACC-6002",
+    "customer_segment": "retail_checking",
+    "home_city": "Chicago",
+    "home_country": "US",
+    "known_devices": [
+     "ios-a1"
+    ],
+    "typical_monthly_spend_usd": 3200.0,
+    "typical_txn_usd": 48.0,
+    "usual_merchant_categories": [
+     "grocery",
+     "fuel",
+     "restaurant",
+     "online_retail",
+     "subscription"
+    ]
+   },
+   "recent_history": [
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 12.5,
+     "channel": "card_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Starbucks",
+     "merchant_category": "restaurant",
+     "timestamp": "2026-03-02T08:24:00Z",
+     "txn_id": "T05-mule-0002"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 75.99,
+     "channel": "card_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Verizon Wireless",
+     "merchant_category": "telecom",
+     "timestamp": "2026-03-02T14:15:00Z",
+     "txn_id": "T05-mule-0004"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 11.99,
+     "channel": "card_not_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Spotify",
+     "merchant_category": "subscription",
+     "timestamp": "2026-03-02T17:27:00Z",
+     "txn_id": "T05-mule-0005"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 25.26,
+     "channel": "card_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Chipotle",
+     "merchant_category": "restaurant",
+     "timestamp": "2026-03-02T20:55:00Z",
+     "txn_id": "T05-mule-0006"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 86.28,
+     "channel": "card_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Verizon Wireless",
+     "merchant_category": "telecom",
+     "timestamp": "2026-03-03T00:56:00Z",
+     "txn_id": "T05-mule-0008"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 228.99,
+     "channel": "card_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "City Utilities",
+     "merchant_category": "utilities",
+     "timestamp": "2026-03-03T15:10:00Z",
+     "txn_id": "T05-mule-0018"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 73.08,
+     "channel": "card_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Verizon Wireless",
+     "merchant_category": "telecom",
+     "timestamp": "2026-03-03T18:43:00Z",
+     "txn_id": "T05-mule-0019"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 15.49,
+     "channel": "card_not_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Netflix",
+     "merchant_category": "subscription",
+     "timestamp": "2026-03-03T21:05:00Z",
+     "txn_id": "T05-mule-0020"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 59.94,
+     "channel": "card_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Home Depot",
+     "merchant_category": "home_improvement",
+     "timestamp": "2026-03-03T22:47:00Z",
+     "txn_id": "T05-mule-0021"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 26.32,
+     "channel": "card_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Uber",
+     "merchant_category": "transport",
+     "timestamp": "2026-03-03T23:50:00Z",
+     "txn_id": "T05-mule-0022"
+    },
+    {
+     "account_id": "ACC-6002",
+     "amount_usd": 11.99,
+     "channel": "card_not_present",
+     "city": "Chicago",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Spotify",
+     "merchant_category": "subscription",
+     "timestamp": "2026-03-04T03:45:00Z",
+     "txn_id": "T05-mule-0023"
+    }
+   ],
+   "transaction_under_review": {
+    "account_id": "ACC-6002",
+    "amount_usd": 144.03,
+    "channel": "card_present",
+    "city": "Chicago",
+    "counterparty": null,
+    "country": "US",
+    "currency": "USD",
+    "device_id": null,
+    "direction": "debit",
+    "merchant": "Marriott Hotels",
+    "merchant_category": "travel",
+    "timestamp": "2026-03-04T06:48:00Z",
+    "txn_id": "T05-mule-0024"
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "is_fraud": {
+    "probability": 0.21,
+    "type": "boolean"
+   },
+   "pattern": {
+    "choice": "none",
+    "probabilities": {
+     "account_takeover": 0.01,
+     "card_testing": 0,
+     "impossible_travel": 0.01,
+     "mule_account": 0.01,
+     "none": 0.97,
+     "structuring": 0
+    },
+    "type": "choice"
+   },
+   "risk": {
+    "probabilities": {
+     "0": 0.18,
+     "1": 0.59,
+     "2": 0.22,
+     "3": 0.01
+    },
+    "score": 1.06,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WB5WQ1S28W2JG6DG11E3E8",
+    "marketCost": "0.000107478",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805130680,
+         "provider": "typesafe-ai",
+         "startTime": 1789805130503,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "pattern": 0.95,
+     "risk": 0.59
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 2559,
+   "outputTokens": 103
+  },
+  "warnings": []
+ }
+}

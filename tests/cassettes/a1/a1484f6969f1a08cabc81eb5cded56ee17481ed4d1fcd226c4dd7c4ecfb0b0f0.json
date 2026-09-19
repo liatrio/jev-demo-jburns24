@@ -1,0 +1,258 @@
+{
+ "latency_ms": 305.9,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "is_fraud": {
+    "instructions": "The transaction under review is fraudulent or is part of a fraud or money-laundering scheme, judged against the account profile and the recent history the bank has already seen.",
+    "type": "boolean"
+   },
+   "pattern": {
+    "criteria": {
+     "account_takeover": "Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history",
+     "card_testing": "Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase",
+     "impossible_travel": "Two card-present transactions in locations too far apart to travel between in the elapsed time",
+     "mule_account": "Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+     "none": "Legitimate activity consistent with the account's history",
+     "structuring": "Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches"
+    },
+    "instructions": "Which situation best describes the transaction under review?",
+    "type": "choice"
+   },
+   "risk": {
+    "criteria": [
+     "Routine; approve automatically",
+     "Mildly unusual; log and monitor",
+     "Suspicious; hold and review",
+     "Almost certainly fraud; block and alert"
+    ],
+    "instructions": "How much investigation does the transaction under review warrant?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "account_profile": {
+    "account_age_days": 1460,
+    "account_id": "ACC-5001",
+    "customer_segment": "retail_checking",
+    "home_city": "Austin",
+    "home_country": "US",
+    "known_devices": [
+     "ios-a1"
+    ],
+    "typical_monthly_spend_usd": 6100.0,
+    "typical_txn_usd": 110.0,
+    "usual_merchant_categories": [
+     "travel",
+     "restaurant",
+     "grocery",
+     "fuel"
+    ]
+   },
+   "recent_history": [
+    {
+     "account_id": "ACC-5001",
+     "amount_usd": 15.49,
+     "channel": "card_not_present",
+     "city": "Austin",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Netflix",
+     "merchant_category": "subscription",
+     "timestamp": "2026-03-02T08:15:00Z",
+     "txn_id": "T04-travel-0001"
+    },
+    {
+     "account_id": "ACC-5001",
+     "amount_usd": 75.84,
+     "channel": "card_present",
+     "city": "Austin",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Verizon Wireless",
+     "merchant_category": "telecom",
+     "timestamp": "2026-03-02T08:54:00Z",
+     "txn_id": "T04-travel-0002"
+    },
+    {
+     "account_id": "ACC-5001",
+     "amount_usd": 66.04,
+     "channel": "card_present",
+     "city": "Austin",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Shell Oil",
+     "merchant_category": "fuel",
+     "timestamp": "2026-03-02T09:59:00Z",
+     "txn_id": "T04-travel-0003"
+    },
+    {
+     "account_id": "ACC-5001",
+     "amount_usd": 62.07,
+     "channel": "card_not_present",
+     "city": "Austin",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Amazon.com",
+     "merchant_category": "online_retail",
+     "timestamp": "2026-03-02T15:11:00Z",
+     "txn_id": "T04-travel-0005"
+    },
+    {
+     "account_id": "ACC-5001",
+     "amount_usd": 12.62,
+     "channel": "card_present",
+     "city": "Austin",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Starbucks",
+     "merchant_category": "restaurant",
+     "timestamp": "2026-03-02T20:51:00Z",
+     "txn_id": "T04-travel-0008"
+    },
+    {
+     "account_id": "ACC-5001",
+     "amount_usd": 102.88,
+     "channel": "card_present",
+     "city": "Austin",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Whole Foods Market",
+     "merchant_category": "grocery",
+     "timestamp": "2026-03-02T21:51:00Z",
+     "txn_id": "T04-travel-0009"
+    },
+    {
+     "account_id": "ACC-5001",
+     "amount_usd": 83.88,
+     "channel": "card_not_present",
+     "city": "Austin",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Amazon.com",
+     "merchant_category": "online_retail",
+     "timestamp": "2026-03-02T23:07:00Z",
+     "txn_id": "T04-travel-0010"
+    }
+   ],
+   "transaction_under_review": {
+    "account_id": "ACC-5001",
+    "amount_usd": 120.54,
+    "channel": "card_present",
+    "city": "Austin",
+    "counterparty": null,
+    "country": "US",
+    "currency": "USD",
+    "device_id": null,
+    "direction": "debit",
+    "merchant": "Whole Foods Market",
+    "merchant_category": "grocery",
+    "timestamp": "2026-03-03T00:59:00Z",
+    "txn_id": "T04-travel-0012"
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "is_fraud": {
+    "probability": 0.1,
+    "type": "boolean"
+   },
+   "pattern": {
+    "choice": "none",
+    "probabilities": {
+     "account_takeover": 0,
+     "card_testing": 0,
+     "impossible_travel": 0,
+     "mule_account": 0,
+     "none": 1,
+     "structuring": 0
+    },
+    "type": "choice"
+   },
+   "risk": {
+    "probabilities": {
+     "0": 0.85,
+     "1": 0.14,
+     "2": 0.01,
+     "3": 0
+    },
+    "score": 0.17,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WB5AT370PGFMPPEEJ3YSSW",
+    "marketCost": "0.000082362",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805112385,
+         "provider": "typesafe-ai",
+         "startTime": 1789805112153,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "pattern": 1,
+     "risk": 0.83
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1961,
+   "outputTokens": 103
+  },
+  "warnings": []
+ }
+}

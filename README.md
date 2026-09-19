@@ -62,7 +62,46 @@ as a JSON object. Provider default reasoning settings are used unless `--effort`
 
 ## Results
 
-RESULTS_PLACEHOLDER
+### Pooled across all six tapes (212 rows, 39 fraud)
+
+| evaluator | rows | TP | FP | FN | precision | recall | F1 | pattern acc | errors | p50 ms | p95 ms | total cost |
+|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+| jev | 212 | 39 | 4 | 0 | 0.91 | 1.00 | 0.95 | 0.97 | 0 | 251 | 356 | $0.0183 |
+| sonnet-5 | 212 | 39 | 5 | 0 | 0.89 | 1.00 | 0.94 | 1.00 | 0 | 1,902 | 3,584 | $1.1406 |
+| gpt-5.6-luna | 212 | 35 | 7 | 4 | 0.83 | 0.90 | 0.86 | 1.00 | 0 | 2,069 | 3,474 | $0.0914 |
+| jev+sonnet-5 | 212 | 38 | 5 | 1 | 0.88 | 0.97 | 0.93 | 0.97 | 0 | 254 | 2,153 | $0.1175 |
+
+- vs **sonnet-5**: Jev is 8x faster at p50 and 62x cheaper
+- vs **gpt-5.6-luna**: Jev is 8x faster at p50 and 5x cheaper
+- vs **jev+sonnet-5**: Jev is 1x faster at p50 and 6x cheaper
+
+### Per tape: recall on fraud rows / false positives
+
+| tape | jev recall / FP | sonnet-5 recall / FP | gpt-5.6-luna recall / FP | jev+sonnet-5 recall / FP |
+|---|--:|--:|--:|--:|
+| T00-clean | 1.00 / 0 | 1.00 / 0 | 1.00 / 0 | 1.00 / 0 |
+| T01-ato | 1.00 / 0 | 1.00 / 0 | 1.00 / 0 | 1.00 / 0 |
+| T02-cardtest | 1.00 / 0 | 1.00 / 1 | 0.93 / 0 | 1.00 / 0 |
+| T03-structuring | 1.00 / 3 | 1.00 / 2 | 1.00 / 4 | 1.00 / 3 |
+| T04-travel | 1.00 / 1 | 1.00 / 2 | 1.00 / 3 | 1.00 / 2 |
+| T05-mule | 1.00 / 0 | 1.00 / 0 | 0.67 / 0 | 0.89 / 0 |
+
+Reading the table honestly:
+
+- **Speed and cost** are structural. Jev answers three typed questions per row in about a
+  quarter of a second and the whole 212-row run costs under two cents. Sonnet 5 takes about
+  two seconds per row and costs over a dollar for the same rows.
+- **Quality** is competitive on these textbook patterns: Jev catches every planted fraud row
+  (recall 1.00) with the fewest false positives, and names the right pattern on 97 percent
+  of true positives. Sonnet 5 matches its recall with one more false alarm. GPT-5.6 Luna
+  misses four rows, three of them the early Zelle credits on the mule tape.
+- **Structuring is the hard tape for everyone.** Every evaluator flags a few legitimate
+  business rows on `T03` once it has seen the pattern of under-threshold deposits.
+- **The confidence-gated hybrid** did not beat Jev alone on this run: one gray-zone mule row
+  escalated to Sonnet came back as legitimate. It costs a tenth of Sonnet and sits at Jev's
+  latency for the 90-plus percent of rows Jev decides alone.
+
+Regenerate this section with `uv run python scripts/results_md.py` after `task e2e:record`.
 
 ## Determinism, tests and the pre-commit hook
 
@@ -96,8 +135,10 @@ The e2e suite uses Jev in two roles:
 2. **Test oracle.** Jev grades things a plain assertion cannot: whether each synthetic tape
    really encodes the situation its title claims (a fixture-quality gate over the whole
    stream), and whether the plain-text analyst report the pipeline emits is actionable
-   (`identifies_situation` boolean plus a four-level `usefulness` score). Both are one
-   Jev call with several typed questions, thresholded on the calibrated probability.
+   (`labels_match` and `no_false_alarms` booleans plus a four-level `usefulness` score).
+   Both are one Jev call with several typed questions, thresholded at the calibrated
+   probability's natural 0.5 boundary. Recall and false positives are deliberately left
+   to code, which checks them exactly against ground truth.
 
 A third file guards the headline comparison itself (Jev at least 3x faster and cheaper than
 both LLMs on the recorded runs, F1 within 0.15 of the best LLM), so if a re-record closes

@@ -1,0 +1,141 @@
+{
+ "latency_ms": 1969.2,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-4002\",\n  \"customer_segment\": \"retail_checking\",\n  \"home_city\": \"Denver\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 3200.0,\n  \"typical_txn_usd\": 48.0,\n  \"usual_merchant_categories\": [\n   \"grocery\",\n   \"fuel\",\n   \"restaurant\",\n   \"online_retail\",\n   \"subscription\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 1460\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T03-structuring-0003\",\n   \"timestamp\": \"2026-03-02T18:54:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 233.64,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Delta Air Lines\",\n   \"merchant_category\": \"travel\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0004\",\n   \"timestamp\": \"2026-03-02T21:06:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 54.26,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"CVS Pharmacy\",\n   \"merchant_category\": \"pharmacy\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0005\",\n   \"timestamp\": \"2026-03-03T00:33:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 56.9,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Shell Oil\",\n   \"merchant_category\": \"fuel\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0010\",\n   \"timestamp\": \"2026-03-03T22:04:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 35.48,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Amazon.com\",\n   \"merchant_category\": \"online_retail\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0011\",\n   \"timestamp\": \"2026-03-04T00:23:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 197.31,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"City Utilities\",\n   \"merchant_category\": \"utilities\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0012\",\n   \"timestamp\": \"2026-03-04T04:03:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 86.41,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Target\",\n   \"merchant_category\": \"general_retail\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0016\",\n   \"timestamp\": \"2026-03-04T20:47:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 26.09,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Uber\",\n   \"merchant_category\": \"transport\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0017\",\n   \"timestamp\": \"2026-03-04T22:26:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 303.79,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Delta Air Lines\",\n   \"merchant_category\": \"travel\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0018\",\n   \"timestamp\": \"2026-03-04T23:56:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 416.18,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Marriott Hotels\",\n   \"merchant_category\": \"travel\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0023\",\n   \"timestamp\": \"2026-03-05T20:36:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 11.99,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Spotify\",\n   \"merchant_category\": \"subscription\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0024\",\n   \"timestamp\": \"2026-03-05T21:36:00Z\",\n   \"account_id\": \"ACC-4002\",\n   \"amount_usd\": 55.81,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"CVS Pharmacy\",\n   \"merchant_category\": \"pharmacy\",\n   \"city\": \"Denver\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T03-structuring-0025\",\n  \"timestamp\": \"2026-03-05T22:35:00Z\",\n  \"account_id\": \"ACC-4002\",\n  \"amount_usd\": 210.07,\n  \"currency\": \"USD\",\n  \"channel\": \"card_present\",\n  \"direction\": \"debit\",\n  \"merchant\": \"City Utilities\",\n  \"merchant_category\": \"utilities\",\n  \"city\": \"Denver\",\n  \"country\": \"US\",\n  \"device_id\": null,\n  \"counterparty\": null\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "openai/gpt-5.6-luna",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The transaction is a routine Denver utility payment consistent with the account's established local card spending and shows no defined fraud or AML pattern.\"}",
+     "phase": "final_answer",
+     "provider_metadata": {
+      "azure": {
+       "reasoningContext": "all_turns",
+       "responseId": "resp_091576e63b45b182016aae43036d5081909f0ddcb5b9907964",
+       "serviceTier": "default"
+      },
+      "gateway": {
+       "cost": "0.0006036",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.0008036",
+       "generationId": "gen_01M2WBBH8SG0M8VG561EM9VTJG",
+       "inferenceCost": "0.0006036",
+       "inputInferenceCost": "0.0004956",
+       "marketCost": "0.0006036",
+       "outputInferenceCost": "0.000108",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "openai/gpt-5.6-luna",
+        "fallbacksAvailable": [
+         "bedrock",
+         "azure"
+        ],
+        "finalProvider": "azure",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "openai/gpt-5.6-luna",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805317030,
+            "provider": "azure",
+            "providerRequestId": "05ce7c05-6e6f-4a99-b66d-960cae6a592b",
+            "providerResponseId": "resp_091576e63b45b182016aae43036d5081909f0ddcb5b9907964",
+            "startTime": 1789805315371,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "openai/gpt-5.6-luna",
+        "planningReasoning": "System credentials planned for: openai, bedrock, azure. ZDR requested: 3 attempts → 1 ZDR attempts. Pre-ZDR order: openai(system) → bedrock(system) → azure(system). ZDR execution order: azure(system)",
+        "resolvedProvider": "openai",
+        "skippedProviderAttempts": [
+         {
+          "credentialType": "system",
+          "provider": "openai",
+          "reason": "zdr_not_supported"
+         },
+         {
+          "credentialType": "system",
+          "provider": "bedrock",
+          "reason": "zdr_ineligible_model"
+         }
+        ],
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "reasoning_details": [
+      {
+       "data": "gAAAAABqrkMFI7C5cwGtsM-Asq9McPhccwX_048IzRpCeXLUNsPObz_PsairdfPfCsjjeVdOQ4jDZ_T_dNm9Wy7w7e4z-MVV-wEjbVJoU8P3pMjCubw9N0I3PNPff6q5S2kyAc4n4qJXlOdAuG4qoyZkFgLK55KTaPyAvee-iXOYWxlee6ezuwFJwcNgw0toSJdeY03OftOU2UTyDtfviIyEvvBawVpbHWebc7lo0l8Acw3vOnJjPFOMXWUMXsem--wL4aWrA7qpHn1eDFxZTRUmXM7qqhqStX2joZEe3-eXQsTihckCx023TpyZhxQuCJE12vu8wqbv53XIyu1YDT_uJjMuB0TMYdLnFRu3YQereRwBC0IRIMjHe9i3vPfYQWn0BcixEsOa-hs3ADZpjBOcvFFaBvkMV8stHU4oazjZdWLBAZL-PRVh25iGvQ5v4dRP8DNiNrYh1rtdEEemO-iRvM4HR29l1uzbiFr6rTzBJljJ57Z-t83UixOzZXqG39RVIjiduBQEl7rOl9ZBckFFWARg-hH7oRt3fReGYxFslLzriuMR6cAtia2_nBx5Eo4YhWkGS0M7S2r_4Qe1EVhIMiZvpMW_ZCewYuc208ooiGNArsFN0bhNJw-l4i6pUj9A6PQP-MTpmusb-9iw5AuvECXsJEyNInxQei3uY2pozBdMF3_ExcsoTBDznrEuNjODKdF3AhmY2tlksKW_OaCzLYzu0fP6Y-8kbDApiQ9dtLNsM6oRLnDTAtsWkJvsR4Fu_rOrCtZUNviPowKg9-8-VAPv2oSGI770iT9_Q7iH1DLntgMSCTpNlJkRlix4LRLAVY67rdIj5quenSlGeu0IM2gmn-OVe_fbl73idVT-1jpr-ixppN-pDSqi7MVXXRzi-c8I0Pxm5f7IN_v0N18EBWvhe3M9nuomfJXrFJk2hn2AO0Xcrup3HjRfZ0EpFjLh8OzXkjtMHa1tfUNBzbis3jLMnU4JNi17hIyIEsp3kuYzgR5VXMM_3os23uZBkKrKmzB5Hv_HWmaMQButVmHhUn4PvmcvQ8h1HwN9yNCzasRngRVKeI4_YZ1CHeFAn3h_7kLWi6ZZUEeA0OWt6JNuU84N7HPy-VpjrGf8QLrMeQ7xU7MVCCRY6O1V58rP4aj0qKTU1Vxmat4JWUHsoARhm_qBXifN2XJr5UhxuvM5DxcNCTlo38rQMTKaMMakWUgS3PrYLL4e-bcwXuSQXPpVceqlLPqM2ENh2na8i1L7S-HmyU3LzJ-kykppVQF0ei75i9eWZKcjpJU9UYmJolHfq3UgbXUe6AS6W_IdHqQKjyYm8ZC7yEUosownI8O-ke1DnhKCvfYuwBITnXNw7iwntnnozOWUgEw8sPxu50JbH_FmiRD5BET-Jx-B2TT6Dl6JPniHKCfN",
+       "format": "openai-responses-v1",
+       "id": "rs_091576e63b45b182016aae4303f1788190aa1bd4dbdf4e8ae8",
+       "index": 0,
+       "type": "reasoning.encrypted"
+      }
+     ],
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805317,
+  "generationId": "gen_01M2WBBH8SG0M8VG561EM9VTJG",
+  "id": "gen_01M2WBBH8SG0M8VG561EM9VTJG",
+  "model": "openai/gpt-5.6-luna",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_pwfnripgms",
+  "usage": {
+   "cache_creation_input_tokens": 1980,
+   "completion_tokens": 90,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 33
+   },
+   "cost": 0.0006036,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.0008036,
+   "is_byok": false,
+   "market_cost": 0.0006036,
+   "prompt_tokens": 1983,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 2073,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

@@ -1,0 +1,289 @@
+{
+ "latency_ms": 241.2,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "is_fraud": {
+    "instructions": "The transaction under review is fraudulent or is part of a fraud or money-laundering scheme, judged against the account profile and the recent history the bank has already seen.",
+    "type": "boolean"
+   },
+   "pattern": {
+    "criteria": {
+     "account_takeover": "Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history",
+     "card_testing": "Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase",
+     "impossible_travel": "Two card-present transactions in locations too far apart to travel between in the elapsed time",
+     "mule_account": "Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+     "none": "Legitimate activity consistent with the account's history",
+     "structuring": "Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches"
+    },
+    "instructions": "Which situation best describes the transaction under review?",
+    "type": "choice"
+   },
+   "risk": {
+    "criteria": [
+     "Routine; approve automatically",
+     "Mildly unusual; log and monitor",
+     "Suspicious; hold and review",
+     "Almost certainly fraud; block and alert"
+    ],
+    "instructions": "How much investigation does the transaction under review warrant?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "account_profile": {
+    "account_age_days": 1460,
+    "account_id": "ACC-3001",
+    "customer_segment": "retail_checking",
+    "home_city": "Denver",
+    "home_country": "US",
+    "known_devices": [
+     "ios-a1"
+    ],
+    "typical_monthly_spend_usd": 2100.0,
+    "typical_txn_usd": 36.0,
+    "usual_merchant_categories": [
+     "grocery",
+     "fuel",
+     "restaurant",
+     "online_retail",
+     "subscription"
+    ]
+   },
+   "recent_history": [
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 91.04,
+     "channel": "card_not_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Amazon.com",
+     "merchant_category": "online_retail",
+     "timestamp": "2026-03-02T09:31:00Z",
+     "txn_id": "T02-cardtest-0002"
+    },
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 28.55,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Uber",
+     "merchant_category": "transport",
+     "timestamp": "2026-03-02T13:11:00Z",
+     "txn_id": "T02-cardtest-0003"
+    },
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 245.59,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Marriott Hotels",
+     "merchant_category": "travel",
+     "timestamp": "2026-03-02T16:54:00Z",
+     "txn_id": "T02-cardtest-0004"
+    },
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 4.85,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Starbucks",
+     "merchant_category": "restaurant",
+     "timestamp": "2026-03-02T19:39:00Z",
+     "txn_id": "T02-cardtest-0005"
+    },
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 10.09,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Starbucks",
+     "merchant_category": "restaurant",
+     "timestamp": "2026-03-02T23:10:00Z",
+     "txn_id": "T02-cardtest-0006"
+    },
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 138.31,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Home Depot",
+     "merchant_category": "home_improvement",
+     "timestamp": "2026-03-03T04:33:00Z",
+     "txn_id": "T02-cardtest-0008"
+    },
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 11.99,
+     "channel": "card_not_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Spotify",
+     "merchant_category": "subscription",
+     "timestamp": "2026-03-03T09:59:00Z",
+     "txn_id": "T02-cardtest-0010"
+    },
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 2.5,
+     "channel": "card_not_present",
+     "city": "Lagos",
+     "counterparty": null,
+     "country": "NG",
+     "currency": "USD",
+     "device_id": "linux-headless-9e",
+     "direction": "debit",
+     "merchant": "Fiverr",
+     "merchant_category": "digital_goods",
+     "timestamp": "2026-03-03T19:37:49Z",
+     "txn_id": "T02-cardtest-0015"
+    },
+    {
+     "account_id": "ACC-3001",
+     "amount_usd": 2.5,
+     "channel": "card_not_present",
+     "city": "Lagos",
+     "counterparty": null,
+     "country": "NG",
+     "currency": "USD",
+     "device_id": "linux-headless-9e",
+     "direction": "debit",
+     "merchant": "Discord Nitro",
+     "merchant_category": "digital_goods",
+     "timestamp": "2026-03-03T19:38:41Z",
+     "txn_id": "T02-cardtest-0016"
+    }
+   ],
+   "transaction_under_review": {
+    "account_id": "ACC-3001",
+    "amount_usd": 1.0,
+    "channel": "card_not_present",
+    "city": "Lagos",
+    "counterparty": null,
+    "country": "NG",
+    "currency": "USD",
+    "device_id": "linux-headless-9e",
+    "direction": "debit",
+    "merchant": "Canva",
+    "merchant_category": "digital_goods",
+    "timestamp": "2026-03-03T19:39:44Z",
+    "txn_id": "T02-cardtest-0017"
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "is_fraud": {
+    "probability": 0.8,
+    "type": "boolean"
+   },
+   "pattern": {
+    "choice": "card_testing",
+    "probabilities": {
+     "account_takeover": 0,
+     "card_testing": 1,
+     "impossible_travel": 0,
+     "mule_account": 0,
+     "none": 0,
+     "structuring": 0
+    },
+    "type": "choice"
+   },
+   "risk": {
+    "probabilities": {
+     "0": 0.01,
+     "1": 0.06,
+     "2": 0.32,
+     "3": 0.61
+    },
+    "score": 2.54,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WB3Q6FG3NEM142FWP7NBP4",
+    "marketCost": "0.00009576",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805059452,
+         "provider": "typesafe-ai",
+         "startTime": 1789805059298,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "pattern": 0.99,
+     "risk": 0.54
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 2280,
+   "outputTokens": 104
+  },
+  "warnings": []
+ }
+}

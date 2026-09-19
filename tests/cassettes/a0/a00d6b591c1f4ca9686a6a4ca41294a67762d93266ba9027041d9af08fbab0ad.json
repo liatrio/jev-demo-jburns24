@@ -1,0 +1,95 @@
+{
+ "latency_ms": 484.5,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "identifies_situation": {
+    "instructions": "The report's flagged transactions and labels make the expected_situation evident to a bank fraud analyst. If expected_situation says there is no fraud, this is true when the report flags nothing or only a few rows.",
+    "type": "boolean"
+   },
+   "usefulness": {
+    "criteria": [
+     "Useless: no flags or no context",
+     "Weak: flags rows but labels are missing or wrong",
+     "Good: flags the right rows with a plausible pattern label",
+     "Excellent: complete, correctly labelled, nothing spurious"
+    ],
+    "instructions": "How useful is this report to an analyst deciding what to do next?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "expected_situation": "Two retail customers going about a normal week, including a legitimately larger travel booking. Contains zero fraud; measures false-positive rate.",
+   "report": "FRAUD REVIEW REPORT - tape T00-clean (Clean baseline)\nevaluator: jev   transactions reviewed: 47   flagged: 0\n\nFlagged transactions:\n- none"
+  }
+ },
+ "response": {
+  "answers": {
+   "identifies_situation": {
+    "probability": 0.94,
+    "type": "boolean"
+   },
+   "usefulness": {
+    "probabilities": {
+     "0": 0.51,
+     "1": 0,
+     "2": 0.08,
+     "3": 0.41
+    },
+    "score": 1.41,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WBDHQT8E6TP5EJ63G7P72X",
+    "marketCost": "0.00002016",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805381510,
+         "provider": "typesafe-ai",
+         "startTime": 1789805381394,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "usefulness": 0
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 480,
+   "outputTokens": 39
+  },
+  "warnings": []
+ }
+}

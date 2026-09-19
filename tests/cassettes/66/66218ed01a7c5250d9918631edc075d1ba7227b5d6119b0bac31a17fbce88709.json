@@ -1,0 +1,137 @@
+{
+ "latency_ms": 2210.6,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-6001\",\n  \"customer_segment\": \"retail_checking\",\n  \"home_city\": \"Boston\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 900.0,\n  \"typical_txn_usd\": 22.0,\n  \"usual_merchant_categories\": [\n   \"grocery\",\n   \"restaurant\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 41\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T05-mule-0001\",\n   \"timestamp\": \"2026-03-02T06:35:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 79.08,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Amazon.com\",\n   \"merchant_category\": \"online_retail\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0003\",\n   \"timestamp\": \"2026-03-02T12:11:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 74.59,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Verizon Wireless\",\n   \"merchant_category\": \"telecom\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0007\",\n   \"timestamp\": \"2026-03-03T00:06:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 134.85,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Amazon.com\",\n   \"merchant_category\": \"online_retail\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0009\",\n   \"timestamp\": \"2026-03-03T06:11:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 1373.26,\n   \"currency\": \"USD\",\n   \"channel\": \"p2p\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Zelle Transfer\",\n   \"merchant_category\": \"p2p_transfer\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"J. Okafor\"\n  },\n  {\n   \"txn_id\": \"T05-mule-0010\",\n   \"timestamp\": \"2026-03-03T06:30:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 2362.11,\n   \"currency\": \"USD\",\n   \"channel\": \"p2p\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Zelle Transfer\",\n   \"merchant_category\": \"p2p_transfer\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"M. Reyes\"\n  },\n  {\n   \"txn_id\": \"T05-mule-0011\",\n   \"timestamp\": \"2026-03-03T07:03:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 2330.24,\n   \"currency\": \"USD\",\n   \"channel\": \"p2p\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Zelle Transfer\",\n   \"merchant_category\": \"p2p_transfer\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"P. Lindqvist\"\n  },\n  {\n   \"txn_id\": \"T05-mule-0012\",\n   \"timestamp\": \"2026-03-03T07:43:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 1708.67,\n   \"currency\": \"USD\",\n   \"channel\": \"p2p\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Zelle Transfer\",\n   \"merchant_category\": \"p2p_transfer\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"A. Nakamura\"\n  },\n  {\n   \"txn_id\": \"T05-mule-0013\",\n   \"timestamp\": \"2026-03-03T08:22:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 2121.76,\n   \"currency\": \"USD\",\n   \"channel\": \"p2p\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Zelle Transfer\",\n   \"merchant_category\": \"p2p_transfer\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"S. Dubois\"\n  },\n  {\n   \"txn_id\": \"T05-mule-0014\",\n   \"timestamp\": \"2026-03-03T09:02:00Z\",\n   \"account_id\": \"ACC-6001\",\n   \"amount_usd\": 1404.93,\n   \"currency\": \"USD\",\n   \"channel\": \"p2p\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Zelle Transfer\",\n   \"merchant_category\": \"p2p_transfer\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"R. Achebe\"\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T05-mule-0015\",\n  \"timestamp\": \"2026-03-03T09:28:00Z\",\n  \"account_id\": \"ACC-6001\",\n  \"amount_usd\": 2341.64,\n  \"currency\": \"USD\",\n  \"channel\": \"p2p\",\n  \"direction\": \"credit\",\n  \"merchant\": \"Zelle Transfer\",\n  \"merchant_category\": \"p2p_transfer\",\n  \"city\": \"Boston\",\n  \"country\": \"US\",\n  \"device_id\": null,\n  \"counterparty\": \"K. Weber\"\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "anthropic/claude-sonnet-5",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\"is_fraud\": true, \"fraud_probability\": 0.97, \"pattern\": \"mule_account\", \"reason\": \"This retail checking account with typical monthly spend of $900 is suddenly receiving a rapid succession of large, unrelated P2P credits from many different individuals within hours, a classic mule account fan-in pattern indicating imminent outbound consolidation.\"}",
+     "provider_metadata": {
+      "anthropic": {
+       "cacheCreationInputTokens": 0,
+       "container": null,
+       "contextManagement": null,
+       "iterations": null,
+       "stopSequence": null,
+       "usage": {
+        "cache_creation": {
+         "ephemeral_1h_input_tokens": 0,
+         "ephemeral_5m_input_tokens": 0
+        },
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "inference_geo": "global",
+        "input_tokens": 2501,
+        "output_tokens": 123,
+        "output_tokens_details": {
+         "thinking_tokens": 0
+        },
+        "service_tier": "standard"
+       }
+      },
+      "gateway": {
+       "cost": "0.006232",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.006432",
+       "generationId": "gen_01M2WBCWC2M3HBSN778WMHRB7Z",
+       "inferenceCost": "0.006232",
+       "inputInferenceCost": "0.005002",
+       "marketCost": "0.006232",
+       "outputInferenceCost": "0.00123",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "anthropic/claude-sonnet-5",
+        "fallbacksAvailable": [
+         "anthropic",
+         "bedrock",
+         "vertexAnthropic"
+        ],
+        "finalProvider": "anthropic",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "anthropic/claude-sonnet-5",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805361646,
+            "provider": "anthropic",
+            "providerRequestId": "req_011CfCTVMdTDHar2wtRuzbJW",
+            "providerResponseId": "msg_011CfCTVMxoMuYQAiggDQqcB",
+            "startTime": 1789805359509,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "anthropic/claude-sonnet-5",
+        "planningReasoning": "Weighted tie pick: anthropic won tier 0 over claudeaws. System credentials planned for: claudeaws, anthropic, bedrock, vertexAnthropic. ZDR requested: all 4 attempts support ZDR. Execution order: anthropic(system) → claudeaws(system) → bedrock(system) → vertexAnthropic(system)",
+        "resolvedProvider": "claudeaws",
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805361,
+  "generationId": "gen_01M2WBCWC2M3HBSN778WMHRB7Z",
+  "id": "gen_01M2WBCWC2M3HBSN778WMHRB7Z",
+  "model": "anthropic/claude-sonnet-5",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_vwsltp2vmk",
+  "usage": {
+   "cache_creation_input_tokens": 0,
+   "completion_tokens": 123,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 0
+   },
+   "cost": 0.006232,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.006432,
+   "is_byok": false,
+   "market_cost": 0.006232,
+   "prompt_tokens": 2501,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 2624,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

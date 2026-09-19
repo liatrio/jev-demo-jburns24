@@ -1,0 +1,95 @@
+{
+ "latency_ms": 715.7,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "identifies_situation": {
+    "instructions": "The report's flagged transactions and labels make the expected_situation evident to a bank fraud analyst. If expected_situation says there is no fraud, this is true when the report flags nothing or only a few rows.",
+    "type": "boolean"
+   },
+   "usefulness": {
+    "criteria": [
+     "Useless: no flags or no context",
+     "Weak: flags rows but labels are missing or wrong",
+     "Good: flags the right rows with a plausible pattern label",
+     "Excellent: complete, correctly labelled, nothing spurious"
+    ],
+    "instructions": "How useful is this report to an analyst deciding what to do next?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "expected_situation": "A small business splits large cash inflows into repeated 9,300 to 9,950 USD deposits across four branches over four days, each just under the 10,000 USD CTR threshold. Normal wholesale, payroll and one ordinary deposit are mixed in.",
+   "report": "FRAUD REVIEW REPORT - tape T03-structuring (Cash structuring (smurfing))\nevaluator: jev   transactions reviewed: 32   flagged: 12\n\nFlagged transactions:\n- 2026-03-03T17:08:00Z T03-structuring-0008 ACC-4001 credit 9,925.17 USD cash at Branch 014 Austin Downtown (Seattle, US) -> structuring p=0.72\n- 2026-03-03T19:16:00Z T03-structuring-0009 ACC-4001 credit 9,382.96 USD cash at Branch 007 Pflugerville (Seattle, US) -> structuring p=0.75\n- 2026-03-04T15:00:00Z T03-structuring-0013 ACC-4001 debit 2,708.11 USD ach at Sysco Foods (Seattle, US) -> structuring p=0.55\n- 2026-03-04T16:27:00Z T03-structuring-0014 ACC-4001 credit 9,431.67 USD cash at Branch 022 Round Rock (Seattle, US) -> structuring p=0.77\n- 2026-03-04T17:34:00Z T03-structuring-0015 ACC-4001 credit 9,914.83 USD cash at Branch 014 Austin Downtown (Seattle, US) -> structuring p=0.82\n- 2026-03-05T15:00:00Z T03-structuring-0019 ACC-4001 debit 2,939.15 USD ach at Sysco Foods (Seattle, US) -> structuring p=0.64\n- 2026-03-05T17:47:00Z T03-structuring-0021 ACC-4001 credit 9,492.72 USD cash at Branch 022 Round Rock (Seattle, US) -> structuring p=0.80\n- 2026-03-05T19:28:00Z T03-structuring-0022 ACC-4001 credit 9,841.32 USD cash at Branch 031 Cedar Park (Seattle, US) -> structuring p=0.82\n- 2026-03-06T15:00:00Z T03-structuring-0026 ACC-4001 debit 2,509.03 USD ach at Sysco Foods (Seattle, US) -> none p=0.51\n- 2026-03-06T17:05:00Z T03-structuring-0027 ACC-4001 credit 9,947.31 USD cash at Branch 014 Austin Downtown (Seattle, US) -> structuring p=0.81\n- 2026-03-06T18:57:00Z T03-structuring-0028 ACC-4001 credit 9,797.99 USD cash at Branch 022 Round Rock (Seattle, US) -> structuring p=0.82\n- 2026-03-06T19:49:00Z T03-structuring-0029 ACC-4001 credit 9,760.64 USD cash at Branch 031 Cedar Park (Seattle, US) -> structuring p=0.88"
+  }
+ },
+ "response": {
+  "answers": {
+   "identifies_situation": {
+    "probability": 0.33,
+    "type": "boolean"
+   },
+   "usefulness": {
+    "probabilities": {
+     "0": 0,
+     "1": 0.27,
+     "2": 0.65,
+     "3": 0.08
+    },
+    "score": 1.8,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WBDKBT86X4SXAVZQ4F30XN",
+    "marketCost": "0.000059136",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805383415,
+         "provider": "typesafe-ai",
+         "startTime": 1789805383162,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "usefulness": 0.65
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1408,
+   "outputTokens": 39
+  },
+  "warnings": []
+ }
+}

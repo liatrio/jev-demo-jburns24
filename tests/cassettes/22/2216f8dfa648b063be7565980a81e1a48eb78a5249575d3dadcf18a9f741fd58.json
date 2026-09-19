@@ -1,0 +1,141 @@
+{
+ "latency_ms": 2589.8,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-4001\",\n  \"customer_segment\": \"small_business_checking\",\n  \"home_city\": \"Seattle\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 48000.0,\n  \"typical_txn_usd\": 1900.0,\n  \"usual_merchant_categories\": [\n   \"wholesale\",\n   \"payroll\",\n   \"utilities\",\n   \"cash_deposit\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 800\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T03-structuring-0001\",\n   \"timestamp\": \"2026-03-02T15:00:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 2484.9,\n   \"currency\": \"USD\",\n   \"channel\": \"ach\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Sysco Foods\",\n   \"merchant_category\": \"wholesale\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"Sysco Corp\"\n  },\n  {\n   \"txn_id\": \"T03-structuring-0002\",\n   \"timestamp\": \"2026-03-02T15:45:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 3120.0,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 014 Austin Downtown\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0006\",\n   \"timestamp\": \"2026-03-03T15:00:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 1203.9,\n   \"currency\": \"USD\",\n   \"channel\": \"ach\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Sysco Foods\",\n   \"merchant_category\": \"wholesale\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"Sysco Corp\"\n  },\n  {\n   \"txn_id\": \"T03-structuring-0007\",\n   \"timestamp\": \"2026-03-03T16:00:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 5166.5,\n   \"currency\": \"USD\",\n   \"channel\": \"ach\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Gusto Payroll\",\n   \"merchant_category\": \"payroll\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"Gusto Inc\"\n  },\n  {\n   \"txn_id\": \"T03-structuring-0008\",\n   \"timestamp\": \"2026-03-03T17:08:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 9925.17,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 014 Austin Downtown\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T03-structuring-0009\",\n  \"timestamp\": \"2026-03-03T19:16:00Z\",\n  \"account_id\": \"ACC-4001\",\n  \"amount_usd\": 9382.96,\n  \"currency\": \"USD\",\n  \"channel\": \"cash\",\n  \"direction\": \"credit\",\n  \"merchant\": \"Branch 007 Pflugerville\",\n  \"merchant_category\": \"cash_deposit\",\n  \"city\": \"Seattle\",\n  \"country\": \"US\",\n  \"device_id\": null,\n  \"counterparty\": null\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "openai/gpt-5.6-luna",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"Repeated cash deposits of $9,925.17 and $9,382.96, along with other recent cash deposits below $10,000 across branches and days, indicate deliberate structuring to avoid reporting thresholds.\"}",
+     "phase": "final_answer",
+     "provider_metadata": {
+      "azure": {
+       "reasoningContext": "all_turns",
+       "responseId": "resp_013137686cb57e0c016aae42fe52808196a8ccbe59870c6af2",
+       "serviceTier": "default"
+      },
+      "gateway": {
+       "cost": "0.00047895",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.00067895",
+       "generationId": "gen_01M2WBBC82ESN610549FKYEZ4D",
+       "inferenceCost": "0.00047895",
+       "inputInferenceCost": "0.00030735",
+       "marketCost": "0.00047895",
+       "outputInferenceCost": "0.0001716",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "openai/gpt-5.6-luna",
+        "fallbacksAvailable": [
+         "bedrock",
+         "azure"
+        ],
+        "finalProvider": "azure",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "openai/gpt-5.6-luna",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805312741,
+            "provider": "azure",
+            "providerRequestId": "72c4e13e-f576-4681-bf97-37999c69dba0",
+            "providerResponseId": "resp_013137686cb57e0c016aae42fe52808196a8ccbe59870c6af2",
+            "startTime": 1789805310274,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "openai/gpt-5.6-luna",
+        "planningReasoning": "System credentials planned for: openai, bedrock, azure. ZDR requested: 3 attempts → 1 ZDR attempts. Pre-ZDR order: openai(system) → bedrock(system) → azure(system). ZDR execution order: azure(system)",
+        "resolvedProvider": "openai",
+        "skippedProviderAttempts": [
+         {
+          "credentialType": "system",
+          "provider": "openai",
+          "reason": "zdr_not_supported"
+         },
+         {
+          "credentialType": "system",
+          "provider": "bedrock",
+          "reason": "zdr_ineligible_model"
+         }
+        ],
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "reasoning_details": [
+      {
+       "data": "gAAAAABqrkMAStKel-imNNwc0WhMkUnyX0fDKgG_WyqLKNkT7tvoWV3jEVFy2slYpPvsFjntpwiKw8KCGf2Y8G2dydvO1aVkVHzXS0j3okHIHqn_FFhw-4m1RGgtHW7r2smDeQpTbML4zuj8gPw0ms0v_jWhF4Oy8Lqz98zLO1Dq9TzmSSIoNhKYwZJJ24yymcpVKJihZ3HphJkpj0_RdTlmFnigPtmqbe7mpVRGiI9ka-9ita2osOrIWR5SE0_hr9x4-5MnFn7QvxnJJ3aSQ4fqDHPBpuRaeY96kNSHsZxr31E0KGPP4msU647fSiQj7emJDHp-pz__Gtb9Zgf9TLCjWmZKvvk9PgvBZdb60ttSFq6uXWLA46158R-wNjC_kX9FvE3LOBGRCr6ac6mtgmKeeWoXpeSNThpLiCf4RNerfGHv4SheCei_OkGzbj2mrHtHoggbAsGWuoXNVA1gP5g7xd5TIc3STBS1HDO2WkRJLw5GfQFIAzoHAlTLYXfwF1zoijhOsfA9Qy5fk6GctnYztAb7haonze9Nh8py4SHCDs-7TPmiE_Mm9JuKyTmxv2-BxplzT5Z-0o0UH8d2UoURA2uwVm8GYcUz27z9hkzAoxZ4zlXk6vuQLxmof0Zwa8MllYAMuClTUHPMCvgwQXRZ8Ooye4gOoQWQotWRox9nT_eT_yPwN1Ui2MW71CkzNviQ5VKD-k_-P8CkMYA9HvXZVbV7MLCgQ57vQvfqrTogGEqWrkfaFi2B3KPGrg-KA4aP_KR-SsF0dK3vp83h6roHGVmD5F1KMWFLVC8y4WE1SLJeSgK3VNWXg5OgfwfS47xkgEtW6eTRi6Hx0jcz0zYf0D8Tbot-4kQZljE5Er2-CWiwKeWw_fuU0PE-YyjKnD6zzxpmG0nmS9NZ9Zj7BM7MdwYqOg3NaKU0hS_5Gw3vetyAU1i-ekUq8Jd-aunlPO6dWFmLWUOJb5QFTS6tZAyDf1sUtPEKO-qA9GWHxi4X_IWyb1w2v6BRlYTyiMt1hOwcFOGIzd_HW-Opa7CExU7nKH_ZksmXSGn5MpiVlFqtruXBrFPhd5RLISI8poayw9ZSzX5Kil1rcTQ-Z6A-s764asLh1kvXooYPMsmwm121Ijtjx-7fVKER4UAiWp5ANbk-yD73kEGOS5hk0bNI_V3M_lzuyKY0OkdzbdEPQBMlQst7StbE2TWUBCWhrovMPe8Esr0NOWfCX7oFLxyyEr9DkXkDhxoze31mRtcxa_y5X3SifaDu8MmTM5oOA3gG1NTQ0LjyLxfCANY2AKR7nFGifstCd_400ibjN3sNfhrDsemsHrNi3jSm1TCkLWm9Xk-DGVwTM_Zh2-6SSAzaoDfREZokRIcG7XNLduAiG5xlAeJoolWSggcvYVclj0oMtg334HDYbTvDi6-1yJnp4KH1LqJ2pIJa_zvufUIbS6pVktD6YdSTXJYwxdx4rVxKjbtakwWWkXVVdvquFP9QOKOhwkEFoL2AV8wBUMS-wvMBi-_GCqYIuhw9B1rib7G_3LXW3cWBJCipe914KRWREUlk7zgNOOpZjeXmIMo2gWG3senrpLENRPI=",
+       "format": "openai-responses-v1",
+       "id": "rs_013137686cb57e0c016aae42ff2048819686bc86b90114d629",
+       "index": 0,
+       "type": "reasoning.encrypted"
+      }
+     ],
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805312,
+  "generationId": "gen_01M2WBBC82ESN610549FKYEZ4D",
+  "id": "gen_01M2WBBC82ESN610549FKYEZ4D",
+  "model": "openai/gpt-5.6-luna",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_336go05oaq",
+  "usage": {
+   "cache_creation_input_tokens": 1227,
+   "completion_tokens": 143,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 68
+   },
+   "cost": 0.00047895,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.00067895,
+   "is_byok": false,
+   "market_cost": 0.00047895,
+   "prompt_tokens": 1230,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 1373,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

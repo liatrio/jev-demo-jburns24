@@ -1,0 +1,289 @@
+{
+ "latency_ms": 218.2,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "is_fraud": {
+    "instructions": "The transaction under review is fraudulent or is part of a fraud or money-laundering scheme, judged against the account profile and the recent history the bank has already seen.",
+    "type": "boolean"
+   },
+   "pattern": {
+    "criteria": {
+     "account_takeover": "Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history",
+     "card_testing": "Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase",
+     "impossible_travel": "Two card-present transactions in locations too far apart to travel between in the elapsed time",
+     "mule_account": "Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+     "none": "Legitimate activity consistent with the account's history",
+     "structuring": "Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches"
+    },
+    "instructions": "Which situation best describes the transaction under review?",
+    "type": "choice"
+   },
+   "risk": {
+    "criteria": [
+     "Routine; approve automatically",
+     "Mildly unusual; log and monitor",
+     "Suspicious; hold and review",
+     "Almost certainly fraud; block and alert"
+    ],
+    "instructions": "How much investigation does the transaction under review warrant?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "account_profile": {
+    "account_age_days": 1460,
+    "account_id": "ACC-5002",
+    "customer_segment": "retail_checking",
+    "home_city": "Denver",
+    "home_country": "US",
+    "known_devices": [
+     "ios-a1"
+    ],
+    "typical_monthly_spend_usd": 3200.0,
+    "typical_txn_usd": 48.0,
+    "usual_merchant_categories": [
+     "grocery",
+     "fuel",
+     "restaurant",
+     "online_retail",
+     "subscription"
+    ]
+   },
+   "recent_history": [
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 29.74,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Target",
+     "merchant_category": "general_retail",
+     "timestamp": "2026-03-02T12:08:00Z",
+     "txn_id": "T04-travel-0004"
+    },
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 10.28,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Starbucks",
+     "merchant_category": "restaurant",
+     "timestamp": "2026-03-02T18:25:00Z",
+     "txn_id": "T04-travel-0006"
+    },
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 31.16,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "CVS Pharmacy",
+     "merchant_category": "pharmacy",
+     "timestamp": "2026-03-02T19:10:00Z",
+     "txn_id": "T04-travel-0007"
+    },
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 15.49,
+     "channel": "card_not_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": "ios-a1",
+     "direction": "debit",
+     "merchant": "Netflix",
+     "merchant_category": "subscription",
+     "timestamp": "2026-03-03T00:00:00Z",
+     "txn_id": "T04-travel-0011"
+    },
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 26.18,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Uber",
+     "merchant_category": "transport",
+     "timestamp": "2026-03-03T04:56:00Z",
+     "txn_id": "T04-travel-0013"
+    },
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 33.42,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Shell Oil",
+     "merchant_category": "fuel",
+     "timestamp": "2026-03-04T02:39:00Z",
+     "txn_id": "T04-travel-0022"
+    },
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 36.37,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Whole Foods Market",
+     "merchant_category": "grocery",
+     "timestamp": "2026-03-04T03:32:00Z",
+     "txn_id": "T04-travel-0023"
+    },
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 11.84,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Chipotle",
+     "merchant_category": "restaurant",
+     "timestamp": "2026-03-04T07:05:00Z",
+     "txn_id": "T04-travel-0024"
+    },
+    {
+     "account_id": "ACC-5002",
+     "amount_usd": 179.37,
+     "channel": "card_present",
+     "city": "Denver",
+     "counterparty": null,
+     "country": "US",
+     "currency": "USD",
+     "device_id": null,
+     "direction": "debit",
+     "merchant": "Home Depot",
+     "merchant_category": "home_improvement",
+     "timestamp": "2026-03-04T09:40:00Z",
+     "txn_id": "T04-travel-0025"
+    }
+   ],
+   "transaction_under_review": {
+    "account_id": "ACC-5002",
+    "amount_usd": 152.84,
+    "channel": "card_present",
+    "city": "Denver",
+    "counterparty": null,
+    "country": "US",
+    "currency": "USD",
+    "device_id": null,
+    "direction": "debit",
+    "merchant": "Target",
+    "merchant_category": "general_retail",
+    "timestamp": "2026-03-04T12:01:00Z",
+    "txn_id": "T04-travel-0026"
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "is_fraud": {
+    "probability": 0.14,
+    "type": "boolean"
+   },
+   "pattern": {
+    "choice": "none",
+    "probabilities": {
+     "account_takeover": 0,
+     "card_testing": 0,
+     "impossible_travel": 0,
+     "mule_account": 0,
+     "none": 1,
+     "structuring": 0
+    },
+    "type": "choice"
+   },
+   "risk": {
+    "probabilities": {
+     "0": 0.38,
+     "1": 0.56,
+     "2": 0.06,
+     "3": 0
+    },
+    "score": 0.68,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WB5BGAENRDZR3JV4YYVJRM",
+    "marketCost": "0.000094626",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805112999,
+         "provider": "typesafe-ai",
+         "startTime": 1789805112857,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "pattern": 1,
+     "risk": 0.55
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 2253,
+   "outputTokens": 103
+  },
+  "warnings": []
+ }
+}

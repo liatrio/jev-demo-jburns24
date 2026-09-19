@@ -1,0 +1,141 @@
+{
+ "latency_ms": 2008.1,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-4001\",\n  \"customer_segment\": \"small_business_checking\",\n  \"home_city\": \"Seattle\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 48000.0,\n  \"typical_txn_usd\": 1900.0,\n  \"usual_merchant_categories\": [\n   \"wholesale\",\n   \"payroll\",\n   \"utilities\",\n   \"cash_deposit\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 800\n },\n \"recent_history\": [],\n \"transaction_under_review\": {\n  \"txn_id\": \"T03-structuring-0001\",\n  \"timestamp\": \"2026-03-02T15:00:00Z\",\n  \"account_id\": \"ACC-4001\",\n  \"amount_usd\": 2484.9,\n  \"currency\": \"USD\",\n  \"channel\": \"ach\",\n  \"direction\": \"debit\",\n  \"merchant\": \"Sysco Foods\",\n  \"merchant_category\": \"wholesale\",\n  \"city\": \"Seattle\",\n  \"country\": \"US\",\n  \"device_id\": null,\n  \"counterparty\": \"Sysco Corp\"\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "openai/gpt-5.6-luna",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\n  \"is_fraud\": false,\n  \"fraud_probability\": 0.01,\n  \"pattern\": \"none\",\n  \"reason\": \"The Seattle ACH debit to a known wholesale merchant is consistent with the small business account profile and does not show indicators of fraud or AML activity.\"\n}",
+     "phase": "final_answer",
+     "provider_metadata": {
+      "azure": {
+       "reasoningContext": "all_turns",
+       "responseId": "resp_02d8b1f99047eee0016aae42fba85081959c945e2ac9961092",
+       "serviceTier": "default"
+      },
+      "gateway": {
+       "cost": "0.0002306",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.0004306",
+       "generationId": "gen_01M2WBB9PEK1TRXM3NTQ56EAGG",
+       "inferenceCost": "0.0002306",
+       "inputInferenceCost": "0.0001142",
+       "marketCost": "0.0002306",
+       "outputInferenceCost": "0.0001164",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "openai/gpt-5.6-luna",
+        "fallbacksAvailable": [
+         "bedrock",
+         "azure"
+        ],
+        "finalProvider": "azure",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "openai/gpt-5.6-luna",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805309171,
+            "provider": "azure",
+            "providerRequestId": "41a83104-5fff-4011-83c6-5647f7c8c961",
+            "providerResponseId": "resp_02d8b1f99047eee0016aae42fba85081959c945e2ac9961092",
+            "startTime": 1789805307618,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "openai/gpt-5.6-luna",
+        "planningReasoning": "System credentials planned for: openai, bedrock, azure. ZDR requested: 3 attempts → 1 ZDR attempts. Pre-ZDR order: openai(system) → bedrock(system) → azure(system). ZDR execution order: azure(system)",
+        "resolvedProvider": "openai",
+        "skippedProviderAttempts": [
+         {
+          "credentialType": "system",
+          "provider": "openai",
+          "reason": "zdr_not_supported"
+         },
+         {
+          "credentialType": "system",
+          "provider": "bedrock",
+          "reason": "zdr_ineligible_model"
+         }
+        ],
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "reasoning_details": [
+      {
+       "data": "gAAAAABqrkL9e_8DV8vCqh1CUL3EAbE7bCj1y89bUeQUC0Sruw3fYMJLclu0lcDOTu-qQrcfhJZRUV7bIgD0OQma1a8y02Q3AJiWvX7SxB5BpM_zn_2OXpeMMAOauArdU-nQQrXJZ5wI20G7BcxxmCiRoAyIr6sES3lOaCKhx25VPaL0p57iCWr_P2RNoRyFjkCWMo_0eQ0Tg6WCEbAU7V41RrKF2Tu2r1jK-ZYmY_ItTdJJQ-juqjC1LQkkaiZ71h8I0eC0hVdVwS4_qVwHhJrxcYVxgw8pl1VaDtZPo-cEzpdYltUHMj3I7QC-RECryfEezOVLn3Jrnp0WQZhamHr-AuihO4Z4W8gXs3XtyLU6faaWufvMXVUeheSPYcgTsaOutIYEB-6_2kK-1nr56aJ-giuh3RFJCJPZiju16UH_PJq7ou7aXf3EM6kpTyAI9BLhw0uSNEx9aQUDprXhuezEJN9Rn8iZPpIjZDG8e_RPMPhzD1u-YK3ub0AyaRsx-Ly0T6_aHQm8J2O8SoereXsKVbyXjV_d6_CVDNXx1r5tWoem2lpiajKPjfzFoqAWz6o3YuH-0tbSQvFV3axx9QDLup3ohDLhTGHpJRy_HJx6IaND1JZlBy_gBLGuAf_uWxC36vajembuvHXXeCo86gFFDEzi-vZv3R54m6kvBkE4WxaIlPPWOc48qxmMQtegPkHFuW4yBefDiieS3TSkjWO43_VN8WS8mcixpHVfZoeg38Q7z_vL83DKeZgHbZO8vfeabCEOJYIjguYI0R3v6wWzBsg0aDyMRI3fYknDxD00qo89yOKG04V28V4fq8a4RNbCqNh-dKdyRK9jqFuANe_tGDvGv1XO0qTAF9xRaOswrXUjQUvEUKSJLaSq5JpuAI5MkIuYaPOmQ4QqprU1W9eJm7bG7M6-3HSsInpjPNRut-WTSdfAhwiHlpJWqFS4Q4jpOKAjY_Mp03RV12KFMmdMq8pk2uow66theF2DsYxx2JB5ozTyngiWbdne6nmGihF7bvyAPBblLS5ZAd23bq98Z7Txv4EvUSm53WGxml0-ZtpHWOwqtlWcQqTTg5nqkzbYYndv0nAEaYp_D22u_2u0JRnbLZametAvu4WpPuqQflngAGckFcuQlorL8EsEiEWymKdK35yyXqvmv5Xj1Ktgl19gEFNOzMtjEo2qTryNrwky_PdT3L_uWjPRwwYnNa0MUAKyRupWFVkGL2QxJSgq1ZKA4CrLfl3MwzsR6xbAMc-g3OUJRpLBUx_JnCbIiWz9jxVJmp5wPqsW2mOjr9Xz-BYh1rHkVZsrMtIgYQSZzfouvXlzCW69ohZ8jkPhWJVJFr6UpQrrjeBpJBnJbZNgH_CWtP_XrA==",
+       "format": "openai-responses-v1",
+       "id": "rs_02d8b1f99047eee0016aae42fc0de881958540bb71b97b2fee",
+       "index": 0,
+       "type": "reasoning.encrypted"
+      }
+     ],
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805309,
+  "generationId": "gen_01M2WBB9PEK1TRXM3NTQ56EAGG",
+  "id": "gen_01M2WBB9PEK1TRXM3NTQ56EAGG",
+  "model": "openai/gpt-5.6-luna",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_80oya4ap96",
+  "usage": {
+   "cache_creation_input_tokens": 0,
+   "completion_tokens": 97,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 27
+   },
+   "cost": 0.0002306,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.0004306,
+   "is_byok": false,
+   "market_cost": 0.0002306,
+   "prompt_tokens": 571,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 668,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

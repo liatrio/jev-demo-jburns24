@@ -66,33 +66,52 @@ async def test_tape_encodes_its_stated_situation(gateway: Gateway, tape: Tape) -
 
 
 async def test_report_is_actionable_for_an_analyst(gateway: Gateway, tape: Tape) -> None:
-    """Output-quality gate: Jev reads the report a human would receive and grades it."""
+    """Output-quality gate: Jev reads the report a human would receive and grades it.
+
+    Code already checks recall and false positives exactly against ground truth
+    (test_tapes_with_jev.py), so the oracle is only asked what code cannot check:
+    do the labels describe the right kind of scheme, is a clean report clean, and
+    how useful is the whole thing on a four-level rubric.
+    """
     result = await play_tape(tape, [JevEvaluator(gateway)])
     report = report_text(tape, result, "jev")
     state = {"expected_situation": tape.situation, "report": report}
     questions = {
-        "identifies_situation": {
+        "labels_match": {
             "type": "boolean",
             "instructions": (
-                "The report's flagged transactions and labels make the expected_situation "
-                "evident to a bank fraud analyst. If expected_situation says there is no "
-                "fraud, this is true when the report flags nothing or only a few rows."
+                "The pattern label given to the flagged transactions in report is the kind "
+                "of scheme described in expected_situation."
+            ),
+        },
+        "no_false_alarms": {
+            "type": "boolean",
+            "instructions": (
+                "report flags no transactions that expected_situation describes as legitimate."
             ),
         },
         "usefulness": {
             "type": "score",
-            "instructions": "How useful is this report to an analyst deciding what to do next?",
+            "instructions": (
+                "Judge report against expected_situation: how useful is it to an analyst "
+                "deciding what to do next?"
+            ),
             "criteria": [
-                "Useless: no flags or no context",
-                "Weak: flags rows but labels are missing or wrong",
-                "Good: flags the right rows with a plausible pattern label",
-                "Excellent: complete, correctly labelled, nothing spurious",
+                "Misleading: flags the wrong rows or misses the scheme",
+                "Partial: some right rows but labels missing or wrong",
+                "Good: the right rows with the right pattern label, minor noise",
+                "Excellent: exactly the right rows, right labels, nothing spurious",
             ],
         },
     }
     resp = await gateway.evaluate(JEV_MODEL, state, questions)
     answers = resp.body["answers"]
-    assert _prob(answers["identifies_situation"]) >= PASS, report
-    assert answers["usefulness"]["score"] >= 2, (answers, report)
-    if tape.pattern != Pattern.NONE:
+    usefulness = answers["usefulness"]["score"]
+    if tape.pattern == Pattern.NONE:
+        assert _prob(answers["no_false_alarms"]) >= PASS, report
+        assert usefulness >= 2, (answers, report)
+    else:
         assert tape.pattern.value in report, "report must carry the pattern label"
+        assert _prob(answers["labels_match"]) >= PASS, (answers, report)
+        # at least midway between "Partial" and "Good"
+        assert usefulness >= 1.5, (answers, report)

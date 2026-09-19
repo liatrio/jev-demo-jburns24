@@ -1,0 +1,95 @@
+{
+ "latency_ms": 555.8,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "identifies_situation": {
+    "instructions": "The report's flagged transactions and labels make the expected_situation evident to a bank fraud analyst. If expected_situation says there is no fraud, this is true when the report flags nothing or only a few rows.",
+    "type": "boolean"
+   },
+   "usefulness": {
+    "criteria": [
+     "Useless: no flags or no context",
+     "Weak: flags rows but labels are missing or wrong",
+     "Good: flags the right rows with a plausible pattern label",
+     "Excellent: complete, correctly labelled, nothing spurious"
+    ],
+    "instructions": "How useful is this report to an analyst deciding what to do next?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "expected_situation": "A customer is legitimately in London. Twenty-two minutes after a card-present purchase there, the same card is swiped in Sao Paulo twice. The London spend before and after is real; the two Sao Paulo swipes are a cloned card.",
+   "report": "FRAUD REVIEW REPORT - tape T04-travel (Impossible travel (counterfeit card))\nevaluator: jev   transactions reviewed: 31   flagged: 3\n\nFlagged transactions:\n- 2026-03-03T19:45:00Z T04-travel-0017 ACC-5001 debit 64.20 USD card_present at Heathrow Express (London, GB) -> none p=0.50\n- 2026-03-03T21:42:00Z T04-travel-0019 ACC-5001 debit 712.00 USD card_present at Casas Bahia (Sao Paulo, BR) -> impossible_travel p=0.75\n- 2026-03-03T21:51:00Z T04-travel-0020 ACC-5001 debit 389.90 USD card_present at Magazine Luiza (Sao Paulo, BR) -> impossible_travel p=0.58"
+  }
+ },
+ "response": {
+  "answers": {
+   "identifies_situation": {
+    "probability": 0.22,
+    "type": "boolean"
+   },
+   "usefulness": {
+    "probabilities": {
+     "0": 0,
+     "1": 0.28,
+     "2": 0.48,
+     "3": 0.24
+    },
+    "score": 1.96,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WBDM5HCAA27X3E7NJ37ZJB",
+    "marketCost": "0.00003003",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805384016,
+         "provider": "typesafe-ai",
+         "startTime": 1789805383878,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "usefulness": 0.48
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 715,
+   "outputTokens": 39
+  },
+  "warnings": []
+ }
+}

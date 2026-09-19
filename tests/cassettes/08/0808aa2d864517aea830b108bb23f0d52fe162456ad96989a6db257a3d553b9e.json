@@ -1,0 +1,141 @@
+{
+ "latency_ms": 1773.0,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-6002\",\n  \"customer_segment\": \"retail_checking\",\n  \"home_city\": \"Chicago\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 3200.0,\n  \"typical_txn_usd\": 48.0,\n  \"usual_merchant_categories\": [\n   \"grocery\",\n   \"fuel\",\n   \"restaurant\",\n   \"online_retail\",\n   \"subscription\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 1460\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T05-mule-0002\",\n   \"timestamp\": \"2026-03-02T08:24:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 12.5,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Starbucks\",\n   \"merchant_category\": \"restaurant\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0004\",\n   \"timestamp\": \"2026-03-02T14:15:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 75.99,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Verizon Wireless\",\n   \"merchant_category\": \"telecom\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0005\",\n   \"timestamp\": \"2026-03-02T17:27:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 11.99,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Spotify\",\n   \"merchant_category\": \"subscription\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0006\",\n   \"timestamp\": \"2026-03-02T20:55:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 25.26,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Chipotle\",\n   \"merchant_category\": \"restaurant\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0008\",\n   \"timestamp\": \"2026-03-03T00:56:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 86.28,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Verizon Wireless\",\n   \"merchant_category\": \"telecom\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0018\",\n   \"timestamp\": \"2026-03-03T15:10:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 228.99,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"City Utilities\",\n   \"merchant_category\": \"utilities\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0019\",\n   \"timestamp\": \"2026-03-03T18:43:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 73.08,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Verizon Wireless\",\n   \"merchant_category\": \"telecom\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0020\",\n   \"timestamp\": \"2026-03-03T21:05:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 15.49,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Netflix\",\n   \"merchant_category\": \"subscription\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0021\",\n   \"timestamp\": \"2026-03-03T22:47:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 59.94,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Home Depot\",\n   \"merchant_category\": \"home_improvement\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T05-mule-0022\",\n   \"timestamp\": \"2026-03-03T23:50:00Z\",\n   \"account_id\": \"ACC-6002\",\n   \"amount_usd\": 26.32,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Uber\",\n   \"merchant_category\": \"transport\",\n   \"city\": \"Chicago\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T05-mule-0023\",\n  \"timestamp\": \"2026-03-04T03:45:00Z\",\n  \"account_id\": \"ACC-6002\",\n  \"amount_usd\": 11.99,\n  \"currency\": \"USD\",\n  \"channel\": \"card_not_present\",\n  \"direction\": \"debit\",\n  \"merchant\": \"Spotify\",\n  \"merchant_category\": \"subscription\",\n  \"city\": \"Chicago\",\n  \"country\": \"US\",\n  \"device_id\": \"ios-a1\",\n  \"counterparty\": null\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "openai/gpt-5.6-luna",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\"is_fraud\":false,\"fraud_probability\":0.01,\"pattern\":\"none\",\"reason\":\"The Spotify subscription debit matches the account's known device, location, merchant category, and prior recurring spending pattern.\"}",
+     "phase": "final_answer",
+     "provider_metadata": {
+      "azure": {
+       "reasoningContext": "all_turns",
+       "responseId": "resp_036f0ea80057d181016aae433ab3d481968065bc16ae924eb5",
+       "serviceTier": "default"
+      },
+      "gateway": {
+       "cost": "0.0005679",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.0007679",
+       "generationId": "gen_01M2WBD78FDXG9M4929MF9ZXZ0",
+       "inferenceCost": "0.0005679",
+       "inputInferenceCost": "0.0004611",
+       "marketCost": "0.0005679",
+       "outputInferenceCost": "0.0001068",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "openai/gpt-5.6-luna",
+        "fallbacksAvailable": [
+         "bedrock",
+         "azure"
+        ],
+        "finalProvider": "azure",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "openai/gpt-5.6-luna",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805372316,
+            "provider": "azure",
+            "providerRequestId": "31ac7502-af9d-4e0a-a5ca-e8f4ae96f82d",
+            "providerResponseId": "resp_036f0ea80057d181016aae433ab3d481968065bc16ae924eb5",
+            "startTime": 1789805370662,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "openai/gpt-5.6-luna",
+        "planningReasoning": "System credentials planned for: openai, bedrock, azure. ZDR requested: 3 attempts → 1 ZDR attempts. Pre-ZDR order: openai(system) → bedrock(system) → azure(system). ZDR execution order: azure(system)",
+        "resolvedProvider": "openai",
+        "skippedProviderAttempts": [
+         {
+          "credentialType": "system",
+          "provider": "openai",
+          "reason": "zdr_not_supported"
+         },
+         {
+          "credentialType": "system",
+          "provider": "bedrock",
+          "reason": "zdr_ineligible_model"
+         }
+        ],
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "reasoning_details": [
+      {
+       "data": "gAAAAABqrkM8a3n40QkIIgFuVKlSRn4pO5zbrmxqDulKN26DBbprs-Xc8E6jfBFmtTjmxEgz7EepvdGsJFBvVo6IhPLRjNdW3UDlJLwUuK8U9gOfL-BwNgNNnH8AU-qjpPkSJUjku5sABzCLRi8DUVL46FAIRz0_lxYLrczLre1UGs_vAZiYHHozPwmxsZq7L0ceK9E-FdxNl58Y2elnLMfucVJ_M1UQ9KKC7haa3XB7fyPGKkuLnz4C2gyL2ZeRWBbKi9gzh_sZFLDg8bIe2__DMMHY0r_rXsds2mrLl3Gn8CAVnsD0J266lHs0U02dgQaZDYJu5pcCX9aO-nl5FyM0aUDLZIoELScAtGZvZYXU9DGoANZYLQrOEyCX171zMnz0TlfRkBvGzxNXp4TLJTDHj1lzDDIuoloT5_d4RWBxKD4TMA25Pokmf4-nH8bl48bqjqMHRoO2zMh90xfO6BjVJGsdAwyxkeTPQCApHpneKIXKxIY6GmTKjgQ52zL2WhYN82BZmR2vkGKbWbc6NwFQiVpsNqrHj41JB_Gg9CHb4xuSOD6PRvqJx0qmLcitoMMp9XKOCEKK6dGJx2FFcN9DTG50NCl1rz9LlAkhKXiH7ZHGsYm-y4WLeWNeDuHnuKT7b-TPINJP8s-OxQPXpvr6v7ZA1WslA2NtSA1LEiKMt3Pe4_jrAS5GJVpXZRBBRrhAJUHgRQqgk6gZfyIeCE9u7qo5xJf-Dk9buonFU5HbkjcSTmeEtrgb025StgGXAP3mLqygbvy-eJfmeD_s8cil5i8QTX7NCAN13Y4B5E6882yVC2hO921wZ9I_1jP-snr2xTsVeAjJoyWtXEDOf1z1SCKgKMUskCR_JMTKmKKaTvw4CdmMg9TE31YPcUcC8pAVSFeldckFBASq7HcWYYVTsZLcUoVuF8kSXq-dRBk-5JEOxPuqKGtDolEixpymblBxyQSeE31xXTyHskEn3KQP7SWrz2hfFbaF7EACFDri4y3H4m6lcMDekSJPk8ha7t7kmUPUDfn7oyqt8Gk4DNZNwZgMEhLabesrJ62oa0PwMFrxdSVgJriqgXDITsgqB5T_YQ2nypCpB0HoXr6mbfARqIwxXD_wfg1W4-6jGGf4ORACJadgpqn6S3bJKLJdnKGYLpv3n-_jszM_9nozNp3Xu24U8kO6zg8Pt4xhgCBdUdzHuETVYA4n3SHu9EyckKO2L3jMGuni4vvZ7Zz0dPNCmRcBs40o3icL4RWTHcY6aLlyVNxBIwcjmeamsSn3zcL1zAGvHpjnUq6OvQNJjn-XF5b8qNUib3rJGjzUx33gkcoMHq1552YAfGYkOrbiGBIj1lmX9ZfnKAG40a-Hw873LJpJDaq6QLaR8zL9yW8ErD3T2TwfJkwU7-BdA2hlbAPLrR6MReIi7N8976QMjd4kRVCGbFs-WA==",
+       "format": "openai-responses-v1",
+       "id": "rs_036f0ea80057d181016aae433b34688196bea9eaa40ecad62f",
+       "index": 0,
+       "type": "reasoning.encrypted"
+      }
+     ],
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805372,
+  "generationId": "gen_01M2WBD78FDXG9M4929MF9ZXZ0",
+  "id": "gen_01M2WBD78FDXG9M4929MF9ZXZ0",
+  "model": "openai/gpt-5.6-luna",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_prcfbdf9co",
+  "usage": {
+   "cache_creation_input_tokens": 1842,
+   "completion_tokens": 89,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 36
+   },
+   "cost": 0.0005679,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.0007679,
+   "is_byok": false,
+   "market_cost": 0.0005679,
+   "prompt_tokens": 1845,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 1934,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

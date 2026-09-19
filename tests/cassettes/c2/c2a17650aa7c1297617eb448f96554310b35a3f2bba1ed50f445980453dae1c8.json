@@ -1,0 +1,141 @@
+{
+ "latency_ms": 1963.6,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-4001\",\n  \"customer_segment\": \"small_business_checking\",\n  \"home_city\": \"Seattle\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 48000.0,\n  \"typical_txn_usd\": 1900.0,\n  \"usual_merchant_categories\": [\n   \"wholesale\",\n   \"payroll\",\n   \"utilities\",\n   \"cash_deposit\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 800\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T03-structuring-0002\",\n   \"timestamp\": \"2026-03-02T15:45:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 3120.0,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 014 Austin Downtown\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0006\",\n   \"timestamp\": \"2026-03-03T15:00:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 1203.9,\n   \"currency\": \"USD\",\n   \"channel\": \"ach\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Sysco Foods\",\n   \"merchant_category\": \"wholesale\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"Sysco Corp\"\n  },\n  {\n   \"txn_id\": \"T03-structuring-0007\",\n   \"timestamp\": \"2026-03-03T16:00:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 5166.5,\n   \"currency\": \"USD\",\n   \"channel\": \"ach\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Gusto Payroll\",\n   \"merchant_category\": \"payroll\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"Gusto Inc\"\n  },\n  {\n   \"txn_id\": \"T03-structuring-0008\",\n   \"timestamp\": \"2026-03-03T17:08:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 9925.17,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 014 Austin Downtown\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0009\",\n   \"timestamp\": \"2026-03-03T19:16:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 9382.96,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 007 Pflugerville\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0013\",\n   \"timestamp\": \"2026-03-04T15:00:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 2708.11,\n   \"currency\": \"USD\",\n   \"channel\": \"ach\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Sysco Foods\",\n   \"merchant_category\": \"wholesale\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"Sysco Corp\"\n  },\n  {\n   \"txn_id\": \"T03-structuring-0014\",\n   \"timestamp\": \"2026-03-04T16:27:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 9431.67,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 022 Round Rock\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0015\",\n   \"timestamp\": \"2026-03-04T17:34:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 9914.83,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 014 Austin Downtown\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0019\",\n   \"timestamp\": \"2026-03-05T15:00:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 2939.15,\n   \"currency\": \"USD\",\n   \"channel\": \"ach\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Sysco Foods\",\n   \"merchant_category\": \"wholesale\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"Sysco Corp\"\n  },\n  {\n   \"txn_id\": \"T03-structuring-0020\",\n   \"timestamp\": \"2026-03-05T16:00:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 5789.12,\n   \"currency\": \"USD\",\n   \"channel\": \"ach\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Gusto Payroll\",\n   \"merchant_category\": \"payroll\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": \"Gusto Inc\"\n  },\n  {\n   \"txn_id\": \"T03-structuring-0021\",\n   \"timestamp\": \"2026-03-05T17:47:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 9492.72,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 022 Round Rock\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T03-structuring-0022\",\n   \"timestamp\": \"2026-03-05T19:28:00Z\",\n   \"account_id\": \"ACC-4001\",\n   \"amount_usd\": 9841.32,\n   \"currency\": \"USD\",\n   \"channel\": \"cash\",\n   \"direction\": \"credit\",\n   \"merchant\": \"Branch 031 Cedar Park\",\n   \"merchant_category\": \"cash_deposit\",\n   \"city\": \"Seattle\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T03-structuring-0026\",\n  \"timestamp\": \"2026-03-06T15:00:00Z\",\n  \"account_id\": \"ACC-4001\",\n  \"amount_usd\": 2509.03,\n  \"currency\": \"USD\",\n  \"channel\": \"ach\",\n  \"direction\": \"debit\",\n  \"merchant\": \"Sysco Foods\",\n  \"merchant_category\": \"wholesale\",\n  \"city\": \"Seattle\",\n  \"country\": \"US\",\n  \"device_id\": null,\n  \"counterparty\": \"Sysco Corp\"\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "openai/gpt-5.6-luna",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.99,\"pattern\":\"structuring\",\"reason\":\"The transaction occurs amid repeated cash deposits just below $10,000 across multiple branches over consecutive days, indicating deliberate structuring.\"}",
+     "phase": "final_answer",
+     "provider_metadata": {
+      "azure": {
+       "reasoningContext": "all_turns",
+       "responseId": "resp_0ef412b253cb7bfc016aae430387748194a1986f17ce5eb62f",
+       "serviceTier": "default"
+      },
+      "gateway": {
+       "cost": "0.00066815",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.00086815",
+       "generationId": "gen_01M2WBBHACDN6JTBTFX1AZ7QQV",
+       "inferenceCost": "0.00066815",
+       "inputInferenceCost": "0.00053735",
+       "marketCost": "0.00066815",
+       "outputInferenceCost": "0.0001308",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "openai/gpt-5.6-luna",
+        "fallbacksAvailable": [
+         "bedrock",
+         "azure"
+        ],
+        "finalProvider": "azure",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "openai/gpt-5.6-luna",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805317264,
+            "provider": "azure",
+            "providerRequestId": "8a2ef387-f989-4f04-b341-b132ec4d46a8",
+            "providerResponseId": "resp_0ef412b253cb7bfc016aae430387748194a1986f17ce5eb62f",
+            "startTime": 1789805315447,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "openai/gpt-5.6-luna",
+        "planningReasoning": "System credentials planned for: openai, bedrock, azure. ZDR requested: 3 attempts → 1 ZDR attempts. Pre-ZDR order: openai(system) → bedrock(system) → azure(system). ZDR execution order: azure(system)",
+        "resolvedProvider": "openai",
+        "skippedProviderAttempts": [
+         {
+          "credentialType": "system",
+          "provider": "openai",
+          "reason": "zdr_not_supported"
+         },
+         {
+          "credentialType": "system",
+          "provider": "bedrock",
+          "reason": "zdr_ineligible_model"
+         }
+        ],
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "reasoning_details": [
+      {
+       "data": "gAAAAABqrkMFkDI0rFe4e5bG6KSE5DdXy34SwuOAQRXrJL0C94zL5k4KfsVubBosm_FSLPMNf__ZV_P8EddI67hGlvePUMQ3dcnmYR7XYs5pCpQarKQ0_g1Sp9vOjeJL7mKYxu8i3YA8XvdjaqZnBbsBWJWbp3FFlXol5aFbvrs76oVVnL885vr-5x1CUZf2d4j9d4kU8bBby5EiJfB-IQttKQ49VKZK9CaCDSUQVyWlS7b5qq6F3shkHk60m5Mwqn9MRLgQUfB8HJDOwWDLP3GKYy-wlq0j0-xB6iPl7ELpvvhtVmyBEjlwDwuDF8oIBDQy5ejbaw30zoSTRruEbIQOF6IuDye60lqqaVjqDdgFeaWo4jbAYEyQFwMLpsOFZnD4jOf7cKWKa0e2MqkTTy41SNwEW1jPOR_3Qd1THo8QNvBtEIlKUAtV4RcLk_s25kNPYThi6uLVHlk_mahmZyoCqWFfd31cY4JLSKqIKBnwG1SsJq_7SKTBK4UROij45KvuettsRnpIojICDMLu5ZmdmP76wqx9KaSQ8bI25BI3LDKY-Nv3yH6IP4ghJ0m6eZCf0m6IJ0GMj2vDZDspyh5GDqRrzm4N2JCa0y-VzWJbW8DHXBcvZgIstHVCicqqp5jpAneJEQZntTtCqG1qRBAgRLaczq6kSYFYVcKF5RA8b6MKakGLuVOYia4zcxx7d1-eQR5HNmL_6nKBqeIz87o-9AaqGi5gh9rLOovOTaKbx8j4gC4glkl44UFaMkbg1PHqB_Xt8tOxfLKNImkBKs4jwRGv9NMtRwP6JutejHhoS8MeivGFT0fMW33spOyv0PGzfdn6K8NtFP3lB3SGwwIikZi0KMOl27m61PYIXLy9Mt-v5NBrPIKXESkBBuGfvSy0GV_ZbLakQXV2sa6iXF4WSN4lfM8dFk5Q8ovUL6mCYBXsc4BCjVelHLW_COm0r556WVfnKiWEn0Xnh9GHKDmvrlB7tnpC26SMjxakNcOYU5Kr2zedXWOeNipxRFSpyyHhpbwhoQ5Ef2SPuGclRTYHP6jDZmRc8GnaN8o7VXITQr0q9Bd1nuP94fuwIPSY1xLMa_L1fuXqpW8b-Nng5EHW_mmcRDms3QWC7iq5ZwyXNO-220jACflA3gNFa5Y1589gaRB7j8fuxZy9JAIIYtfVpDcJGsGifkzLM0aJkY9N8i5Jfe6hbngFQ5v1QE-cZCTiC1hPpNlOmsNhJfTRZce-TDyVaDAztRMSrqlYLe_neZzcbhyFeYZK-LcrXyvbZXUmnix8F1AKh0HqWC8E6A8H3aS2ZTLdTAHBOazLP3Vgk_yK1jQshyEHdnCnN9Ome0Z-cd6z47pS753ojNKOZI6AA2skR04DRnVmNx1iTiVALGRfKs4JyG_ZNzBwY9KE4JtOS8gUL-M16a6_YSL1MHJ0KwMg4ssSNjmZoOI-IvFp7bgeq2OvNDRrXkp9czDDct6YNTGT9ws3HlpWNjsmBh-SssCzQou2Itlj55-Sy_yc_YITPTskgGdSwCDaW1C2loDL0cZxirLk",
+       "format": "openai-responses-v1",
+       "id": "rs_0ef412b253cb7bfc016aae4303f2c88194ad599a3fe0c95a70",
+       "index": 0,
+       "type": "reasoning.encrypted"
+      }
+     ],
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805317,
+  "generationId": "gen_01M2WBBHACDN6JTBTFX1AZ7QQV",
+  "id": "gen_01M2WBBHACDN6JTBTFX1AZ7QQV",
+  "model": "openai/gpt-5.6-luna",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_4qerkgbgan",
+  "usage": {
+   "cache_creation_input_tokens": 2147,
+   "completion_tokens": 109,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 52
+   },
+   "cost": 0.00066815,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.00086815,
+   "is_byok": false,
+   "market_cost": 0.00066815,
+   "prompt_tokens": 2150,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 2259,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

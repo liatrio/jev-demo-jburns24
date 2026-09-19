@@ -1,0 +1,95 @@
+{
+ "latency_ms": 504.7,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "identifies_situation": {
+    "instructions": "The report's flagged transactions and labels make the expected_situation evident to a bank fraud analyst. If expected_situation says there is no fraud, this is true when the report flags nothing or only a few rows.",
+    "type": "boolean"
+   },
+   "usefulness": {
+    "criteria": [
+     "Useless: no flags or no context",
+     "Weak: flags rows but labels are missing or wrong",
+     "Good: flags the right rows with a plausible pattern label",
+     "Excellent: complete, correctly labelled, nothing spurious"
+    ],
+    "instructions": "How useful is this report to an analyst deciding what to do next?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "expected_situation": "A long-standing customer's credentials are compromised. From a never-seen Windows device in Romania at 02:40 UTC, the attacker logs in, buys crypto, sends a Zelle to an unknown recipient and buys electronics, all within 11 minutes. Everything else on the tape is legitimate.",
+   "report": "FRAUD REVIEW REPORT - tape T01-ato (Account takeover)\nevaluator: jev   transactions reviewed: 38   flagged: 4\n\nFlagged transactions:\n- 2026-03-05T02:40:00Z T01-ato-0023 ACC-2001 debit 0.00 USD card_not_present at Online Banking Login (Bucharest, RO) -> account_takeover p=0.57\n- 2026-03-05T02:46:00Z T01-ato-0024 ACC-2001 debit 1,999.00 USD card_not_present at Coinbase (Bucharest, RO) -> account_takeover p=0.89\n- 2026-03-05T02:49:00Z T01-ato-0025 ACC-2001 debit 2,450.00 USD p2p at Zelle Transfer (Bucharest, RO) -> account_takeover p=0.90\n- 2026-03-05T02:51:00Z T01-ato-0026 ACC-2001 debit 1,300.00 USD card_not_present at Best Buy (Bucharest, RO) -> account_takeover p=0.93"
+  }
+ },
+ "response": {
+  "answers": {
+   "identifies_situation": {
+    "probability": 0.29,
+    "type": "boolean"
+   },
+   "usefulness": {
+    "probabilities": {
+     "0": 0,
+     "1": 0.01,
+     "2": 0.37,
+     "3": 0.62
+    },
+    "score": 2.62,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WBDJ8P5E6B2N1NE3MPJBV1",
+    "marketCost": "0.000033936",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805382084,
+         "provider": "typesafe-ai",
+         "startTime": 1789805381934,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "usefulness": 0.62
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 808,
+   "outputTokens": 39
+  },
+  "warnings": []
+ }
+}

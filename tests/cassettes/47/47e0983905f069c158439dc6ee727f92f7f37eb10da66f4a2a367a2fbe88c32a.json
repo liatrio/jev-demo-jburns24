@@ -1,0 +1,137 @@
+{
+ "latency_ms": 2347.7,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-3002\",\n  \"customer_segment\": \"retail_checking\",\n  \"home_city\": \"Boston\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 3200.0,\n  \"typical_txn_usd\": 48.0,\n  \"usual_merchant_categories\": [\n   \"grocery\",\n   \"fuel\",\n   \"restaurant\",\n   \"online_retail\",\n   \"subscription\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 1460\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T02-cardtest-0007\",\n   \"timestamp\": \"2026-03-03T01:53:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 115.52,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"City Utilities\",\n   \"merchant_category\": \"utilities\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0009\",\n   \"timestamp\": \"2026-03-03T07:59:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 43.55,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Shell Oil\",\n   \"merchant_category\": \"fuel\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0011\",\n   \"timestamp\": \"2026-03-03T13:45:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 143.54,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Home Depot\",\n   \"merchant_category\": \"home_improvement\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0012\",\n   \"timestamp\": \"2026-03-03T14:54:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 117.31,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Verizon Wireless\",\n   \"merchant_category\": \"telecom\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0013\",\n   \"timestamp\": \"2026-03-03T16:22:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 62.38,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Shell Oil\",\n   \"merchant_category\": \"fuel\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0014\",\n   \"timestamp\": \"2026-03-03T18:47:00Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 9.58,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Starbucks\",\n   \"merchant_category\": \"restaurant\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0030\",\n   \"timestamp\": \"2026-03-03T22:28:30Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 17.28,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Uber\",\n   \"merchant_category\": \"transport\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0031\",\n   \"timestamp\": \"2026-03-03T23:23:30Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 17.95,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Chipotle\",\n   \"merchant_category\": \"restaurant\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0032\",\n   \"timestamp\": \"2026-03-04T00:36:30Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 36.54,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Shell Oil\",\n   \"merchant_category\": \"fuel\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0033\",\n   \"timestamp\": \"2026-03-04T01:49:30Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 77.31,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Whole Foods Market\",\n   \"merchant_category\": \"grocery\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0034\",\n   \"timestamp\": \"2026-03-04T03:45:30Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 105.22,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Amazon.com\",\n   \"merchant_category\": \"online_retail\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T02-cardtest-0035\",\n   \"timestamp\": \"2026-03-04T06:06:30Z\",\n   \"account_id\": \"ACC-3002\",\n   \"amount_usd\": 287.02,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Delta Air Lines\",\n   \"merchant_category\": \"travel\",\n   \"city\": \"Boston\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T02-cardtest-0036\",\n  \"timestamp\": \"2026-03-04T07:29:30Z\",\n  \"account_id\": \"ACC-3002\",\n  \"amount_usd\": 67.54,\n  \"currency\": \"USD\",\n  \"channel\": \"card_present\",\n  \"direction\": \"debit\",\n  \"merchant\": \"Target\",\n  \"merchant_category\": \"general_retail\",\n  \"city\": \"Boston\",\n  \"country\": \"US\",\n  \"device_id\": null,\n  \"counterparty\": null\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "anthropic/claude-sonnet-5",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\"is_fraud\": false, \"fraud_probability\": 0.2, \"pattern\": \"none\", \"reason\": \"Transaction amount and merchant category are consistent with normal spending in Boston, though the recent history shows an unusually high frequency of transactions that warrants monitoring but not a clear fraud pattern.\"}",
+     "provider_metadata": {
+      "anthropic": {
+       "cacheCreationInputTokens": 0,
+       "container": null,
+       "contextManagement": null,
+       "iterations": null,
+       "stopSequence": null,
+       "usage": {
+        "cache_creation": {
+         "ephemeral_1h_input_tokens": 0,
+         "ephemeral_5m_input_tokens": 0
+        },
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "inference_geo": "global",
+        "input_tokens": 2958,
+        "output_tokens": 103,
+        "output_tokens_details": {
+         "thinking_tokens": 0
+        },
+        "service_tier": "standard"
+       }
+      },
+      "gateway": {
+       "cost": "0.006946",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.007146",
+       "generationId": "gen_01M2WBAJS8QCGPCZ6QY8Y7CBPH",
+       "inferenceCost": "0.006946",
+       "inputInferenceCost": "0.005916",
+       "marketCost": "0.006946",
+       "outputInferenceCost": "0.00103",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "anthropic/claude-sonnet-5",
+        "fallbacksAvailable": [
+         "anthropic",
+         "bedrock",
+         "vertexAnthropic"
+        ],
+        "finalProvider": "anthropic",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "anthropic/claude-sonnet-5",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805286410,
+            "provider": "anthropic",
+            "providerRequestId": "req_011CfCTPpzpb2ArqCCBLp4Nu",
+            "providerResponseId": "msg_011CfCTPqJgExPzPMEV2BL7Q",
+            "startTime": 1789805284524,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "anthropic/claude-sonnet-5",
+        "planningReasoning": "Weighted tie pick: anthropic won tier 0 over claudeaws. System credentials planned for: claudeaws, anthropic, bedrock, vertexAnthropic. ZDR requested: all 4 attempts support ZDR. Execution order: anthropic(system) → claudeaws(system) → bedrock(system) → vertexAnthropic(system)",
+        "resolvedProvider": "claudeaws",
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805286,
+  "generationId": "gen_01M2WBAJS8QCGPCZ6QY8Y7CBPH",
+  "id": "gen_01M2WBAJS8QCGPCZ6QY8Y7CBPH",
+  "model": "anthropic/claude-sonnet-5",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_38px3wt7cg",
+  "usage": {
+   "cache_creation_input_tokens": 0,
+   "completion_tokens": 103,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 0
+   },
+   "cost": 0.006946,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.007146,
+   "is_byok": false,
+   "market_cost": 0.006946,
+   "prompt_tokens": 2958,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 3061,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

@@ -1,0 +1,103 @@
+{
+ "latency_ms": 541.6,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "labels_match": {
+    "instructions": "The pattern label given to the flagged transactions in report is the kind of scheme described in expected_situation.",
+    "type": "boolean"
+   },
+   "no_false_alarms": {
+    "instructions": "report flags no transactions that expected_situation describes as legitimate.",
+    "type": "boolean"
+   },
+   "usefulness": {
+    "criteria": [
+     "Misleading: flags the wrong rows or misses the scheme",
+     "Partial: some right rows but labels missing or wrong",
+     "Good: the right rows with the right pattern label, minor noise",
+     "Excellent: exactly the right rows, right labels, nothing spurious"
+    ],
+    "instructions": "Judge report against expected_situation: how useful is it to an analyst deciding what to do next?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "expected_situation": "A six-week-old account with 22 USD typical spend receives seven Zelle credits from unrelated senders totalling around 11,000 USD in three hours, then wires 93 percent of it to a UAE trading company. Everyday spend surrounds it.",
+   "report": "FRAUD REVIEW REPORT - tape T05-mule (Money mule account)\nevaluator: jev   transactions reviewed: 25   flagged: 9\n\nFlagged transactions:\n- 2026-03-03T06:11:00Z T05-mule-0009 ACC-6001 credit 1,373.26 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.51\n- 2026-03-03T06:30:00Z T05-mule-0010 ACC-6001 credit 2,362.11 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.54\n- 2026-03-03T07:03:00Z T05-mule-0011 ACC-6001 credit 2,330.24 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.67\n- 2026-03-03T07:43:00Z T05-mule-0012 ACC-6001 credit 1,708.67 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.75\n- 2026-03-03T08:22:00Z T05-mule-0013 ACC-6001 credit 2,121.76 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.78\n- 2026-03-03T09:02:00Z T05-mule-0014 ACC-6001 credit 1,404.93 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.82\n- 2026-03-03T09:28:00Z T05-mule-0015 ACC-6001 credit 2,341.64 USD p2p at Zelle Transfer (Boston, US) -> mule_account p=0.84\n- 2026-03-03T10:43:00Z T05-mule-0016 ACC-6001 debit 12,687.63 USD wire at International Wire (Chicago, US) -> mule_account p=0.86\n- 2026-03-03T11:13:00Z T05-mule-0017 ACC-6001 debit 682.13 USD cash at ATM Withdrawal (Boston, US) -> mule_account p=0.75"
+  }
+ },
+ "response": {
+  "answers": {
+   "labels_match": {
+    "probability": 0.94,
+    "type": "boolean"
+   },
+   "no_false_alarms": {
+    "probability": 0.65,
+    "type": "boolean"
+   },
+   "usefulness": {
+    "probabilities": {
+     "0": 0.02,
+     "1": 0.11,
+     "2": 0.76,
+     "3": 0.11
+    },
+    "score": 1.96,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WBGAMR932KBS88DDXG0NK6",
+    "marketCost": "0.000048594",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805472596,
+         "provider": "typesafe-ai",
+         "startTime": 1789805472425,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "usefulness": 0.74
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1157,
+   "outputTokens": 56
+  },
+  "warnings": []
+ }
+}

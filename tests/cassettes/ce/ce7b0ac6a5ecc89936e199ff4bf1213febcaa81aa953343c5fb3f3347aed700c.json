@@ -1,0 +1,95 @@
+{
+ "latency_ms": 504.4,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "identifies_situation": {
+    "instructions": "The report's flagged transactions and labels make the expected_situation evident to a bank fraud analyst. If expected_situation says there is no fraud, this is true when the report flags nothing or only a few rows.",
+    "type": "boolean"
+   },
+   "usefulness": {
+    "criteria": [
+     "Useless: no flags or no context",
+     "Weak: flags rows but labels are missing or wrong",
+     "Good: flags the right rows with a plausible pattern label",
+     "Excellent: complete, correctly labelled, nothing spurious"
+    ],
+    "instructions": "How useful is this report to an analyst deciding what to do next?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "expected_situation": "A stolen card number is validated with 14 sub-3-dollar online charges at unrelated digital-goods merchants inside 12 minutes from a headless device in Nigeria, then used for a 1,490 USD electronics purchase.",
+   "report": "FRAUD REVIEW REPORT - tape T02-cardtest (Card testing burst)\nevaluator: jev   transactions reviewed: 39   flagged: 15\n\nFlagged transactions:\n- 2026-03-03T19:37:49Z T02-cardtest-0015 ACC-3001 debit 2.50 USD card_not_present at Fiverr (Lagos, NG) -> account_takeover p=0.73\n- 2026-03-03T19:38:41Z T02-cardtest-0016 ACC-3001 debit 2.50 USD card_not_present at Discord Nitro (Lagos, NG) -> card_testing p=0.75\n- 2026-03-03T19:39:44Z T02-cardtest-0017 ACC-3001 debit 1.00 USD card_not_present at Canva (Lagos, NG) -> card_testing p=0.80\n- 2026-03-03T19:40:31Z T02-cardtest-0018 ACC-3001 debit 1.99 USD card_not_present at Namecheap (Lagos, NG) -> card_testing p=0.85\n- 2026-03-03T19:40:55Z T02-cardtest-0019 ACC-3001 debit 1.99 USD card_not_present at Adobe (Lagos, NG) -> card_testing p=0.89\n- 2026-03-03T19:42:04Z T02-cardtest-0020 ACC-3001 debit 1.00 USD card_not_present at Audible (Lagos, NG) -> card_testing p=0.90\n- 2026-03-03T19:42:39Z T02-cardtest-0021 ACC-3001 debit 2.50 USD card_not_present at Grammarly (Lagos, NG) -> card_testing p=0.88\n- 2026-03-03T19:43:44Z T02-cardtest-0022 ACC-3001 debit 1.99 USD card_not_present at Zoom.us (Lagos, NG) -> card_testing p=0.89\n- 2026-03-03T19:44:41Z T02-cardtest-0023 ACC-3001 debit 1.99 USD card_not_present at GoDaddy (Lagos, NG) -> card_testing p=0.90\n- 2026-03-03T19:45:36Z T02-cardtest-0024 ACC-3001 debit 1.00 USD card_not_present at Apple.com/bill (Lagos, NG) -> card_testing p=0.91\n- 2026-03-03T19:46:06Z T02-cardtest-0025 ACC-3001 debit 1.99 USD card_not_present at Patreon (Lagos, NG) -> card_testing p=0.90\n- 2026-03-03T19:46:34Z T02-cardtest-0026 ACC-3001 debit 1.00 USD card_not_present at Scribd (Lagos, NG) -> card_testing p=0.88\n- 2026-03-03T19:47:04Z T02-cardtest-0027 ACC-3001 debit 1.99 USD card_not_present at Hulu (Lagos, NG) -> card_testing p=0.91\n- 2026-03-03T19:47:30Z T02-cardtest-0028 ACC-3001 debit 2.50 USD card_not_present at Roblox (Lagos, NG) -> card_testing p=0.91\n- 2026-03-03T19:51:30Z T02-cardtest-0029 ACC-3001 debit 1,489.99 USD card_not_present at Newegg (Lagos, NG) -> card_testing p=0.95"
+  }
+ },
+ "response": {
+  "answers": {
+   "identifies_situation": {
+    "probability": 0.39,
+    "type": "boolean"
+   },
+   "usefulness": {
+    "probabilities": {
+     "0": 0,
+     "1": 0.25,
+     "2": 0.51,
+     "3": 0.24
+    },
+    "score": 1.98,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WBDJTDVYAHEQE5WGP22WYC",
+    "marketCost": "0.00006384",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805382625,
+         "provider": "typesafe-ai",
+         "startTime": 1789805382494,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "usefulness": 0.5
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1520,
+   "outputTokens": 39
+  },
+  "warnings": []
+ }
+}

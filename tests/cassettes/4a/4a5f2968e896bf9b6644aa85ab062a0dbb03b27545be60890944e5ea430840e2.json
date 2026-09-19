@@ -1,0 +1,141 @@
+{
+ "latency_ms": 4190.3,
+ "path": "/v1/chat/completions",
+ "request": {
+  "max_tokens": 2000,
+  "messages": [
+   {
+    "content": "You are a fraud and AML analyst at a large retail bank. You review one\ntransaction at a time as it arrives in the transaction log, using only the account profile and\nthe recent history the bank has already seen for that account.\n\nRespond with a single JSON object and nothing else:\n{\n  \"is_fraud\": boolean,               // true if fraudulent or part of a fraud/AML scheme\n  \"fraud_probability\": number,       // your calibrated probability in [0, 1]\n  \"pattern\": string,                 // exactly one of: none, account_takeover, card_testing, structuring, impossible_travel, mule_account\n  \"reason\": string                   // one sentence\n}\nPattern definitions:\n- none: Legitimate activity consistent with the account's history\n- account_takeover: Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history\n- card_testing: Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase\n- structuring: Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches\n- impossible_travel: Two card-present transactions in locations too far apart to travel between in the elapsed time\n- mule_account: Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+    "role": "system"
+   },
+   {
+    "content": "{\n \"account_profile\": {\n  \"account_id\": \"ACC-5001\",\n  \"customer_segment\": \"retail_checking\",\n  \"home_city\": \"Austin\",\n  \"home_country\": \"US\",\n  \"typical_monthly_spend_usd\": 6100.0,\n  \"typical_txn_usd\": 110.0,\n  \"usual_merchant_categories\": [\n   \"travel\",\n   \"restaurant\",\n   \"grocery\",\n   \"fuel\"\n  ],\n  \"known_devices\": [\n   \"ios-a1\"\n  ],\n  \"account_age_days\": 1460\n },\n \"recent_history\": [\n  {\n   \"txn_id\": \"T04-travel-0001\",\n   \"timestamp\": \"2026-03-02T08:15:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 15.49,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Netflix\",\n   \"merchant_category\": \"subscription\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0002\",\n   \"timestamp\": \"2026-03-02T08:54:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 75.84,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Verizon Wireless\",\n   \"merchant_category\": \"telecom\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0003\",\n   \"timestamp\": \"2026-03-02T09:59:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 66.04,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Shell Oil\",\n   \"merchant_category\": \"fuel\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0005\",\n   \"timestamp\": \"2026-03-02T15:11:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 62.07,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Amazon.com\",\n   \"merchant_category\": \"online_retail\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0008\",\n   \"timestamp\": \"2026-03-02T20:51:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 12.62,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Starbucks\",\n   \"merchant_category\": \"restaurant\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0009\",\n   \"timestamp\": \"2026-03-02T21:51:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 102.88,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Whole Foods Market\",\n   \"merchant_category\": \"grocery\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0010\",\n   \"timestamp\": \"2026-03-02T23:07:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 83.88,\n   \"currency\": \"USD\",\n   \"channel\": \"card_not_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Amazon.com\",\n   \"merchant_category\": \"online_retail\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": \"ios-a1\",\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0012\",\n   \"timestamp\": \"2026-03-03T00:59:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 120.54,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Whole Foods Market\",\n   \"merchant_category\": \"grocery\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0014\",\n   \"timestamp\": \"2026-03-03T06:27:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 5.79,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Starbucks\",\n   \"merchant_category\": \"restaurant\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0015\",\n   \"timestamp\": \"2026-03-03T07:12:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 22.63,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Uber\",\n   \"merchant_category\": \"transport\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  },\n  {\n   \"txn_id\": \"T04-travel-0016\",\n   \"timestamp\": \"2026-03-03T09:45:00Z\",\n   \"account_id\": \"ACC-5001\",\n   \"amount_usd\": 6.12,\n   \"currency\": \"USD\",\n   \"channel\": \"card_present\",\n   \"direction\": \"debit\",\n   \"merchant\": \"Starbucks\",\n   \"merchant_category\": \"restaurant\",\n   \"city\": \"Austin\",\n   \"country\": \"US\",\n   \"device_id\": null,\n   \"counterparty\": null\n  }\n ],\n \"transaction_under_review\": {\n  \"txn_id\": \"T04-travel-0017\",\n  \"timestamp\": \"2026-03-03T19:45:00Z\",\n  \"account_id\": \"ACC-5001\",\n  \"amount_usd\": 64.2,\n  \"currency\": \"USD\",\n  \"channel\": \"card_present\",\n  \"direction\": \"debit\",\n  \"merchant\": \"Heathrow Express\",\n  \"merchant_category\": \"transport\",\n  \"city\": \"London\",\n  \"country\": \"GB\",\n  \"device_id\": null,\n  \"counterparty\": null\n }\n}",
+    "role": "user"
+   }
+  ],
+  "model": "openai/gpt-5.6-luna",
+  "response_format": {
+   "type": "json_object"
+  }
+ },
+ "response": {
+  "choices": [
+   {
+    "finish_reason": "stop",
+    "index": 0,
+    "logprobs": null,
+    "message": {
+     "content": "{\"is_fraud\":true,\"fraud_probability\":0.94,\"pattern\":\"impossible_travel\",\"reason\":\"A card-present Starbucks transaction in Austin was followed only 10 hours later by a Heathrow Express transaction in London, leaving insufficient time for realistic travel between the locations.\"}",
+     "phase": "final_answer",
+     "provider_metadata": {
+      "azure": {
+       "reasoningContext": "all_turns",
+       "responseId": "resp_0e7ad5954e8e6ab8016aae4321fd64819694054cb8c94cb999",
+       "serviceTier": "default"
+      },
+      "gateway": {
+       "cost": "0.0008658",
+       "enabledZeroDataRetention": true,
+       "gatewayCost": "0.0010658",
+       "generationId": "gen_01M2WBCF3ZZZXWMSHZK8TY307E",
+       "inferenceCost": "0.0008658",
+       "inputInferenceCost": "0.0004926",
+       "marketCost": "0.0008658",
+       "outputInferenceCost": "0.0003732",
+       "providerAllowlistCost": "0.0001",
+       "routing": {
+        "canonicalSlug": "openai/gpt-5.6-luna",
+        "fallbacksAvailable": [
+         "bedrock",
+         "azure"
+        ],
+        "finalProvider": "azure",
+        "modelAttemptCount": 1,
+        "modelAttempts": [
+         {
+          "canonicalSlug": "openai/gpt-5.6-luna",
+          "providerAttemptCount": 1,
+          "providerAttempts": [
+           {
+            "credentialType": "system",
+            "endTime": 1789805350041,
+            "provider": "azure",
+            "providerRequestId": "2d33c407-3162-4bbf-8529-d126a63a5c6c",
+            "providerResponseId": "resp_0e7ad5954e8e6ab8016aae4321fd64819694054cb8c94cb999",
+            "startTime": 1789805345952,
+            "statusCode": 200,
+            "success": true
+           }
+          ],
+          "success": true
+         }
+        ],
+        "originalModelId": "openai/gpt-5.6-luna",
+        "planningReasoning": "System credentials planned for: openai, bedrock, azure. ZDR requested: 3 attempts → 1 ZDR attempts. Pre-ZDR order: openai(system) → bedrock(system) → azure(system). ZDR execution order: azure(system)",
+        "resolvedProvider": "openai",
+        "skippedProviderAttempts": [
+         {
+          "credentialType": "system",
+          "provider": "openai",
+          "reason": "zdr_not_supported"
+         },
+         {
+          "credentialType": "system",
+          "provider": "bedrock",
+          "reason": "zdr_ineligible_model"
+         }
+        ],
+        "totalProviderAttemptCount": 1
+       },
+       "surchargeCost": "0.0002",
+       "zeroDataRetentionCost": "0.0001"
+      }
+     },
+     "reasoning_details": [
+      {
+       "data": "gAAAAABqrkMmlgp7s_RCgZkyOr8KZm5SaO7SGnyH4VmsqOPFsO02bqeNK6TWuNwnlpOx6BztSqN77tce9FBvgnU75hPfFbZk5-Ny4iZvAiUnarmZl2EfZ3xnnxnHnyz9tJccQp8C0CmTtmG-sRs1jWyrwJvLHVvSmgMsl4HuX7_qlS-cmVYepWqli-qRZUUMBeODVhINpkwsyU2tSkStPUoND0yyHk1HQRxzOFFsY1xCjj88-73ORmx2hgEqhH7mJUMk08ZF6V8in0iHwG3EtoEjkxwl4oJ3KSEMk10PZdTtWcK59VGqgh9NR9o9KMHNr2dCYiP3vfnW2IJ8W9paNrmCLT-u242MKzEDMNe3qT_TU1nRmBJyqqE4jbXuCmfPflbpjAHGdH_MlErMsV8JHBIc8J58oGhPosw9YQPYYdg7lxdcQPBx7NDHSzFHQ88Wt1l-_XL04LqxiKmX5q925k_7Ci-lhbInRDIhxA-9BX0C95vlLFCkGAJjbdNAXQfnRr1Hn73ZQGRajDovune-eO1vqKmJT_JtephVjZXGQE_NW9xhqVT4PiJGEesgyKI79j-EXNTrnNIWA3xIbtGpiaWaInEwj28UZxDcKG9JTg-a3pSwT3JTDf2KXrf83emF1zOHKwAdyDpNoodilw3R-k1eZxTZofvkz22qTpND_KZUmlsxptMU73Knv32UN1lfsEJoJRD49sZ0QGYtESJNXJOsMZxDyYeNOW_JLpFhvJKZJfbIF59dn5qNo8mFzP_etNaogYw4cmxLENGQ0VTnP-yOmsMqA9xFx1MmGt0ZBqNqczaOZ2PObQTmGQrKBaSGeK01Hp0NwMzbNM2KREQ5La1g1CAUTrcik7l7_WER9ctGVZd2tIDjcvTBN8gKVa6ZTBy7qnXSSe38mMSUpJNHOA7Yh4OOgLjYcAkfERfo8ibA6R_rIHnpVxPrEPTcz-d8_yAVbalAgTpjCr1btMI_KP4jr_m_Fm4fUP1Vc6L4NA-BHNmPuNT1CYj-EeMXJuGeDEixApBZpEEAr67yFTQD5WaXKBa1bWiVDG2HzXH_oQmhqOyuiEEz4xAQxkuANcmVVcwoaM4z30_NWglZ83Nqb6bwlDBL1ZhopCy85sR0D8qqlseCjX-e7cbBd92RYuvnnNpUa0oN6CJDzd8DknlxZjbk7-8wvADfMfN_TEyYNrr9AYKIG8ffhHEwaJGOL2MPA1v_52VZrEAXU09yJIgfv7z5jvzM6JrdfDy6_3ULSE69Aj7JO74PbVYb6dTOs169iur7MtdqOOd4mCvjMyIYjQyZzlXFxlN8lOJn9SCXP4uFZ0oL8uZXE6hlK2KG-u9POG00CiQPJBG93M9bT6AAr4vKFef2NM1nqzD3Z0sTNlfgSYbB9XANAnYSjiktdd3IpIFhirmuYgzp_3agXSHrs2A_7-7uEFRoCW0VE3lTKi6YGqM2V4DBIQiivZxU5q75eKtDKW2-or3_qNK3uPL2b5HsF-VN8-R0o8m6_WJHWFHKZyTFeVGsmwTX1auRvV88BQZcYYplDsbo3X5lVXGPCLrTVNTAloDJyGoKKwd3JyWM2c1Ep9SyuhAhOysYNCF1a55FdQwkllJANTux1PTSHwGs2q5sM8SnfAj7XD2G6sn8ydxpoJ7KPmkVW-bVf_oOn7JMnV_gk0hqyjwvjCuHhaHY8iGNSOhAfPJ3W3Wwh4HKb4w2VH8GgFeEfHiYC3iGOmSa9tMXbrjbGHzveqmriTS8XQg_n98Svd_PkvoitMyabTxmSSnwhuR2_1CXcKS0NycI8ERXHJbN_aaUb6ZTCOcy9cf7U11qpq454mnbICjLQm9y9jrwaRoEskXWSYecaMczJt84HMzgz2BEiQmFy2YErL8R9Z0oH0N8XVHRdQquNZipyXrYASxGFBH5PWqGwL2SG-uV3IuJ6R-i61Nv654cWI40GAaSI86OPJcYMiNxThxT0Wh8ecRf4jKfeaq_HZsxFxEG3HKHPGhH7MIS0NwRGP7QMQ52vLfDeUtaH5EFGDFi_ZorkiNrYlQ8PAHQfqIBUd1KJvrx7zojG3kBgz27PLmgDBLtHh_4IGmE-clDOqMuKk6Vf6zZSpyf2x2rnuD_5VTTwVZN87Y_J8BUBZqmvennHY63nAA3ep-yS8oZRwij2RvtmeB73JwN5hnUR5F4uf51qoGiuGRHGWH2FcKa61_24Vsccq-lbCOIGnFDOv6HL6GrfvRR2mSV9qKXk6k5RTqWfpo7fbPeOa-eeoTfGtakBzLAb7VHTMhSw0bFHakg8U3DmD5mGm5yYl_JOcP03w4sah22szonsbv5mcxrahrs5Z-MP5KqxdADKSYQZ0gy91xi_Foeevlxd5WPzFnzHboqsyzb8TvxsLPPQ3YecUxIYZAk7_Q2Mh2O7xDLlUlr1ctmLwpDrflYsgf7jjNm0ovyGH6ZOpb0g_TUnsGY1lgAHOlDtn0zH91UnhzwS_azLQKe7JE0MTfOzKwvzc6odK8danxptPNnZwtEweC5X55fhA_68SkCcMNgGGOusWfg0Ro6u-mR_tHji-hFMZnPuHpEKd_5fdoeWVIl34KLhrqCEmmOiw==",
+       "format": "openai-responses-v1",
+       "id": "rs_0e7ad5954e8e6ab8016aae43228dec819680dd382b5b438a84",
+       "index": 0,
+       "type": "reasoning.encrypted"
+      }
+     ],
+     "role": "assistant"
+    }
+   }
+  ],
+  "created": 1789805350,
+  "generationId": "gen_01M2WBCF3ZZZXWMSHZK8TY307E",
+  "id": "gen_01M2WBCF3ZZZXWMSHZK8TY307E",
+  "model": "openai/gpt-5.6-luna",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_hpziccy9tv",
+  "usage": {
+   "cache_creation_input_tokens": 1968,
+   "completion_tokens": 311,
+   "completion_tokens_details": {
+    "image_tokens": 0,
+    "reasoning_tokens": 245
+   },
+   "cost": 0.0008658,
+   "cost_details": {
+    "upstream_inference_completions_cost": 0,
+    "upstream_inference_cost": null,
+    "upstream_inference_prompt_cost": 0
+   },
+   "gateway_cost": 0.0010658,
+   "is_byok": false,
+   "market_cost": 0.0008658,
+   "prompt_tokens": 1971,
+   "prompt_tokens_details": {
+    "audio_tokens": 0,
+    "cached_tokens": 0,
+    "video_tokens": 0
+   },
+   "provider_allowlist_cost": 0.0001,
+   "surcharge_cost": 0.0002,
+   "total_tokens": 2282,
+   "zero_data_retention_cost": 0.0001
+  }
+ }
+}

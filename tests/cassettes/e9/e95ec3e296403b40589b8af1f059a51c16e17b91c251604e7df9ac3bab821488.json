@@ -1,0 +1,152 @@
+{
+ "latency_ms": 286.2,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "is_fraud": {
+    "instructions": "The transaction under review is fraudulent or is part of a fraud or money-laundering scheme, judged against the account profile and the recent history the bank has already seen.",
+    "type": "boolean"
+   },
+   "pattern": {
+    "criteria": {
+     "account_takeover": "Credentials or device compromised: new device/country, then high-value card-not-present spend or transfers far outside the customer's history",
+     "card_testing": "Stolen card being probed: a burst of tiny online authorizations at many unrelated merchants within minutes, often followed by one large purchase",
+     "impossible_travel": "Two card-present transactions in locations too far apart to travel between in the elapsed time",
+     "mule_account": "Account receiving inbound transfers from many unrelated senders and forwarding almost all of it out within hours",
+     "none": "Legitimate activity consistent with the account's history",
+     "structuring": "Cash deposits deliberately kept just under the 10,000 USD reporting threshold, repeated across days or branches"
+    },
+    "instructions": "Which situation best describes the transaction under review?",
+    "type": "choice"
+   },
+   "risk": {
+    "criteria": [
+     "Routine; approve automatically",
+     "Mildly unusual; log and monitor",
+     "Suspicious; hold and review",
+     "Almost certainly fraud; block and alert"
+    ],
+    "instructions": "How much investigation does the transaction under review warrant?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "account_profile": {
+    "account_age_days": 800,
+    "account_id": "ACC-4001",
+    "customer_segment": "small_business_checking",
+    "home_city": "Seattle",
+    "home_country": "US",
+    "known_devices": [
+     "ios-a1"
+    ],
+    "typical_monthly_spend_usd": 48000.0,
+    "typical_txn_usd": 1900.0,
+    "usual_merchant_categories": [
+     "wholesale",
+     "payroll",
+     "utilities",
+     "cash_deposit"
+    ]
+   },
+   "recent_history": [],
+   "transaction_under_review": {
+    "account_id": "ACC-4001",
+    "amount_usd": 2484.9,
+    "channel": "ach",
+    "city": "Seattle",
+    "counterparty": "Sysco Corp",
+    "country": "US",
+    "currency": "USD",
+    "device_id": null,
+    "direction": "debit",
+    "merchant": "Sysco Foods",
+    "merchant_category": "wholesale",
+    "timestamp": "2026-03-02T15:00:00Z",
+    "txn_id": "T03-structuring-0001"
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "is_fraud": {
+    "probability": 0.15,
+    "type": "boolean"
+   },
+   "pattern": {
+    "choice": "none",
+    "probabilities": {
+     "account_takeover": 0,
+     "card_testing": 0,
+     "impossible_travel": 0,
+     "mule_account": 0,
+     "none": 0.97,
+     "structuring": 0.03
+    },
+    "type": "choice"
+   },
+   "risk": {
+    "probabilities": {
+     "0": 0.65,
+     "1": 0.24,
+     "2": 0.11,
+     "3": 0
+    },
+    "score": 0.48,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2WB4CN12W4HAQ2CCZM0NFK5",
+    "marketCost": "0.000037926",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789805081481,
+         "provider": "typesafe-ai",
+         "startTime": 1789805081270,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "pattern": 0.96,
+     "risk": 0.52
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 903,
+   "outputTokens": 103
+  },
+  "warnings": []
+ }
+}

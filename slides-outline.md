@@ -122,13 +122,24 @@ on textbook patterns, not a production benchmark.
 
 ## Slide 6: Results, pooled across all tapes
 
-**Headline:** RESULTS_HEADLINE_PLACEHOLDER
+**Headline:** Same recall as the frontier LLM, 8x faster, 62x cheaper
 
 Chart 1 (bar, log scale): p50 latency per row, jev vs sonnet-5 vs gpt-5.6-luna.
 Chart 2 (bar, log scale): total cost for all 212 rows.
 Small table: precision, recall, F1, pattern accuracy per evaluator.
 
-RESULTS_TABLE_PLACEHOLDER
+Numbers from the recorded run (results/summary.json):
+
+| evaluator | rows | TP | FP | FN | precision | recall | F1 | pattern acc | errors | p50 ms | p95 ms | total cost |
+|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+| jev | 212 | 39 | 4 | 0 | 0.91 | 1.00 | 0.95 | 0.97 | 0 | 251 | 356 | $0.0183 |
+| sonnet-5 | 212 | 39 | 5 | 0 | 0.89 | 1.00 | 0.94 | 1.00 | 0 | 1,902 | 3,584 | $1.1406 |
+| gpt-5.6-luna | 212 | 35 | 7 | 4 | 0.83 | 0.90 | 0.86 | 1.00 | 0 | 2,069 | 3,474 | $0.0914 |
+| jev+sonnet-5 | 212 | 38 | 5 | 1 | 0.88 | 0.97 | 0.93 | 0.97 | 0 | 254 | 2,153 | $0.1175 |
+
+- vs **sonnet-5**: Jev is 8x faster at p50 and 62x cheaper
+- vs **gpt-5.6-luna**: Jev is 8x faster at p50 and 5x cheaper
+- vs **jev+sonnet-5**: Jev is 1x faster at p50 and 6x cheaper
 
 Speaker notes: Read the multiples out loud. Then say what the F1 gap is and whether it
 favours Jev or the LLM, honestly.
