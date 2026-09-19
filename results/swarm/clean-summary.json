@@ -1,0 +1,13 @@
+{
+ "agents": 200,
+ "steps": 815,
+ "jev_calls": 815,
+ "network_calls": 0,
+ "replays": 815,
+ "agent_errors": 1,
+ "wall_seconds": 36.9,
+ "cost_usd": 0.04945936799999998,
+ "injected": [],
+ "findings": [],
+ "new_blocking": []
+}

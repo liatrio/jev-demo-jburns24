@@ -1,0 +1,204 @@
+{
+ "latency_ms": 235.2,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "action": {
+    "criteria": {
+     "a0": "click link \"Accounts\" (goes to /)",
+     "a1": "click link \"Transfer\" (goes to /transfer)",
+     "a10": "go back to the previous page",
+     "a2": "click link \"Search\" (goes to /search)",
+     "a3": "click link \"Statements\" (goes to /statements)",
+     "a4": "click link \"Profile\" (goes to /profile)",
+     "a5": "click link \"Help\" (goes to /help)",
+     "a6": "type '\"><svg onload=1>' into \"Memo or amount\"",
+     "a7": "type '<script>1</script>' into \"Memo or amount\"",
+     "a8": "type '<img src=x onerror=\"window.__swarmXss...' into \"Memo or amount\"",
+     "a9": "click button \"Search\" (submits the form)",
+     "stop": "stop: the goal is exhausted on this site or a defect has already been shown"
+    },
+    "instructions": "You are testing the page described in state.page against state.goal. Which single action best advances the goal right now? Prefer actions that complete an attempt (e.g. submitting a form already filled with an adversarial value) over starting a new one, and stop once the goal has been tried.",
+    "type": "choice"
+   },
+   "page_is_broken": {
+    "instructions": "state.page shows a server error, stack trace, dead link, crash or a page that failed to render.",
+    "type": "boolean"
+   },
+   "severity": {
+    "criteria": [
+     "No problem visible",
+     "Cosmetic or confusing but harmless",
+     "Functional bug: something does not work as a customer expects",
+     "Security or money-loss bug: data exposure, injection, or money moved wrongly"
+    ],
+    "instructions": "How serious is the worst problem visible on state.page?",
+    "type": "score"
+   },
+   "wrong_behaviour": {
+    "instructions": "state.page shows that the application accepted an input or performed an action that an online bank must reject: a negative, zero or over-balance transfer that completed, another customer's account or personal data being shown, HTML or script from an input being rendered rather than escaped, or balances that do not add up. A clear rejection message is correct behaviour, not a defect.",
+    "type": "boolean"
+   }
+  },
+  "state": {
+   "actions_so_far": [
+    "on /search: type '<img src=x onerror=\"window.__swarmXss...' into \"Memo or amount\""
+   ],
+   "goal": "Put HTML and script into every text field and search box, then check whether it is rendered or executed instead of shown as plain text.",
+   "page": {
+    "automatic_checks": [],
+    "elements": [
+     {
+      "href": "/",
+      "i": 0,
+      "tag": "a",
+      "text": "Accounts"
+     },
+     {
+      "href": "/transfer",
+      "i": 1,
+      "tag": "a",
+      "text": "Transfer"
+     },
+     {
+      "href": "/search",
+      "i": 2,
+      "tag": "a",
+      "text": "Search"
+     },
+     {
+      "href": "/statements",
+      "i": 3,
+      "tag": "a",
+      "text": "Statements"
+     },
+     {
+      "href": "/profile",
+      "i": 4,
+      "tag": "a",
+      "text": "Profile"
+     },
+     {
+      "href": "/help",
+      "i": 5,
+      "tag": "a",
+      "text": "Help"
+     },
+     {
+      "i": 6,
+      "label": "Memo or amount",
+      "name": "q",
+      "tag": "input",
+      "type": "search",
+      "value": "<img src=x onerror=\"window.__swarmXss=1\">"
+     },
+     {
+      "i": 7,
+      "tag": "button",
+      "text": "Search"
+     }
+    ],
+    "heading": "Search transactions",
+    "http_status": 200,
+    "path": "/search",
+    "status_message": "",
+    "title": "Search transactions - Northwind Bank",
+    "visible_text": "AccountsTransfer SearchStatementsProfile Help\nSearch transactions\nMemo or amount  Search"
+   },
+   "step": 2,
+   "steps_remaining": 5
+  }
+ },
+ "response": {
+  "answers": {
+   "action": {
+    "choice": "a9",
+    "probabilities": {
+     "a0": 0,
+     "a1": 0,
+     "a10": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "a7": 0,
+     "a8": 0,
+     "a9": 1,
+     "stop": 0
+    },
+    "type": "choice"
+   },
+   "page_is_broken": {
+    "probability": 0.02,
+    "type": "boolean"
+   },
+   "severity": {
+    "probabilities": {
+     "0": 0.27,
+     "1": 0.07,
+     "2": 0.03,
+     "3": 0.63
+    },
+    "score": 2.01,
+    "type": "score"
+   },
+   "wrong_behaviour": {
+    "probability": 0.14,
+    "type": "boolean"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2X89TXSE0G6VX793TXVP35A",
+    "marketCost": "0.00005439",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789835668587,
+         "provider": "typesafe-ai",
+         "startTime": 1789835668429,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "action": 1,
+     "severity": 0.01
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1295,
+   "outputTokens": 166
+  },
+  "warnings": []
+ }
+}

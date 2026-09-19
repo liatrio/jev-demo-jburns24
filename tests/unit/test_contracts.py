@@ -31,6 +31,11 @@ def test_valid_answer_passes() -> None:
     validate_choice(good(), CRITERIA)
 
 
+def test_tied_probabilities_accept_either_choice() -> None:
+    tied = {"choice": "c", "probabilities": {"a": 0.2, "b": 0.4, "c": 0.4}}
+    validate_choice(tied, CRITERIA)
+
+
 @pytest.mark.parametrize(
     "mutate, message",
     [

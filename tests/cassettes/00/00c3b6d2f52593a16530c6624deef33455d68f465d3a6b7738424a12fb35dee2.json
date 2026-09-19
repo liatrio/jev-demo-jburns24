@@ -1,0 +1,203 @@
+{
+ "latency_ms": 367.8,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "action": {
+    "criteria": {
+     "a0": "click link \"Accounts\" (goes to /)",
+     "a1": "click link \"Transfer\" (goes to /transfer)",
+     "a10": "edit the URL to open /accounts/0",
+     "a11": "go back to the previous page",
+     "a2": "click link \"Search\" (goes to /search)",
+     "a3": "click link \"Statements\" (goes to /statements)",
+     "a4": "click link \"Profile\" (goes to /profile)",
+     "a5": "click link \"Help\" (goes to /help)",
+     "a6": "click link \"1001\" (goes to /accounts/1001)",
+     "a7": "click link \"1002\" (goes to /accounts/1002)",
+     "a8": "edit the URL to open /accounts/1003",
+     "a9": "edit the URL to open /accounts/9999",
+     "stop": "stop: the goal is exhausted on this site or a defect has already been shown"
+    },
+    "instructions": "You are testing the page described in state.page against state.goal. Which single action best advances the goal right now? Prefer actions that complete an attempt (e.g. submitting a form already filled with an adversarial value) over starting a new one, and stop once the goal has been tried.",
+    "type": "choice"
+   },
+   "page_is_broken": {
+    "instructions": "state.page shows a server error, stack trace, dead link, crash or a page that failed to render.",
+    "type": "boolean"
+   },
+   "severity": {
+    "criteria": [
+     "No problem visible",
+     "Cosmetic or confusing but harmless",
+     "Functional bug: something does not work as a customer expects",
+     "Security or money-loss bug: data exposure, injection, or money moved wrongly"
+    ],
+    "instructions": "How serious is the worst problem visible on state.page?",
+    "type": "score"
+   },
+   "wrong_behaviour": {
+    "instructions": "state.page shows that the application accepted an input or performed an action that an online bank must reject: a negative, zero or over-balance transfer that completed, another customer's account or personal data being shown, HTML or script from an input being rendered rather than escaped, or balances that do not add up. A clear rejection message is correct behaviour, not a defect.",
+    "type": "boolean"
+   }
+  },
+  "state": {
+   "actions_so_far": [],
+   "goal": "Look for data that is not yours by editing ids in URLs. Seeing another customer's account or personal details is a serious defect; a 403 is correct behaviour.",
+   "page": {
+    "automatic_checks": [],
+    "elements": [
+     {
+      "href": "/",
+      "i": 0,
+      "tag": "a",
+      "text": "Accounts"
+     },
+     {
+      "href": "/transfer",
+      "i": 1,
+      "tag": "a",
+      "text": "Transfer"
+     },
+     {
+      "href": "/search",
+      "i": 2,
+      "tag": "a",
+      "text": "Search"
+     },
+     {
+      "href": "/statements",
+      "i": 3,
+      "tag": "a",
+      "text": "Statements"
+     },
+     {
+      "href": "/profile",
+      "i": 4,
+      "tag": "a",
+      "text": "Profile"
+     },
+     {
+      "href": "/help",
+      "i": 5,
+      "tag": "a",
+      "text": "Help"
+     },
+     {
+      "href": "/accounts/1001",
+      "i": 6,
+      "tag": "a",
+      "text": "1001"
+     },
+     {
+      "href": "/accounts/1002",
+      "i": 7,
+      "tag": "a",
+      "text": "1002"
+     }
+    ],
+    "heading": "Your accounts",
+    "http_status": 200,
+    "path": "/",
+    "status_message": "",
+    "title": "Your accounts - Northwind Bank",
+    "visible_text": "AccountsTransfer SearchStatementsProfile Help\nYour accounts\nWelcome back, Dana Whitfield.\nAccount\tType\tBalance\n1001\tChecking\t2,500.00 USD\n1002\tSavings\t8,000.00 USD\nRecent transfers\nNo transfers yet."
+   },
+   "step": 1,
+   "steps_remaining": 6
+  }
+ },
+ "response": {
+  "answers": {
+   "action": {
+    "choice": "a8",
+    "probabilities": {
+     "a0": 0,
+     "a1": 0,
+     "a10": 0.04,
+     "a11": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0.06,
+     "a7": 0.04,
+     "a8": 0.7,
+     "a9": 0.16,
+     "stop": 0
+    },
+    "type": "choice"
+   },
+   "page_is_broken": {
+    "probability": 0.02,
+    "type": "boolean"
+   },
+   "severity": {
+    "probabilities": {
+     "0": 0.86,
+     "1": 0.01,
+     "2": 0,
+     "3": 0.13
+    },
+    "score": 0.41,
+    "type": "score"
+   },
+   "wrong_behaviour": {
+    "probability": 0.06,
+    "type": "boolean"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2X89Q3S4PWD4K126ZA1XES2",
+    "marketCost": "0.000056322",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789835664800,
+         "provider": "typesafe-ai",
+         "startTime": 1789835664524,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "action": 0.66,
+     "severity": 0.59
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 1341,
+   "outputTokens": 175
+  },
+  "warnings": []
+ }
+}

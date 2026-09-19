@@ -1,0 +1,137 @@
+{
+ "latency_ms": 211.1,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "category": {
+    "criteria": {
+     "broken_page": "Server error, stack trace, dead link, or a page that failed to render",
+     "cosmetic": "Confusing wording or layout with no functional impact",
+     "money_loss": "Money moved in a way a bank must never allow (negative, over-balance, wrong direction)",
+     "none": "Not a defect: correct behaviour, a proper rejection message or a false alarm",
+     "security": "Data exposure, injection executed, or access to another customer's data",
+     "validation_gap": "Invalid input accepted without harm (e.g. saved unchanged, odd but safe)"
+    },
+    "instructions": "Which category best describes what state.page_after shows?",
+    "type": "choice"
+   },
+   "is_defect": {
+    "instructions": "Judged against state.goal and the tester's expectations of an online bank, the transition from state.page_before via state.action to state.page_after demonstrates a real defect in the application (not merely an attempt that was correctly rejected).",
+    "type": "boolean"
+   },
+   "severity": {
+    "criteria": [
+     "Not a defect",
+     "Low: fix eventually",
+     "Medium: fix before release",
+     "High: must not ship (money, data or availability at risk)"
+    ],
+    "instructions": "How urgently should this block a release?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "action": "click button \"Send transfer\" (submits the form)",
+   "goal": "Try to move money with amounts a bank must reject: negative, zero, absurdly large or non-numeric. A transfer that succeeds with such an amount is a defect.",
+   "harness_facts": [],
+   "page_after": {
+    "automatic_checks": [],
+    "heading": "Your accounts",
+    "http_status": 200,
+    "path": "/transfer",
+    "status_message": "Transfer complete: 0.00 USD from 1001 to 1002.",
+    "visible_text": "AccountsTransfer SearchStatementsProfile Help\nYour accounts\nTransfer complete: 0.00 USD from 1001 to 1002.\nWelcome back, Dana Whitfield.\nAccount\tType\tBalance\n1001\tChecking\t2,500.00 USD\n1002\tSavings\t8,000.00 USD\nRecent transfers\n0.00 USD from 1001 to 1002"
+   },
+   "page_before": {
+    "automatic_checks": [],
+    "heading": "Transfer between accounts",
+    "http_status": 200,
+    "path": "/transfer",
+    "status_message": "",
+    "visible_text": "AccountsTransfer SearchStatementsProfile Help\nTransfer between accounts\nFrom \n1001\n1002\n To \n1001\n1002\n Amount (USD)  Memo  Send transfer\nCurrent balances: 1001: 2,500.00, 1002: 8,000.00"
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "category": {
+    "choice": "validation_gap",
+    "probabilities": {
+     "broken_page": 0,
+     "cosmetic": 0,
+     "money_loss": 0.04,
+     "none": 0.02,
+     "security": 0,
+     "validation_gap": 0.94
+    },
+    "type": "choice"
+   },
+   "is_defect": {
+    "probability": 0.88,
+    "type": "boolean"
+   },
+   "severity": {
+    "probabilities": {
+     "0": 0.07,
+     "1": 0.1,
+     "2": 0.31,
+     "3": 0.52
+    },
+    "score": 2.28,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2X8GM8PDCY66Z2CCFVSEW9W",
+    "marketCost": "0.000041034",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789835891125,
+         "provider": "typesafe-ai",
+         "startTime": 1789835890986,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "category": 0.93,
+     "severity": 0.28
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 977,
+   "outputTokens": 97
+  },
+  "warnings": []
+ }
+}

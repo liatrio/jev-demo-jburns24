@@ -1,6 +1,8 @@
 # Slides brief: "System One for the transaction stream"
 
-Instructions for Claude Design. Build a 13-slide deck from this outline. Audience is
+Instructions for Claude Design. Build a 16-slide deck from this outline (13 slides as
+numbered, plus a three-slide second act on the adversarial e2e swarm, slides 11a to 11c,
+placed after slide 11). Audience is
 senior engineers and engineering leaders at a technology enterprise (thousands of
 engineers, regulated data, real-time decision systems). Tone: precise, no hype, every
 number traceable to the repo. Dark background, one idea per slide, large type, charts
@@ -8,7 +10,8 @@ over tables where a chart is honest. Speaker notes under each slide are for the 
 not for the slide body.
 
 Source of truth for all numbers: `results/summary.json`, `results/T0*.json` and
-`results/pii-check.json` in
+`results/pii-check.json` (fraud bake-off and PII check) and `results/swarm/*-summary.json`,
+`results/swarm/*-findings.md` (swarm) in
 https://github.com/jburns24/jev-demo (branch `claude/fraud-detection-jev-demo-6w42lx`).
 Do not invent numbers. If a number is not in this brief or those files, leave it out.
 
@@ -261,9 +264,110 @@ Four rows, each "today -> with a System One model":
   seconds and replay deterministically (slide 10 is the pre-commit version of this).
 - Prompt-and-parse glue code with retry loops -> schema-guaranteed answers, validated by
   contract, no parsing.
+- A handful of scripted e2e tests, or one expensive LLM browser agent, run nightly ->
+  hundreds of cheap Jev-driven browser agents that attack the site on every push (slides
+  11a to 11c).
 
-Speaker notes: Keep this concrete to our systems. Ask which of the four the room would
-try first.
+Speaker notes: Keep this concrete to our systems. Ask which of the five the room would
+try first. Slide 10 was the pre-commit version of the CI row; the last row is the second
+act of this deck, say "we built that too".
+
+---
+
+## Slide 11a: Second act. If one agent is this cheap, run two hundred
+
+**Headline:** Adversarial end-to-end testing on pre-push: 200 Jev-driven browser agents
+
+Left: the jev-ultrafast loop as a four-box cycle:
+```
+code observes the page  ->  code enumerates concrete actions
+        ^                              |
+        |                              v
+code acts in Chromium   <-  Jev picks one (choice) + inspects the page (2 booleans, 1 score)
+```
+Right: eight persona chips with one-line goals:
+negative-money, overdraft, url-tamperer, injector, link-walker, empty-hands, edge-text,
+bookkeeper.
+
+Callouts:
+- Same primitive as the fraud stream: one typed call per decision, speculative fan-out,
+  contract-validated, no free text anywhere.
+- Agent *i* is a pure function of *i*: persona = i mod 8, seeded payload order and start
+  page. Two hundred distinct attack plans, all replayable.
+- Target is a small deterministic online-banking portal with seven regressions that can
+  be injected by name (negative transfer, overdraft, IDOR, reflected XSS, dead link,
+  leaked traceback, unicode crash).
+
+Speaker notes: This is the "so what" of the cost slide. When a decision costs a
+hundredth of a cent, the interesting question is not "can it replace the LLM" but "what
+becomes affordable that was not". Exploratory testing at swarm scale, on every push, is
+one answer.
+
+---
+
+## Slide 11b: What the swarm found, and what it did not
+
+**Headline:** Seven regressions injected, seven found, zero false positives on the clean
+build
+
+Chart: horizontal bars, one per finding on the injected run, length = number of agents
+that reproduced it (from `results/swarm/injected-findings.md`):
+
+| finding | category | agents | p(defect) | harness check |
+|---|---|--:|--:|---|
+| `/transfer` negative or over-balance transfer completes | money_loss | 48 | 0.93 | negative_amount_displayed |
+| `/statements` link returns 404 | broken_page | 25 | 0.92 | http_404 |
+| `/accounts/2001` shows another customer's data | security | 16 | 0.95 | (Jev judgement) |
+| `/transfer` memo with a quote leaks a traceback | broken_page | 12 | 0.90 | http_500, stack_trace_exposed |
+| `/profile` non-ASCII name returns 500 | broken_page | 3 | 0.93 | http_500, stack_trace_exposed |
+| `/search` injected script executed | security | 3 | 0.89 | script_injection_executed |
+| `/transfer` zero-amount transfer accepted | validation_gap (report only) | 1 | 0.88 | none |
+
+Two small stat tiles, both runs from `results/swarm/*-summary.json`:
+- Injected: 200 agents, 806 browser steps, 813 Jev calls, 38 s wall, $0.048, FAIL (6 blocking).
+- Clean: 200 agents, 815 browser steps, 815 Jev calls, 37 s wall, $0.050, PASS (0 findings).
+
+Callouts:
+- Two-stage judgement: agents flag, a second Jev call triages each deduplicated incident
+  (is_defect, six-way category, release-blocking severity). Hard harness facts (a 500, a
+  payload that ran) skip the is_defect gate; Jev only names and grades them.
+- Blocking rule is code you can read: category in {broken_page, security, money_loss},
+  severity >= 2, not in the baseline file.
+- Honest line: two bugs were found by only three agents each. Coverage is a property of
+  persona and payload design, not of the agent count.
+
+Speaker notes: Read the agents column. Forty-eight agents independently reproduced the
+transfer bug; that is a very different signal from one flaky assertion. Then read the
+"3"s and say out loud that persona design is where the work is.
+
+---
+
+## Slide 11c: Why it lives in pre-push and stays there
+
+**Headline:** Five cents and forty seconds, replayed for free when nothing changed
+
+Diagram: the two hook stages as a timeline:
+```
+git commit  ->  pre-commit: lint, unit, e2e replay (seconds, offline, $0)
+git push    ->  pre-push:   jev-demo swarm --agents 200 (~40 s; $0 if the site is unchanged)
+```
+
+Three points:
+- Every Jev request is keyed on the observation, and the observation is deterministic by
+  construction (paths not origins, no timestamps, console noise excluded). A page state
+  the swarm has seen replays from a cassette; only new states go to the gateway. Same
+  record/replay layer as slide 9, same "tests must not call paid APIs" rule.
+- The swarm tests itself on every commit: a 48-agent slice of both scenarios runs in pure
+  replay in the e2e suite, so a false positive on the clean build or a missed regression
+  is caught before the hook is trusted.
+- Failure mode is loud and cheap: a changed page means a cassette miss in replay, or a
+  few live calls in record mode. Re-record with `task swarm:record`, commit the cassettes
+  with the change.
+
+Speaker notes: This is the operational slide. The point is not that the swarm is clever,
+it is that it is cheap enough and deterministic enough to sit in the developer's inner
+loop. Show `task swarm:demo` live if there is time: 200 agents, all regressions injected,
+replayed, six blocking findings in under a minute with no API key.
 
 ---
 
@@ -282,6 +386,9 @@ try first.
 - The PII lint judges from variable names and literals in the statement plus four lines of
   context. It will not see that `payload` three functions up contains an email. Extraction
   is regex-based and catches conventional logger names, not every custom wrapper.
+- The swarm's target is a stand-in portal with textbook bugs. Pointing it at a real
+  staging URL means giving that environment a fixture mode so observations stay
+  replayable.
 
 Speaker notes: Say these before someone else does.
 
@@ -303,8 +410,11 @@ Proposed follow-ups, as a short list:
 3. Wire the confidence-gated router into a shadow-mode consumer and measure escalation rate.
 4. Build the second check, the Jev-driven code review pipeline scaffolded in `plan.md`:
    typed rubric checks over a whole PR diff, in CI, with the same record/replay discipline.
+5. Point the swarm at a staging deployment of one of our own web apps, with personas
+   written by that team, and run it as its pre-push hook for a sprint.
 
-Then switch to the terminal and run `task play -- T01`, and if time allows `task pii:demo`.
+Then switch to the terminal and run `task play -- T01`, and if time allows `task pii:demo`
+and `task swarm:demo`.
 
 Speaker notes: End on the live run. The point of the deck is to earn the two minutes of
 terminal time.

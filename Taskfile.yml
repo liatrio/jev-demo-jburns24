@@ -56,7 +56,7 @@ tasks:
     cmds: ["{{.PY}} pytest tests/e2e -q {{.CLI_ARGS}}"]
 
   test:
-    desc: Everything that runs offline (what pre-commit runs)
+    desc: Everything that runs offline (what pre-commit runs; the pre-push swarm is `task swarm`)
     cmds:
       - task: lint
       - task: test:unit
@@ -120,7 +120,43 @@ tasks:
       - cmd: "{{.PY}} jev-demo pii-check --mode live tests/fixtures/pii/leaky_service.py tests/fixtures/pii/leaky_handler.ts"
         ignore_error: true
 
-  hooks:install:
-    desc: Install the pre-commit hook
+  browser:install:
+    desc: Download the Chromium build Playwright expects (once per machine; skip if JEV_SWARM_CHROMIUM is set)
+    deps: [setup]
+    cmds: ["{{.PY}} playwright install chromium"]
+
+  swarm:
+    desc: "Adversarial e2e: 200 Jev-driven browser agents attack the portal. Replays cassettes, records new states. Exit 1 on new defects."
+    deps: [setup]
+    cmds: ["{{.PY}} jev-demo swarm --agents 200 {{.CLI_ARGS}}"]
+
+  swarm:demo:
+    desc: "The demo: same swarm, every known regression injected, replayed from cassettes (no key needed)"
+    deps: [setup]
+    env:
+      JEV_DEMO_MODE: replay
+    cmds: ["{{.PY}} jev-demo swarm --agents 200 --inject all --no-save {{.CLI_ARGS}}"]
+
+  swarm:record:
+    desc: Refresh the swarm cassettes and results/swarm for both the clean and injected portal (needs API_KEY)
+    deps: [setup]
+    preconditions:
+      - sh: test -n "$API_KEY"
+        msg: "API_KEY must be set (Vercel AI Gateway key)"
+    env:
+      JEV_DEMO_MODE: record
     cmds:
-      - uv tool run pre-commit install
+      - "{{.PY}} jev-demo swarm --agents 200 --inject all --quiet || true"
+      - "{{.PY}} jev-demo swarm --agents 200 --quiet"
+
+  swarm:live:
+    desc: Run the swarm with every Jev call live, ignoring cassettes (needs API_KEY, costs cents)
+    deps: [setup]
+    env:
+      JEV_DEMO_MODE: live
+    cmds: ["{{.PY}} jev-demo swarm --agents 200 --no-save {{.CLI_ARGS}}"]
+
+  hooks:install:
+    desc: Install the pre-commit and pre-push hooks
+    cmds:
+      - uv tool run pre-commit install --hook-type pre-commit --hook-type pre-push

@@ -158,5 +158,45 @@ def pii_check_cmd(
     raise typer.Exit(run(paths, mode=mode, verbose=verbose, save=out))
 
 
+@app.command()
+def swarm(
+    agents: int = typer.Option(200, "--agents", "-n", help="number of Jev-driven browser agents"),
+    inject: str | None = typer.Option(
+        None, "--inject", help="comma list of known regressions to plant in the site, or 'all'"
+    ),
+    mode: str | None = typer.Option(
+        None, "--mode", help="replay | record | live (default: $JEV_DEMO_MODE or record)"
+    ),
+    concurrency: int = typer.Option(16, "--concurrency", help="browser tabs open at once"),
+    steps: int = typer.Option(6, "--steps", help="browser actions per agent"),
+    save: bool = typer.Option(True, help="write results/swarm/*"),
+    quiet: bool = typer.Option(False, "--quiet", "-q"),
+) -> None:
+    """Adversarial e2e: unleash N Jev-driven browser agents on the portal. Exit 1 on new defects."""
+    from .swarm.run import DEFAULT_RESULTS, print_report, run_swarm, save_results
+
+    done = {"n": 0}
+
+    def on_done(traj) -> None:  # noqa: ANN001
+        done["n"] += 1
+        if not quiet and done["n"] % 25 == 0:
+            console.print(f"[dim]{done['n']}/{agents} agents finished[/dim]")
+
+    summary, trajectories = asyncio.run(
+        run_swarm(
+            agents,
+            inject=inject,
+            mode=mode,
+            concurrency=concurrency,
+            max_steps=steps,
+            on_agent_done=on_done,
+        )
+    )
+    print_report(summary)
+    if save:
+        save_results(summary, trajectories, DEFAULT_RESULTS)
+    raise typer.Exit(code=0 if summary.passed else 1)
+
+
 if __name__ == "__main__":
     app()

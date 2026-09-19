@@ -1,0 +1,141 @@
+{
+ "latency_ms": 240.8,
+ "path": "/v4/ai/evaluation-model",
+ "request": {
+  "model": "typesafe-ai/jev",
+  "questions": {
+   "category": {
+    "criteria": {
+     "broken_page": "Server error, stack trace, dead link, or a page that failed to render",
+     "cosmetic": "Confusing wording or layout with no functional impact",
+     "money_loss": "Money moved in a way a bank must never allow (negative, over-balance, wrong direction)",
+     "none": "Not a defect: correct behaviour, a proper rejection message or a false alarm",
+     "security": "Data exposure, injection executed, or access to another customer's data",
+     "validation_gap": "Invalid input accepted without harm (e.g. saved unchanged, odd but safe)"
+    },
+    "instructions": "Which category best describes what state.page_after shows?",
+    "type": "choice"
+   },
+   "is_defect": {
+    "instructions": "Judged against state.goal and the tester's expectations of an online bank, the transition from state.page_before via state.action to state.page_after demonstrates a real defect in the application (not merely an attempt that was correctly rejected).",
+    "type": "boolean"
+   },
+   "severity": {
+    "criteria": [
+     "Not a defect",
+     "Low: fix eventually",
+     "Medium: fix before release",
+     "High: must not ship (money, data or availability at risk)"
+    ],
+    "instructions": "How urgently should this block a release?",
+    "type": "score"
+   }
+  },
+  "state": {
+   "action": "click button \"Search\" (submits the form)",
+   "goal": "Put HTML and script into every text field and search box, then check whether it is rendered or executed instead of shown as plain text.",
+   "harness_facts": [
+    "JavaScript embedded in a value the tester typed into a field actually ran in the page"
+   ],
+   "page_after": {
+    "automatic_checks": [
+     "script_injection_executed"
+    ],
+    "heading": "Search transactions",
+    "http_status": 200,
+    "path": "/search?q=%3Cimg+src%3Dx+onerror%3D%22window.__swarmXss%3D1%22%3E",
+    "status_message": "",
+    "visible_text": "AccountsTransfer SearchStatementsProfile Help\nSearch transactions\nMemo or amount  Search\nResults for \"\"\nNo matching transactions."
+   },
+   "page_before": {
+    "automatic_checks": [],
+    "heading": "Search transactions",
+    "http_status": 200,
+    "path": "/search",
+    "status_message": "",
+    "visible_text": "AccountsTransfer SearchStatementsProfile Help\nSearch transactions\nMemo or amount  Search"
+   }
+  }
+ },
+ "response": {
+  "answers": {
+   "category": {
+    "choice": "security",
+    "probabilities": {
+     "broken_page": 0,
+     "cosmetic": 0,
+     "money_loss": 0,
+     "none": 0,
+     "security": 1,
+     "validation_gap": 0
+    },
+    "type": "choice"
+   },
+   "is_defect": {
+    "probability": 0.89,
+    "type": "boolean"
+   },
+   "severity": {
+    "probabilities": {
+     "0": 0.01,
+     "1": 0,
+     "2": 0.02,
+     "3": 0.97
+    },
+    "score": 2.95,
+    "type": "score"
+   }
+  },
+  "providerMetadata": {
+   "gateway": {
+    "cost": "0",
+    "gatewayCost": "0",
+    "generationId": "gen_01M2X8GKJ8PV3CWZZJXPHYW033",
+    "marketCost": "0.000036246",
+    "routing": {
+     "canonicalSlug": "typesafe-ai/jev",
+     "fallbacksAvailable": [],
+     "finalProvider": "typesafe-ai",
+     "modelAttemptCount": 1,
+     "modelAttempts": [
+      {
+       "canonicalSlug": "typesafe-ai/jev",
+       "providerAttemptCount": 1,
+       "providerAttempts": [
+        {
+         "credentialType": "system",
+         "endTime": 1789835890430,
+         "provider": "typesafe-ai",
+         "startTime": 1789835890276,
+         "statusCode": 200,
+         "success": true
+        }
+       ],
+       "success": true
+      }
+     ],
+     "originalModelId": "typesafe-ai/jev",
+     "planningReasoning": "System credentials planned for: typesafe-ai. ZDR requested: all 1 attempts support ZDR. Execution order: typesafe-ai(system)",
+     "resolvedProvider": "typesafe-ai",
+     "totalProviderAttemptCount": 1
+    },
+    "surchargeCost": "0"
+   },
+   "typesafe": {
+    "confidence": {
+     "category": 0.99,
+     "severity": 0.95
+    }
+   }
+  },
+  "rounding": {
+   "probabilityDecimals": 2,
+   "scoreDecimals": 2
+  },
+  "usage": {
+   "inputTokens": 863,
+   "outputTokens": 96
+  },
+  "warnings": []
+ }
+}

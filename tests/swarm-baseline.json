@@ -1,0 +1,4 @@
+{
+  "_comment": "Finding fingerprints (category:path[checks]) the team has accepted. The pre-push swarm only blocks on findings NOT listed here. Keep it empty unless a finding is a known, tracked issue.",
+  "accepted": []
+}

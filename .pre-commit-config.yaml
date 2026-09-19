@@ -1,10 +1,19 @@
-# Install with: task hooks:install   (or: uv tool run pre-commit install)
+# Install with: task hooks:install   (or: uv tool run pre-commit install --hook-type pre-commit --hook-type pre-push)
 #
-# Every hook here is offline and deterministic, with one deliberate exception:
-# `pii-log-check` is a semantic lint that asks Jev, live, whether any staged log
-# statement writes personal data. It needs API_KEY (read from .env), makes one
-# call per changed file, and finishes in about a second for a fraction of a cent.
-# Everything else replays recorded cassettes, so a commit takes seconds, not dollars.
+# Every pre-commit hook here is offline and deterministic, with one deliberate
+# exception: `pii-log-check` is a semantic lint that asks Jev, live, whether any
+# staged log statement writes personal data. It needs API_KEY (read from .env),
+# makes one call per changed file, and finishes in about a second for a fraction
+# of a cent. Everything else replays recorded cassettes, so a commit takes
+# seconds, not dollars.
+#
+# The pre-push stage adds the adversarial swarm: 200 Jev-driven browser agents
+# attack the portal before anything leaves the machine. It replays cassettes
+# for every page state it has seen before and calls Jev live only for new ones
+# (JEV_DEMO_MODE=record, the CLI default), so an unchanged site is free and a
+# changed one costs cents.
+default_stages: [pre-commit]
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -54,3 +63,13 @@ repos:
         files: \.(py|js|mjs|cjs|ts|tsx|jsx|go|java|kt|kts|rs|rb|cs|scala|php|swift)$
         # The fixtures leak on purpose; the extractor tests quote leaky lines as strings.
         exclude: ^tests/(fixtures/pii/|unit/test_pii_extract\.py)
+
+      - id: adversarial-swarm
+        name: adversarial e2e swarm (200 jev-driven browser agents)
+        # --no-save: results/swarm is refreshed by `task swarm:record`, not by every push
+        entry: uv run jev-demo swarm --agents 200 --quiet --no-save
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
+        verbose: true

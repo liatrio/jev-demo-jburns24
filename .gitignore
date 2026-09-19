@@ -8,3 +8,5 @@ build/
 *.egg-info/
 .env
 .task/
+# swarm trajectories are ~2MB per run; summaries and findings are committed instead
+results/swarm/*-trajectories.json

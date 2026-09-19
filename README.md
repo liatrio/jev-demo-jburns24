@@ -1,4 +1,14 @@
-# jev-demo: Jev vs generative LLMs on fraud-classification tapes
+# jev-demo: experiments with TypeSafe's Jev
+
+1. **Jev vs generative LLMs on fraud-classification tapes** (below): Jev as an inline
+   typed classifier and as a test oracle, with a deterministic, offline e2e suite.
+2. **Semantic linting in pre-commit** ([jump](#check-1-semantic-linting-in-pre-commit-pii-in-log-statements)):
+   one live Jev call per changed file asks whether any log statement writes PII.
+3. **An adversarial e2e swarm on pre-push** ([jump](#experiment-2-an-adversarial-e2e-swarm-on-pre-push)):
+   200 Jev-driven browser agents attack the site before every push, built on the same
+   record/replay pattern.
+
+## Experiment 1: Jev vs generative LLMs on fraud-classification tapes
 
 A bake-off between [TypeSafe's Jev](https://docs.typesafe.ai/introduction) (a "System One"
 evaluation model that returns typed, calibrated decisions instead of text) and two
@@ -146,7 +156,8 @@ the gap the build goes red before the slides go stale.
 
 The pre-commit hook runs lint, the tape-sync check (committed `tapes/*.json` must equal
 generator output), unit tests, and the e2e suite in replay mode. A commit takes seconds and
-costs nothing. The one hook that goes to the network is the PII log check below.
+costs nothing. The one pre-commit hook that goes to the network is the PII log check below;
+the pre-push hook runs experiment 2's swarm (the section after it).
 
 ## Check 1: semantic linting in pre-commit (PII in log statements)
 
@@ -199,6 +210,141 @@ The hook is the one exception to "every hook is offline": it needs `API_KEY` (re
 `.env`) and runs in `live` mode so it never writes cassettes for your work-in-progress
 code. If the gateway is unreachable it exits 2 with a plain message instead of a traceback.
 
+
+## Experiment 2: an adversarial e2e swarm on pre-push
+
+The bake-off used Jev as a *classifier* and as a *test oracle*, and the PII check uses it as
+a *linter*. This experiment uses it
+the way [jev-ultrafast](https://github.com/browser-use/jev-ultrafast) does, as the
+decision loop of a browser agent, and then asks: if one Jev-driven browser agent costs a
+quarter of a second and a hundredth of a cent per step, why run one? Run two hundred, each
+with a different adversarial goal, against the site you are about to push, and let them
+try to break it.
+
+```bash
+task browser:install     # once per machine (or set JEV_SWARM_CHROMIUM)
+task swarm:demo          # 200 agents vs the portal with every known regression injected, replayed
+task swarm               # what the pre-push hook runs: 200 agents vs the clean portal
+task swarm -- --inject idor,dead_link   # plant specific regressions
+```
+
+### What it attacks
+
+`src/jev_demo/swarm/target.py` is a small online-banking portal (accounts, transfers,
+search, profile, statements) served from the standard library on an ephemeral port for
+the duration of the run. It is the "system under test" stand-in: deterministic HTML, no
+timestamps or random ids, and per-session state so hundreds of agents can hit it at once
+without seeing each other's balances. Seven regressions can be injected by name:
+
+| regression | what it breaks |
+|---|---|
+| `negative_transfer` | a negative amount is accepted and money moves backwards |
+| `overdraft` | a transfer larger than the balance goes through; the balance goes negative |
+| `idor` | `/accounts/2001` shows another customer's account, routing number and SSN digits |
+| `xss_search` | the search page echoes the query unescaped |
+| `dead_link` | the Statements link in the navigation returns 404 |
+| `stack_trace` | a memo containing a quote returns a 500 with a Python traceback |
+| `unicode_crash` | saving a non-ASCII profile name returns a 500 |
+
+### How an agent works (the jev-ultrafast loop)
+
+Each agent is a deterministic function of its integer id: `id % 8` picks one of eight
+adversarial personas (negative-money, overdraft, url-tamperer, injector, link-walker,
+empty-hands, edge-text, bookkeeper), and a `random.Random(id)` shuffles that persona's
+payloads and picks its starting page. Then, for up to six steps:
+
+1. **Code observes.** Playwright extracts a compact observation: path, HTTP status,
+   heading, status message, visible text, the interactive elements with their current
+   values, and a few deterministic checks (HTTP 5xx/404, a traceback on the page, a
+   negative USD amount, the injected `<img onerror>` payload having actually executed).
+2. **Code enumerates the actions.** Every link, button, select option, and each text
+   field paired with up to three of the persona's payloads becomes a concrete, executable
+   candidate ("type `'-500'` into Amount (USD)", "edit the URL to open /accounts/2001",
+   "stop"). Actions already taken on an unchanged form are removed by code, not by the
+   model.
+3. **Jev decides.** One evaluation call with speculative fan-out: a `choice` over the
+   candidates, two booleans about the current page (`page_is_broken`,
+   `wrong_behaviour`) and a four-level `severity` score. The choice is validated against
+   the typed contract before it counts; a violation is logged and code falls back to the
+   argmax.
+4. **Code acts**, observes again, and loops.
+
+No free text is generated at any point. Jev never writes a test, a selector or a report;
+it picks from options code offers and grades what code shows it.
+
+### Triage, dedupe and the gate
+
+Two hundred agents produce a long tail of "this looked odd". Every step where code saw a
+hard signal or Jev's booleans crossed 0.6 becomes an incident with its before/after
+evidence. Incidents are grouped by (path, checks), the lowest-numbered agent in each
+group represents it, and Jev triages that one with three more typed questions:
+`is_defect`, a six-way `category` (none, cosmetic, broken_page, validation_gap,
+security, money_loss) and a release-blocking `severity`. Harness facts (a 500, an
+executed payload) are passed to Jev as facts and short-circuit the `is_defect` gate; the
+model only has to name and grade them. Findings dedupe to one row per fingerprint with
+the list of agents that reproduced it. A finding blocks the push when it is
+`broken_page`, `security` or `money_loss` at severity 2 or higher and is not in
+`tests/swarm-baseline.json`.
+
+### Recorded results
+
+From `results/swarm/`, 200 agents at concurrency 16, Chromium headless, through the
+gateway from this machine:
+
+| run | agents | browser steps | Jev calls | wall | cost | outcome |
+|---|--:|--:|--:|--:|--:|---|
+| clean portal | 200 | 815 | 815 | 37 s | $0.0495 | PASS, no findings |
+| all seven regressions injected | 200 | 806 | 813 | 38 s | $0.0481 | FAIL, 6 blocking findings, 1 report-only |
+
+Findings on the injected run (`results/swarm/injected-findings.md`):
+
+| sev | category | path | agents | p(defect) | automatic checks | status |
+|--:|---|---|--:|--:|---|---|
+| 2 | money_loss | `/transfer` | 48 | 0.93 | negative_amount_displayed | **BLOCK** |
+| 2 | broken_page | `/statements` | 25 | 0.92 | http_404 | **BLOCK** |
+| 2 | security | `/accounts/2001` | 16 | 0.95 | - | **BLOCK** |
+| 2 | broken_page | `/transfer` | 12 | 0.90 | http_500, stack_trace_exposed | **BLOCK** |
+| 2 | broken_page | `/profile` | 3 | 0.93 | http_500, stack_trace_exposed | **BLOCK** |
+| 2 | security | `/search` | 3 | 0.89 | script_injection_executed | **BLOCK** |
+| 2 | validation_gap | `/transfer` | 1 | 0.88 | - | report |
+
+All seven planted regressions are found (negative transfer and overdraft share the
+`money_loss:/transfer` fingerprint; both are a missing amount check on the same form).
+The report-only row is a zero-amount transfer being accepted, which is real but not
+release-blocking. The clean run confirms no defect, so the gate has no false positives
+on this site at these thresholds. Median Jev latency per step was 283 ms at record time.
+
+### Why this is a pre-push hook and not a nightly job
+
+The swarm costs about five cents and forty seconds, so it runs where a developer will
+actually act on the result: before the push. The record/replay layer from experiment 1
+makes it cheap to keep there. Every Jev request is keyed on the observation, and the
+observation is deterministic, so a page the swarm has seen before is replayed from
+`tests/cassettes` and only genuinely new page states go to the gateway. An unchanged site
+is free and offline; a changed one costs cents for the pages that changed.
+
+```
+pre-commit stage   lint, unit, e2e replay (seconds, offline)           <- every commit
+pre-push stage     jev-demo swarm --agents 200 (40 s, replay + live)   <- every push
+```
+
+`tests/e2e/test_swarm.py` runs a 48-agent slice of both scenarios in pure replay on
+every commit, so the swarm's own regressions (a false positive on the clean portal, a
+missed injected bug) are caught before the hook is trusted.
+
+### Caveats specific to the swarm
+
+- The portal is a stand-in, so the bugs are textbook. The mechanism (agents, triage,
+  gate) is the demo; pointing it at a real staging URL is the follow-up.
+- Coverage is a function of persona design. Two of the seven regressions were found by
+  only three agents out of two hundred, which says the payload lists matter more than the
+  agent count.
+- Determinism is by construction, not by promise: the observation excludes anything
+  timing-dependent (console errors arrive asynchronously and were removed for that
+  reason). A site with live data needs a fixture mode to be replayable.
+- One agent in two hundred hit a typed-contract violation (the chosen option was not the
+  argmax after rounding). Code falls back to the argmax and counts the violation.
+
 ## Layout
 
 ```
@@ -210,13 +356,20 @@ src/jev_demo/
   runner.py      stream semantics, play_tape, scoring, pooling
   report.py      rich tables and the plain-text analyst report
   pii_check.py   semantic lint: log-statement extraction + Jev PII classification (pre-commit hook)
-  cli.py         jev-demo tapes | play | play-all | generate-tapes | pii-check
+  cli.py         jev-demo tapes | play | play-all | generate-tapes | pii-check | swarm
+  swarm/
+    target.py    the portal under test, with injectable regressions
+    browser.py   Playwright observation + action execution, deterministic checks
+    agent.py     personas, action space, the Jev decision loop
+    triage.py    Jev triage, dedupe, baseline, blocking rule
+    run.py       orchestration, report, results/swarm writer
 tapes/           committed tape JSON (regenerate with task tapes:generate)
-tests/unit       offline contract tests
-tests/e2e        Jev-driven e2e suite (replay by default)
+tests/unit       offline contract tests (incl. the portal and the action space)
+tests/e2e        Jev-driven e2e suite (replay by default), incl. a 48-agent swarm slice
 tests/fixtures/pii  demo services with known clean and leaking log lines + expected.json
-tests/cassettes  recorded gateway responses
-results/         last CLI run, per tape + pooled summary, pii-check.json
+tests/cassettes  recorded gateway responses (tapes, pii check and swarm)
+tests/swarm-baseline.json  accepted swarm findings (empty)
+results/         last CLI run, per tape + pooled summary, pii-check.json; results/swarm for the swarm
 slides-outline.md  brief for the slide deck
 plan.md          scaffold for check 2, a Jev-driven code review pipeline (not built yet)
 ```
