@@ -1,13 +1,14 @@
 # Slides brief: "System One for the transaction stream"
 
-Instructions for Claude Design. Build a 12-slide deck from this outline. Audience is
+Instructions for Claude Design. Build a 13-slide deck from this outline. Audience is
 senior engineers and engineering leaders at a technology enterprise (thousands of
 engineers, regulated data, real-time decision systems). Tone: precise, no hype, every
 number traceable to the repo. Dark background, one idea per slide, large type, charts
 over tables where a chart is honest. Speaker notes under each slide are for the presenter,
 not for the slide body.
 
-Source of truth for all numbers: `results/summary.json` and `results/T0*.json` in
+Source of truth for all numbers: `results/summary.json`, `results/T0*.json` and
+`results/pii-check.json` in
 https://github.com/jburns24/jev-demo (branch `claude/fraud-detection-jev-demo-6w42lx`).
 Do not invent numbers. If a number is not in this brief or those files, leave it out.
 
@@ -200,7 +201,55 @@ Speaker notes: `task test` is what pre-commit runs. Show the hook firing if ther
 
 ---
 
-## Slide 10: What this could solve for an enterprise like ours
+## Slide 10: Semantic linting at pre-commit speed
+
+**Headline:** A lint rule that reads: "does this log line leak PII?" in one typed call per file
+
+Left: the developer's view, styled as terminal output (verbatim from the repo, keep the
+monospace):
+
+```
+$ git commit -m "add reminder job"
+pii in log statements (jev, live)..........Failed
+  BLOCK  reminders.py:5  identity (P(pii)=1.00)
+         logger.info("sending reminder to %s at %s", user.full_name, user.email)
+pii-check: 1 log statement in 1 file, 1 flagged | 1 jev call, p50 541 ms, cost $0.00004
+pii-check: commit blocked. Remove or redact the personal data in the lines above.
+```
+
+Right: how it works, three steps:
+1. Regex finds the log calls (`logger.*`, `console.*`, `slog.*`, Rust macros) in the staged
+   files and cuts each one out whole, with four lines of context.
+2. One Jev call per file, one typed `choice` question per statement: *what kind of
+   personal data does this line write?* Options: none, contact, identity, financial,
+   credential, network/location, sensitive. A written policy travels in the state.
+3. Code thresholds `P(pii)` at 0.5 and blocks; 0.35 to 0.5 prints a warning and lets the
+   commit through.
+
+Numbers from `results/pii-check.json` (four fixture files in Python, TypeScript and Go,
+26 log statements, 7 planted leaks):
+
+| statements | Jev calls | leaks caught | false positives | p50 per call | wall clock | cost |
+|--:|--:|--:|--:|--:|--:|--:|
+| 26 | 4 | 7 of 7 | 0 | 594 ms | 765 ms | $0.00048 |
+
+Callouts:
+- Adding a statement adds a question, not a call. A 20-statement file costs one round trip.
+- What *passes* is the point: a masked email, a sha256 of a user key, a card brand label,
+  `customer_id`, `txn_id`. A keyword scanner false-alarms on every one of those.
+- Same contract check as the fraud rows (`validate_choice`), same gateway, same key.
+
+Speaker notes: This is the "LLM-as-judge in CI" row from slide 11 made concrete. The
+generative version of this check exists at most shops and gets turned off because it adds
+ten seconds and a few cents per file. This one is under a second and under a tenth of a
+cent for a whole file, so it can sit in pre-commit rather than in a nightly job. If there is
+time, do it live: paste a leaking log line into any `.py` file, `git add`, `git commit`,
+watch it block, redact, commit again. The second check (the code review pipeline in
+`plan.md`) is the same idea scaled up to a whole diff; say it is planned, not built.
+
+---
+
+## Slide 11: What this could solve for an enterprise like ours
 
 **Headline:** Inline typed decisions at stream scale
 
@@ -209,7 +258,7 @@ Four rows, each "today -> with a System One model":
 - Ticket and alert triage by regex plus an occasional LLM -> calibrated routing with an
   explicit escalation threshold.
 - LLM-as-judge in CI, slow and flaky -> typed rubric checks that run on every PR in
-  seconds and replay deterministically.
+  seconds and replay deterministically (slide 10 is the pre-commit version of this).
 - Prompt-and-parse glue code with retry loops -> schema-guaranteed answers, validated by
   contract, no parsing.
 
@@ -218,7 +267,7 @@ try first.
 
 ---
 
-## Slide 11: Limits and open questions
+## Slide 12: Limits and open questions
 
 **Headline:** What this demo does not prove
 
@@ -230,12 +279,15 @@ try first.
   empirical repeatability check in live mode.
 - Model pinning: the gateway alias resolves to the current release. Production thresholds
   should be tuned against a pinned version.
+- The PII lint judges from variable names and literals in the statement plus four lines of
+  context. It will not see that `payload` three functions up contains an email. Extraction
+  is regex-based and catches conventional logger names, not every custom wrapper.
 
 Speaker notes: Say these before someone else does.
 
 ---
 
-## Slide 12: Next steps and the live run
+## Slide 13: Next steps and the live run
 
 **Headline:** Try it
 
@@ -249,8 +301,10 @@ Proposed follow-ups, as a short list:
 1. Replay a de-identified slice of a real transaction log through the same harness.
 2. Add a fourth evaluator: our current rules engine, scored on the same tapes.
 3. Wire the confidence-gated router into a shadow-mode consumer and measure escalation rate.
+4. Build the second check, the Jev-driven code review pipeline scaffolded in `plan.md`:
+   typed rubric checks over a whole PR diff, in CI, with the same record/replay discipline.
 
-Then switch to the terminal and run `task play -- T01`.
+Then switch to the terminal and run `task play -- T01`, and if time allows `task pii:demo`.
 
 Speaker notes: End on the live run. The point of the deck is to earn the two minutes of
 terminal time.

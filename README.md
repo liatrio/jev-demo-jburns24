@@ -146,7 +146,58 @@ the gap the build goes red before the slides go stale.
 
 The pre-commit hook runs lint, the tape-sync check (committed `tapes/*.json` must equal
 generator output), unit tests, and the e2e suite in replay mode. A commit takes seconds and
-costs nothing.
+costs nothing. The one hook that goes to the network is the PII log check below.
+
+## Check 1: semantic linting in pre-commit (PII in log statements)
+
+Two runnable *checks* sit on top of the bake-off. This one is built; the second, a code
+review pipeline, is scaffolded in `plan.md` and not built yet.
+
+A regex can find every `logger.info(...)`. It cannot tell you whether the f-string inside
+leaks a customer's email. That judgement is the kind of thing teams bolt an LLM onto and
+then pull out again because it takes ten seconds per file and costs real money. Here it
+is one typed Jev call per changed file.
+
+`jev-demo pii-check <files>` (hook id `pii-log-check`):
+
+1. Pulls every logging call out of the staged source files: `logger.*`, `log.*`,
+   `console.*`, `slog.*`, `log.Printf`, Rust `info!`/`warn!` macros, in Python, JS/TS, Go,
+   Java, Kotlin, Rust, Ruby, C#. Multi-line calls come out whole; four preceding lines ride
+   along as context so `user.email` means something.
+2. Sends each file's statements to Jev as **one call with one typed `choice` question per
+   statement** (speculative fan-out, up to 20 per call): *what kind of personal data, if
+   any, does this line write?* with a written policy (names, contact details, government
+   ids, card and account numbers, credentials, IPs and geolocation, health data count;
+   opaque ids, counts, durations, masked or hashed values do not).
+3. Validates every answer against the typed contract, then blocks the commit when
+   `P(pii) >= 0.5`, prints a WARN for the 0.35 to 0.5 gray zone, and stays quiet otherwise.
+
+```bash
+task pii:demo                 # clean fixtures pass, leaky fixtures block
+task pii:check -- src/**/*.py # any files you like, verbose
+```
+
+To see the hook fire on a real commit, add a line such as
+`logger.info("reminder sent to %s", user.email)` to any `.py` file, `git add` it and
+`git commit`. The hook prints the offending `file:line`, the kind of data, the probability,
+and exits 1. Redact the line and the same commit goes through.
+
+Recorded run over the demo fixtures (`results/pii-check.json`, four files in Python,
+TypeScript and Go, 26 log statements, 7 planted leaks):
+
+| statements | files | Jev calls | leaks caught | false positives | p50 per call | wall clock | cost |
+|--:|--:|--:|--:|--:|--:|--:|--:|
+| 26 | 4 | 4 | 7 / 7 | 0 | 594 ms | 765 ms | $0.00048 |
+
+The fixtures live in `tests/fixtures/pii/` with ground truth in `expected.json`;
+`tests/e2e/test_pii_check.py` holds the check to that truth from cassettes, so the hook's
+own behaviour is covered by the offline suite even though the hook itself runs live. Note
+what passes: a masked email, a sha256 of a user key, a card brand label, opaque
+`customer_id` and `txn_id` fields. A keyword scanner false-alarms on all of them.
+
+The hook is the one exception to "every hook is offline": it needs `API_KEY` (read from
+`.env`) and runs in `live` mode so it never writes cassettes for your work-in-progress
+code. If the gateway is unreachable it exits 2 with a plain message instead of a traceback.
 
 ## Layout
 
@@ -158,13 +209,16 @@ src/jev_demo/
   evaluators.py  JevEvaluator, LLMEvaluator, ConfidenceGatedEvaluator, contract checks
   runner.py      stream semantics, play_tape, scoring, pooling
   report.py      rich tables and the plain-text analyst report
-  cli.py         jev-demo tapes | play | play-all | generate-tapes
+  pii_check.py   semantic lint: log-statement extraction + Jev PII classification (pre-commit hook)
+  cli.py         jev-demo tapes | play | play-all | generate-tapes | pii-check
 tapes/           committed tape JSON (regenerate with task tapes:generate)
 tests/unit       offline contract tests
 tests/e2e        Jev-driven e2e suite (replay by default)
+tests/fixtures/pii  demo services with known clean and leaking log lines + expected.json
 tests/cassettes  recorded gateway responses
-results/         last CLI run, per tape + pooled summary
+results/         last CLI run, per tape + pooled summary, pii-check.json
 slides-outline.md  brief for the slide deck
+plan.md          scaffold for check 2, a Jev-driven code review pipeline (not built yet)
 ```
 
 ## Caveats worth saying out loud
