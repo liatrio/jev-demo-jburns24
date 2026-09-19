@@ -171,6 +171,12 @@ def swarm(
     steps: int = typer.Option(6, "--steps", help="browser actions per agent"),
     save: bool = typer.Option(True, help="write results/swarm/*"),
     quiet: bool = typer.Option(False, "--quiet", "-q"),
+    headed: bool = typer.Option(
+        False, "--headed", help="show the Chromium windows instead of running headless"
+    ),
+    slow_mo: int = typer.Option(
+        0, "--slow-mo", help="milliseconds to pause after each browser action (headed demos)"
+    ),
 ) -> None:
     """Adversarial e2e: unleash N Jev-driven browser agents on the portal. Exit 1 on new defects."""
     from .swarm.run import DEFAULT_RESULTS, print_report, run_swarm, save_results
@@ -189,6 +195,8 @@ def swarm(
             mode=mode,
             concurrency=concurrency,
             max_steps=steps,
+            headed=headed,
+            slow_mo_ms=slow_mo,
             on_agent_done=on_done,
         )
     )

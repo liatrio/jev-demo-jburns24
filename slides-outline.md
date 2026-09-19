@@ -608,6 +608,7 @@ task swarm:demo                          # 1. 200 agents, all seven regressions 
 task swarm                               # 2. the pre-push hook: 200 agents vs the clean portal
 task swarm -- --inject idor,dead_link    # 3. plant two regressions and watch only those come back
 task swarm:live -- --inject all          # 4. optional: every Jev call live, real timing and cost
+task swarm:demo:headed                   # 5. optional: 4 agents in visible Chromium windows, slowed down
 ```
 
 What the audience sees:
@@ -625,6 +626,10 @@ What the audience sees:
    personas. Shows the finding is caused by the injected bug, not by the agents' payloads.
 4. Same as 1 with `(0 replayed, N live)` in the footer, about 45 to 55 seconds of wall
    time and about five cents. Use this if someone asks whether the replay is hiding the cost.
+5. Four Chromium windows open and the audience watches the agents type a negative amount,
+   open another customer's account URL, and click the dead Statements link, one action
+   every 400 ms. Same replayed cassettes as step 1, so no key is needed. Set `AGENTS=8` or
+   `SLOW_MO=200` on the task to tune it for the room.
 
 Needs a Chromium that Playwright can launch (`task browser:install`, or set
 `JEV_SWARM_CHROMIUM`). Step 1 needs no API key; steps 2 to 4 need `API_KEY` for any page

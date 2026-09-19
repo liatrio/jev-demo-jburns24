@@ -190,8 +190,10 @@ class Tab:
 class BrowserPool:
     """One Chromium process; each agent gets its own context."""
 
-    def __init__(self, base_url: str) -> None:
+    def __init__(self, base_url: str, *, headed: bool = False, slow_mo_ms: int = 0) -> None:
         self.base_url = base_url
+        self.headed = headed
+        self.slow_mo_ms = slow_mo_ms
         self._pw = None
         self.browser: Browser | None = None
 
@@ -199,7 +201,11 @@ class BrowserPool:
         self._pw = await async_playwright().start()
         exe = os.environ.get("JEV_SWARM_CHROMIUM") or None
         try:
-            self.browser = await self._pw.chromium.launch(headless=True, executable_path=exe)
+            self.browser = await self._pw.chromium.launch(
+                headless=not self.headed,
+                slow_mo=self.slow_mo_ms or None,
+                executable_path=exe,
+            )
         except Exception as exc:  # noqa: BLE001 - turn Playwright's banner into one actionable line
             await self._pw.stop()
             raise RuntimeError(

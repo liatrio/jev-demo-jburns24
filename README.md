@@ -232,6 +232,8 @@ task browser:install     # once per machine (or set JEV_SWARM_CHROMIUM)
 task swarm:demo          # 200 agents vs the portal with every known regression injected, replayed
 task swarm               # what the pre-push hook runs: 200 agents vs the clean portal
 task swarm -- --inject idor,dead_link   # plant specific regressions
+task swarm:demo:headed   # the demo in visible Chromium windows: 4 agents, slowed down, replayed
+task swarm:headed -- --inject idor      # watch a few agents live; AGENTS=8 SLOW_MO=200 to tune
 ```
 
 ### What it attacks

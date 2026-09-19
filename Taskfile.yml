@@ -137,6 +137,20 @@ tasks:
       JEV_DEMO_MODE: replay
     cmds: ["{{.PY}} jev-demo swarm --agents 200 --inject all --no-save {{.CLI_ARGS}}"]
 
+  swarm:headed:
+    desc: "Watch the swarm work: a few agents in visible Chromium windows, slowed down. task swarm:headed -- --inject all"
+    deps: [setup]
+    cmds:
+      - "{{.PY}} jev-demo swarm --agents {{.AGENTS | default 4}} --concurrency {{.AGENTS | default 4}} --headed --slow-mo {{.SLOW_MO | default 400}} --no-save {{.CLI_ARGS}}"
+
+  swarm:demo:headed:
+    desc: "The demo in visible windows: 4 agents, every regression injected, replayed from cassettes (no key needed)"
+    deps: [setup]
+    env:
+      JEV_DEMO_MODE: replay
+    cmds:
+      - "{{.PY}} jev-demo swarm --agents {{.AGENTS | default 4}} --concurrency {{.AGENTS | default 4}} --inject all --headed --slow-mo {{.SLOW_MO | default 400}} --no-save {{.CLI_ARGS}}"
+
   swarm:record:
     desc: Refresh the swarm cassettes and results/swarm for both the clean and injected portal (needs API_KEY)
     deps: [setup]
