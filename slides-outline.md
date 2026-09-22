@@ -1,9 +1,10 @@
 # Slides brief: "System One for the transaction stream"
 
-Instructions for Claude Design. Build an 18-slide deck from this outline (13 slides as
+Instructions for Claude Design. Build a 19-slide deck from this outline (13 slides as
 numbered, plus a two-slide Jev primer, slides 4a and 4b, placed after slide 4, plus a
 three-slide second act on the adversarial e2e swarm, slides 11a to 11c, placed after
-slide 11). The "Running the demos" appendix at the end is for the presenter's runbook and
+slide 11, plus one slide on goal-driven smoke tests of a real site, slide 11d, placed
+after 11c). The "Running the demos" appendix at the end is for the presenter's runbook and
 optionally one backup slide per experiment. Audience is
 senior engineers and engineering leaders at a technology enterprise (thousands of
 engineers, regulated data, real-time decision systems). Tone: precise, no hype, every
@@ -13,7 +14,7 @@ not for the slide body.
 
 Source of truth for all numbers: `results/summary.json`, `results/T0*.json` and
 `results/pii-check.json` (fraud bake-off and PII check) and `results/swarm/*-summary.json`,
-`results/swarm/*-findings.md` (swarm) in
+`results/swarm/*-findings.md` (swarm) and `results/smoke/liatrio-summary.json` (smoke test) in
 https://github.com/liatrio/jev-demo-jburns24 (branch `main`). `results/report.html` is a
 rendered single-page view of the same files. Do not invent numbers. If a number is not in
 this brief or those files, leave it out.
@@ -365,10 +366,13 @@ Four rows, each "today -> with a System One model":
 - A handful of scripted e2e tests, or one expensive LLM browser agent, run nightly ->
   hundreds of cheap Jev-driven browser agents that attack the site on every push (slides
   11a to 11c).
+- Smoke tests written as selectors and page objects that break on every redesign -> a goal
+  in English per scenario, a Jev agent that finds its own way, and code checks on the page it
+  lands on (slide 11d).
 
-Speaker notes: Keep this concrete to our systems. Ask which of the five the room would
-try first. Slide 10 was the pre-commit version of the CI row; the last row is the second
-act of this deck, say "we built that too".
+Speaker notes: Keep this concrete to our systems. Ask which of the six the room would
+try first. Slide 10 was the pre-commit version of the CI row; the last two rows are the
+second act of this deck, say "we built those too".
 
 ---
 
@@ -471,6 +475,56 @@ replayed, six blocking findings in under a minute with no API key.
 
 ---
 
+## Slide 11d: The same loop, pointed at a real site, with the test written in English
+
+**Headline:** Smoke tests as goals, not scripts: `task smoke:liatrio`
+
+Left: the whole test for one scenario, verbatim from `smoke/liatrio.toml` (monospace, this
+is the point of the slide):
+```
+[[scenarios]]
+id = "careers"
+goal = "Find the Careers page and confirm it lists open positions with a
+        way to apply. Do not open the job board itself."
+success_criteria = "The Careers page is open: a heading about joining the
+        team, and one or more open roles are listed with an apply link."
+expected_path_prefix = "/careers"
+expected_text = ["careers", "apply"]
+```
+
+Right: what happened when it ran against www.liatrio.ai, from
+`results/smoke/liatrio-summary.json`:
+
+| scenario | steps | landed on | heading | P(goal) | p50 ms | cost |
+|---|--:|---|---|--:|--:|--:|
+| blog | 2 | `/resources/blog/evaluating-ai-systems` | Evaluating AI Systems Like Engineers, Not After the Fact | 0.96 | 389 | $0.0002 |
+| careers | 2 | `/careers` | Join Our Team | 0.79 | 249 | $0.0002 |
+| contact | 2 | `/contact` | Get in Touch | 0.97 | 317 | $0.0002 |
+
+Three scenarios, 6 Jev calls, 15 s wall, $0.0007, PASS.
+
+Callouts:
+- The two lines of English are the semantic layer: `goal` steers the agent, and
+  `success_criteria` is what Jev's `goal_reached` boolean is judged against on every page.
+- The two `expected_*` lines are the deterministic layer: code checks them on the page the
+  agent finished on. A scenario passes only when both layers agree, and the report says
+  which one failed.
+- Same loop as the swarm (slide 11a), narrower action space: links and buttons, on this
+  host only, and on any page with form fields the buttons disappear too. Nothing is typed,
+  nothing is submitted. "Do not fill out the contact form" is enforced by code, not asked
+  of the model.
+- No selectors, no page objects, no waits. A redesign that keeps the words changes nothing
+  here. Adding a test is adding a `[[scenarios]]` block; another site is another `[site]`.
+
+Speaker notes: This is the slide for whoever owns the e2e suite. Every team has a folder of
+Playwright or Cypress scripts that break on a CSS change and get skipped. Ask: how many of
+those are "get to page X and check Y is there"? Those are three lines of TOML each now. Be
+honest about what it is not: it navigates and looks; anything that must type, log in or pay
+is still a scripted test. Run it live if there is time, headed: three windows, two clicks
+each, about fifteen seconds.
+
+---
+
 ## Slide 12: Limits and open questions
 
 **Headline:** What this demo does not prove
@@ -489,6 +543,9 @@ replayed, six blocking findings in under a minute with no API key.
 - The swarm's target is a stand-in portal with textbook bugs. Pointing it at a real
   staging URL means giving that environment a fixture mode so observations stay
   replayable.
+- The smoke test runs live against a public site, so it is not replayable and its cost
+  and timing vary with the site. It navigates and looks only: no login, no form input, no
+  purchase flows. Three scenarios on one site is a demonstration of the shape, not a suite.
 
 Speaker notes: Say these before someone else does.
 
@@ -512,9 +569,11 @@ Proposed follow-ups, as a short list:
    typed rubric checks over a whole PR diff, in CI, with the same record/replay discipline.
 5. Point the swarm at a staging deployment of one of our own web apps, with personas
    written by that team, and run it as its pre-push hook for a sprint.
+6. Rewrite the ten most-skipped scripted smoke tests in one of our suites as
+   `[[scenarios]]` blocks and run both side by side for a month.
 
 Then switch to the terminal and run the demos in the appendix below: `task play -- T01`,
-then if time allows `task pii:demo` and `task swarm:demo`.
+then if time allows `task pii:demo`, `task swarm:demo` and `task smoke:liatrio:headed`.
 
 Speaker notes: End on the live run. The point of the deck is to earn the two minutes of
 terminal time.
@@ -634,6 +693,34 @@ What the audience sees:
 Needs a Chromium that Playwright can launch (`task browser:install`, or set
 `JEV_SWARM_CHROMIUM`). Step 1 needs no API key; steps 2 to 4 need `API_KEY` for any page
 state that has no cassette yet.
+
+### Demo 4: goal-driven smoke test of liatrio.ai (1 to 2 minutes)
+
+```
+cat smoke/liatrio.toml                   # 1. show the test: three goals in English plus expected checks
+task smoke:liatrio                       # 2. three Jev agents, live, about 15 s
+task smoke:liatrio:headed                # 3. the same in a visible window, one scenario at a time
+task smoke:liatrio -- --only careers     # 4. one scenario
+```
+
+What the audience sees:
+1. The whole test file fits on one screen. Point at `goal`, `success_criteria` and the two
+   `expected_*` lines and name the layer each belongs to.
+2. A PASS or FAIL line per scenario as it finishes, then the table (scenario, steps, page
+   landed on, heading, P(goal), p50 latency, cost, result) and under it each scenario's
+   trajectory: the page, Jev's P(goal reached) there, the action chosen. Each scenario is
+   two steps: one click from the home page, then `done`. Footer: 6 Jev calls, wall time,
+   under a tenth of a cent, PASS. Exit 0.
+3. Chromium opens, the home page loads, the agent clicks Careers (or LET'S TALK, or a blog
+   card), the page lands, the window closes, the next scenario starts. Slowed to 600 ms per
+   action so the room can follow.
+4. Same as 2 for a single scenario. If someone asks "what if the goal is wrong", edit
+   `expected_text` to a word that is not on the page and rerun: Jev still reports the goal
+   reached, the code check fails, the report names the check. That is the two layers.
+
+Needs `API_KEY` and a Chromium Playwright can launch. Live by default; there is nothing to
+replay for a public site. In a sandbox whose egress proxy re-signs TLS, set
+`JEV_SMOKE_INSECURE_TLS=1`; leave it unset elsewhere.
 
 ### Backup: the rendered report
 

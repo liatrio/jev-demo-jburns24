@@ -100,17 +100,31 @@ code clicks, repeats, then runs its own checks (path prefix, expected words, HTT
 page the agent finished on. Nothing is typed, no form is submitted.
 
 ```bash
-task smoke:liatrio                           # blog, careers, contact: 3 agents, live, about 20 s, under a tenth of a cent
-task smoke:liatrio -- --only contact         # one scenario
-task smoke:liatrio:headed                    # visible Chromium, one scenario at a time, 600 ms per action
+cat smoke/liatrio.toml                       # 1. the whole test: three goals in English plus expected checks
+task smoke:liatrio                           # 2. blog, careers, contact: 3 agents, live, about 15 s, under a tenth of a cent
+task smoke:liatrio:headed                    # 3. visible Chromium, one scenario at a time, 600 ms per action
+task smoke:liatrio -- --only careers         # 4. one scenario
 task smoke -- smoke/liatrio.toml --only blog --headed --slow-mo 1200   # raw form, very slow
 ```
 
-What you see: one progress line per scenario as it finishes, then a table (scenario, steps,
-page landed on, heading, P(goal), p50 latency, cost, PASS or FAIL) and the trajectory under
-it: each page the agent stood on, Jev's P(goal reached) there, and the action it chose. A
-scenario passes only when Jev's P(goal) clears the threshold and every code check passes; the
-failing layer is named. Exit 1 on any failure. Results land in `results/smoke/liatrio-*`.
+What you see:
+1. The test fits on one screen. `goal` and `success_criteria` are the semantic layer (what
+   Jev steers by and judges against); `expected_path_prefix` and `expected_text` are the
+   deterministic layer (what code checks on the final page).
+2. A PASS or FAIL line per scenario as it finishes, then a table (scenario, steps, page landed
+   on, heading, P(goal), p50 latency, cost, result) and each scenario's trajectory: the page,
+   Jev's P(goal reached) there, the action it chose. Each scenario is two steps: one click from
+   the home page, then `done`. Footer: 6 Jev calls, wall time, cost, PASS. Exit 0.
+3. Chromium opens, the home page loads, the agent clicks Careers (or LET'S TALK, or a blog
+   card), the page lands, the next scenario starts.
+4. Same as 2 for one scenario.
+
+To show the two layers disagreeing, edit `expected_text` for `careers` to a word that is not
+on the page and rerun step 4: Jev still reports the goal reached, the code check fails, and
+the report names the check. Revert with `git checkout smoke/liatrio.toml`.
+
+A scenario passes only when Jev's P(goal) clears the threshold and every code check passes;
+the failing layer is named. Exit 1 on any failure. Results land in `results/smoke/liatrio-*`.
 
 Writing a new test is editing the TOML, not code:
 
