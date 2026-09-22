@@ -114,9 +114,9 @@ tasks:
     desc: Run the PII log check on the demo fixtures (leaky files block, clean files pass; needs API_KEY)
     deps: [setup]
     cmds:
-      - echo "--- clean files: expect exit 0"
+      - 'echo "--- clean files: expect exit 0"'
       - "{{.PY}} jev-demo pii-check --mode live -v tests/fixtures/pii/clean_service.py tests/fixtures/pii/clean_worker.go"
-      - echo "--- leaky files: expect BLOCK lines and exit 1"
+      - 'echo "--- leaky files: expect BLOCK lines and exit 1"'
       - cmd: "{{.PY}} jev-demo pii-check --mode live tests/fixtures/pii/leaky_service.py tests/fixtures/pii/leaky_handler.ts"
         ignore_error: true
 

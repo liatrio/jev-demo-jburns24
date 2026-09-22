@@ -65,7 +65,7 @@ footer{color:var(--ink-3);font-size:13px;padding-top:20px}
 <main>
 <header>
 <h1>Jev experiment results: fraud classification, PII lint, adversarial swarm</h1>
-<p>Live runs on 2026-09-19 from the <code>jev-demo</code> repository. Cost, speed and what each result is worth to an enterprise bank.</p>
+<p>Live runs on 2026-09-21 from the <code>jev-demo</code> repository. Cost, speed and what each result is worth to an enterprise bank.</p>
 <nav><a href="#summary">Summary</a><a href="#fraud">1. Fraud bake-off</a><a href="#pii">2. PII log lint</a><a href="#swarm">3. Adversarial swarm</a><a href="#method">Method and caveats</a></nav>
 </header>
 
@@ -79,9 +79,9 @@ were run live against the Vercel AI Gateway for this report.</p>
 <thead><tr><th>Experiment</th><th>Job</th><th>Speed</th><th>Cost</th><th>Quality</th><th>Enterprise value</th></tr></thead>
 <tbody>
 <tr><td><a href="#fraud">1. Fraud bake-off</a></td><td>Classify 212 transaction rows against Sonnet 5 and GPT-5.6 Luna</td>
-<td>269 ms p50, 8x faster than Sonnet</td>
-<td>$0.018 vs $1.14 for Sonnet (63x)</td>
-<td>Recall 1.00, 5 FP, F1 0.94 (second to Jev + Sonnet (gated) at 0.95)</td>
+<td>251 ms p50, 8x faster than Sonnet</td>
+<td>$0.018 vs $1.14 for Sonnet (62x)</td>
+<td>Recall 1.00, 4 FP, F1 0.95 (best of four)</td>
 <td>Fits inside a card authorization hop; calibrated thresholds per product line</td></tr>
 <tr><td><a href="#pii">2. PII log lint</a></td><td>Judge 26 log statements in 4 files</td>
 <td>1.1 s wall per commit</td><td>$0.00048 per commit</td>
@@ -109,36 +109,33 @@ Ground truth is stripped before the model sees the row and used only for scoring
 
 <div class="kpis">
   <div class="kpi"><div class="k-label">Rows evaluated</div><div class="k-value">212</div><div class="k-sub">39 fraud rows across 6 tapes</div></div>
-  <div class="kpi"><div class="k-label">Jev recall</div><div class="k-value">1.00</div><div class="k-sub">5 false positives, 0 misses</div></div>
-  <div class="kpi"><div class="k-label">Jev median latency</div><div class="k-value">269 ms</div><div class="k-sub">p95 620 ms</div></div>
+  <div class="kpi"><div class="k-label">Jev recall</div><div class="k-value">1.00</div><div class="k-sub">4 false positives, 0 misses</div></div>
+  <div class="kpi"><div class="k-label">Jev median latency</div><div class="k-value">251 ms</div><div class="k-sub">p95 356 ms</div></div>
   <div class="kpi"><div class="k-label">Jev cost, whole run</div><div class="k-value">$0.018</div><div class="k-sub">$0.086 per 1,000 rows</div></div>
 </div>
 
 <div class="charts">
 <figure class="chart"><figcaption>Cost per 1,000 rows (USD)</figcaption>
-<svg viewBox="0 0 640 152" role="img" aria-label="Cost per 1,000 rows (USD)">
+<svg viewBox="0 0 640 116" role="img" aria-label="Cost per 1,000 rows (USD)">
 <text x="160" y="19.0" text-anchor="end" class="lbl">Jev</text><rect x="170" y="4" width="6.1" height="22" rx="4" class="s-1"><title>Jev: $0.086</title></rect><text x="184.1" y="19.0" class="val">$0.086</text>
-<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="380.0" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: $5.389</title></rect><text x="558.0" y="55.0" class="val">$5.389</text>
-<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="30.4" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: $0.431</title></rect><text x="208.4" y="91.0" class="val">$0.431</text>
-<text x="160" y="127.0" text-anchor="end" class="lbl">Jev + Sonnet (gated)</text><rect x="170" y="112" width="38.5" height="22" rx="4" class="s-4"><title>Jev + Sonnet (gated): $0.545</title></rect><text x="216.5" y="127.0" class="val">$0.545</text>
+<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="380.0" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: $5.370</title></rect><text x="558.0" y="55.0" class="val">$5.370</text>
+<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="30.5" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: $0.431</title></rect><text x="208.5" y="91.0" class="val">$0.431</text>
 </svg>
 <p class="note">Gateway list prices at run time. Every evaluator saw byte-identical input.</p>
 </figure>
 <figure class="chart"><figcaption>Median latency per row (ms)</figcaption>
-<svg viewBox="0 0 640 152" role="img" aria-label="Median latency per row (ms)">
-<text x="160" y="19.0" text-anchor="end" class="lbl">Jev</text><rect x="170" y="4" width="46.7" height="22" rx="4" class="s-1"><title>Jev: 269 ms</title></rect><text x="224.7" y="19.0" class="val">269 ms</text>
-<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="380.0" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: 2,188 ms</title></rect><text x="558.0" y="55.0" class="val">2,188 ms</text>
-<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="359.2" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: 2,068 ms</title></rect><text x="537.2" y="91.0" class="val">2,068 ms</text>
-<text x="160" y="127.0" text-anchor="end" class="lbl">Jev + Sonnet (gated)</text><rect x="170" y="112" width="46.2" height="22" rx="4" class="s-4"><title>Jev + Sonnet (gated): 266 ms</title></rect><text x="224.2" y="127.0" class="val">266 ms</text>
+<svg viewBox="0 0 640 116" role="img" aria-label="Median latency per row (ms)">
+<text x="160" y="19.0" text-anchor="end" class="lbl">Jev</text><rect x="170" y="4" width="46.1" height="22" rx="4" class="s-1"><title>Jev: 251 ms</title></rect><text x="224.1" y="19.0" class="val">251 ms</text>
+<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="349.3" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: 1,902 ms</title></rect><text x="527.3" y="55.0" class="val">1,902 ms</text>
+<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="380.0" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: 2,069 ms</title></rect><text x="558.0" y="91.0" class="val">2,069 ms</text>
 </svg>
 <p class="note">Wall clock through the gateway at concurrency 8. Jev answers three typed questions per call.</p>
 </figure>
 <figure class="chart"><figcaption>F1 on fraud rows (pooled, 6 tapes)</figcaption>
-<svg viewBox="0 0 640 152" role="img" aria-label="F1 on fraud rows (pooled, 6 tapes)">
-<text x="160" y="19.0" text-anchor="end" class="lbl">Jev</text><rect x="170" y="4" width="375.9" height="22" rx="4" class="s-1"><title>Jev: 0.94</title></rect><text x="553.9" y="19.0" class="val">0.94</text>
-<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="366.3" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: 0.92</title></rect><text x="544.3" y="55.0" class="val">0.92</text>
-<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="338.5" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: 0.85</title></rect><text x="516.5" y="91.0" class="val">0.85</text>
-<text x="160" y="127.0" text-anchor="end" class="lbl">Jev + Sonnet (gated)</text><rect x="170" y="112" width="380.0" height="22" rx="4" class="s-4"><title>Jev + Sonnet (gated): 0.95</title></rect><text x="558.0" y="127.0" class="val">0.95</text>
+<svg viewBox="0 0 640 116" role="img" aria-label="F1 on fraud rows (pooled, 6 tapes)">
+<text x="160" y="19.0" text-anchor="end" class="lbl">Jev</text><rect x="170" y="4" width="380.0" height="22" rx="4" class="s-1"><title>Jev: 0.95</title></rect><text x="558.0" y="19.0" class="val">0.95</text>
+<text x="160" y="55.0" text-anchor="end" class="lbl">Claude Sonnet 5</text><rect x="170" y="40" width="365.8" height="22" rx="4" class="s-2"><title>Claude Sonnet 5: 0.92</title></rect><text x="543.8" y="55.0" class="val">0.92</text>
+<text x="160" y="91.0" text-anchor="end" class="lbl">GPT-5.6 Luna</text><rect x="170" y="76" width="345.2" height="22" rx="4" class="s-3"><title>GPT-5.6 Luna: 0.86</title></rect><text x="523.2" y="91.0" class="val">0.86</text>
 </svg>
 <p class="note">Recall and precision scored against ground truth the models never see.</p>
 </figure>
@@ -147,15 +144,15 @@ Ground truth is stripped before the model sees the row and used only for scoring
 <h3>Pooled results</h3>
 <div class="tbl"><table>
 <thead><tr><th>Evaluator</th><th>Rows</th><th>TP</th><th>FP</th><th>FN</th><th>Precision</th><th>Recall</th><th>F1</th><th>Pattern acc</th><th>p50 ms</th><th>p95 ms</th><th>Errors</th><th>Total cost</th><th>Per 1k rows</th></tr></thead>
-<tbody><tr><td><span class="sw" style="--c:var(--jev)"></span>Jev</td><td>212</td><td>39</td><td>5</td><td>0</td><td>0.89</td><td>1.00</td><td>0.94</td><td>0.97</td><td>269</td><td>620</td><td>1</td><td>$0.0182</td><td>$0.086</td></tr><tr><td><span class="sw" style="--c:var(--sonnet-5)"></span>Claude Sonnet 5</td><td>212</td><td>38</td><td>6</td><td>1</td><td>0.86</td><td>0.97</td><td>0.92</td><td>1.00</td><td>2,188</td><td>3,103</td><td>0</td><td>$1.1424</td><td>$5.389</td></tr><tr><td><span class="sw" style="--c:var(--gpt-5-6-luna)"></span>GPT-5.6 Luna</td><td>212</td><td>33</td><td>6</td><td>6</td><td>0.85</td><td>0.85</td><td>0.85</td><td>1.00</td><td>2,068</td><td>3,695</td><td>0</td><td>$0.0914</td><td>$0.431</td></tr><tr><td><span class="sw" style="--c:var(--jev-sonnet-5)"></span>Jev + Sonnet (gated)</td><td>212</td><td>38</td><td>3</td><td>1</td><td>0.93</td><td>0.97</td><td>0.95</td><td>0.97</td><td>266</td><td>2,308</td><td>1</td><td>$0.1156</td><td>$0.545</td></tr></tbody></table></div>
+<tbody><tr><td><span class="sw" style="--c:var(--jev)"></span>Jev</td><td>212</td><td>39</td><td>4</td><td>0</td><td>0.91</td><td>1.00</td><td>0.95</td><td>0.97</td><td>251</td><td>356</td><td>0</td><td>$0.0183</td><td>$0.086</td></tr><tr><td><span class="sw" style="--c:var(--sonnet-5)"></span>Claude Sonnet 5</td><td>212</td><td>38</td><td>6</td><td>1</td><td>0.86</td><td>0.97</td><td>0.92</td><td>1.00</td><td>1,902</td><td>3,584</td><td>0</td><td>$1.1384</td><td>$5.370</td></tr><tr><td><span class="sw" style="--c:var(--gpt-5-6-luna)"></span>GPT-5.6 Luna</td><td>212</td><td>35</td><td>7</td><td>4</td><td>0.83</td><td>0.90</td><td>0.86</td><td>1.00</td><td>2,069</td><td>3,474</td><td>0</td><td>$0.0914</td><td>$0.431</td></tr></tbody></table></div>
 
-<ul class="comps"><li><b>vs Claude Sonnet 5:</b> Jev is 8x faster at p50 and 63x cheaper, with F1 0.94 vs 0.92.</li><li><b>vs GPT-5.6 Luna:</b> Jev is 8x faster at p50 and 5x cheaper, with F1 0.94 vs 0.85.</li><li><b>vs Jev + Sonnet (gated):</b> Jev is 1x faster at p50 and 6x cheaper, with F1 0.94 vs 0.95.</li></ul>
+<ul class="comps"><li><b>vs Claude Sonnet 5:</b> Jev is 8x faster at p50 and 62x cheaper, with F1 0.95 vs 0.92.</li><li><b>vs GPT-5.6 Luna:</b> Jev is 8x faster at p50 and 5x cheaper, with F1 0.95 vs 0.86.</li></ul>
 <p class="note">Errors are transport or parse failures counted as "not fraud" and scored against the row. On this run Jev had one gateway connection error on a clean row and the gated hybrid had one unparseable Sonnet reply on a structuring row.</p>
 
 <h3>Per tape</h3>
 <div class="tbl"><table>
-<thead><tr><th>Tape</th><th>Situation</th><th>Rows</th><th>Fraud</th><th>Jev<br><small>recall / FP</small></th><th>Claude Sonnet 5<br><small>recall / FP</small></th><th>GPT-5.6 Luna<br><small>recall / FP</small></th><th>Jev + Sonnet (gated)<br><small>recall / FP</small></th></tr></thead>
-<tbody><tr><td><code>T00-clean</code></td><td>Clean baseline</td><td>47</td><td>0</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td></tr><tr><td><code>T01-ato</code></td><td>Account takeover</td><td>38</td><td>4</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td></tr><tr><td><code>T02-cardtest</code></td><td>Card testing burst</td><td>39</td><td>15</td><td>1.00 / 0</td><td>1.00 / 1</td><td>0.93 / 0</td><td>1.00 / 0</td></tr><tr><td><code>T03-structuring</code></td><td>Cash structuring (smurfing)</td><td>32</td><td>9</td><td>1.00 / 4</td><td>1.00 / 3</td><td>0.89 / 4</td><td>1.00 / 1</td></tr><tr><td><code>T04-travel</code></td><td>Impossible travel (counterfeit card)</td><td>31</td><td>2</td><td>1.00 / 1</td><td>1.00 / 2</td><td>1.00 / 2</td><td>1.00 / 2</td></tr><tr><td><code>T05-mule</code></td><td>Money mule account</td><td>25</td><td>9</td><td>1.00 / 0</td><td>0.89 / 0</td><td>0.56 / 0</td><td>0.89 / 0</td></tr></tbody></table></div>
+<thead><tr><th>Tape</th><th>Situation</th><th>Rows</th><th>Fraud</th><th>Jev<br><small>recall / FP</small></th><th>Claude Sonnet 5<br><small>recall / FP</small></th><th>GPT-5.6 Luna<br><small>recall / FP</small></th></tr></thead>
+<tbody><tr><td><code>T00-clean</code></td><td>Clean baseline</td><td>47</td><td>0</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td></tr><tr><td><code>T01-ato</code></td><td>Account takeover</td><td>38</td><td>4</td><td>1.00 / 0</td><td>1.00 / 0</td><td>1.00 / 0</td></tr><tr><td><code>T02-cardtest</code></td><td>Card testing burst</td><td>39</td><td>15</td><td>1.00 / 0</td><td>1.00 / 1</td><td>0.93 / 0</td></tr><tr><td><code>T03-structuring</code></td><td>Cash structuring (smurfing)</td><td>32</td><td>9</td><td>1.00 / 3</td><td>1.00 / 3</td><td>1.00 / 4</td></tr><tr><td><code>T04-travel</code></td><td>Impossible travel (counterfeit card)</td><td>31</td><td>2</td><td>1.00 / 1</td><td>1.00 / 2</td><td>1.00 / 3</td></tr><tr><td><code>T05-mule</code></td><td>Money mule account</td><td>25</td><td>9</td><td>1.00 / 0</td><td>0.89 / 0</td><td>0.67 / 0</td></tr></tbody></table></div>
 
 <h3>What this means for an enterprise bank</h3>
 <p>The tapes are small and textbook, so treat quality as "competitive on known patterns", not as a
@@ -163,7 +160,7 @@ production benchmark. Cost and speed, however, are structural and scale linearly
 <b>10,000,000 transactions per day</b> scored in-line, using this run's measured cost per row:</p>
 <div class="tbl"><table>
 <thead><tr><th>Evaluator</th><th>Per day</th><th>Per year</th><th>Decision latency (p50)</th><th>Recall</th><th>FP on 212 rows</th></tr></thead>
-<tbody><tr><td>Jev</td><td>$859</td><td>$313,475</td><td>269 ms</td><td>1.00</td><td>5</td></tr><tr><td>Claude Sonnet 5</td><td>$53,888</td><td>$19,669,196</td><td>2,188 ms</td><td>0.97</td><td>6</td></tr><tr><td>GPT-5.6 Luna</td><td>$4,311</td><td>$1,573,546</td><td>2,068 ms</td><td>0.85</td><td>6</td></tr><tr><td>Jev + Sonnet (gated)</td><td>$5,454</td><td>$1,990,644</td><td>266 ms</td><td>0.97</td><td>3</td></tr></tbody></table></div>
+<tbody><tr><td>Jev</td><td>$861</td><td>$314,330</td><td>251 ms</td><td>1.00</td><td>4</td></tr><tr><td>Claude Sonnet 5</td><td>$53,700</td><td>$19,600,672</td><td>1,902 ms</td><td>0.97</td><td>6</td></tr><tr><td>GPT-5.6 Luna</td><td>$4,313</td><td>$1,574,310</td><td>2,069 ms</td><td>0.90</td><td>7</td></tr></tbody></table></div>
 <ul>
 <li><b>Real-time authorization is only viable with Jev.</b> Card networks expect a decision in
 well under a second. A quarter-second typed verdict fits inside an authorization hop; two seconds
@@ -270,7 +267,7 @@ observation. Unchanged pages replay from cassettes for free; only changed page s
 <h2>Method and caveats</h2>
 <ul>
 <li>All numbers on this page come from <code>results/</code> as written by live runs on
-2026-09-19 (<code>JEV_DEMO_MODE=live</code>, no cassette replay). Regenerate with
+2026-09-21 (<code>JEV_DEMO_MODE=live</code>, no cassette replay). Regenerate with
 <code>uv run python scripts/report_html.py</code>.</li>
 <li>Every model is reached through one Vercel AI Gateway key and sees byte-identical input. Cost uses
 the gateway's listed per-token prices. Latency is wall clock from this machine, concurrency 8 for the
