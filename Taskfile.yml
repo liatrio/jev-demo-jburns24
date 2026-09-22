@@ -170,6 +170,27 @@ tasks:
       JEV_DEMO_MODE: live
     cmds: ["{{.PY}} jev-demo swarm --agents 200 --no-save {{.CLI_ARGS}}"]
 
+  smoke:liatrio:
+    desc: "Goal-driven e2e smoke test of www.liatrio.ai: Jev drives a browser agent per scenario in smoke/liatrio.toml (blog, careers, contact). Live calls, needs API_KEY."
+    deps: [setup]
+    preconditions:
+      - sh: test -n "$API_KEY"
+        msg: "API_KEY must be set (Vercel AI Gateway key)"
+    cmds: ["{{.PY}} jev-demo smoke smoke/liatrio.toml {{.CLI_ARGS}}"]
+
+  smoke:liatrio:headed:
+    desc: "Same smoke test in a visible Chromium window, one scenario at a time, slowed down"
+    deps: [setup]
+    preconditions:
+      - sh: test -n "$API_KEY"
+        msg: "API_KEY must be set (Vercel AI Gateway key)"
+    cmds: ["{{.PY}} jev-demo smoke smoke/liatrio.toml --headed --slow-mo {{.SLOW_MO | default 600}} {{.CLI_ARGS}}"]
+
+  smoke:
+    desc: "Smoke-test any site from a TOML definition: task smoke -- smoke/your-site.toml"
+    deps: [setup]
+    cmds: ["{{.PY}} jev-demo smoke {{.CLI_ARGS}}"]
+
   hooks:install:
     desc: Install the pre-commit and pre-push hooks
     cmds:

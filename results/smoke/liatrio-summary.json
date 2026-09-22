@@ -1,0 +1,63 @@
+{
+ "site": "Liatrio",
+ "base_url": "https://www.liatrio.ai",
+ "config": "smoke/liatrio.toml",
+ "scenarios": [
+  {
+   "id": "blog",
+   "passed": true,
+   "steps": 2,
+   "final_path": "/resources/blog/evaluating-ai-systems",
+   "final_heading": "Evaluating AI Systems Like Engineers, Not After the Fact",
+   "goal_probability": 0.96,
+   "checks_failed": [],
+   "errors": [],
+   "p50_ms": 389.4,
+   "cost_usd": 0.00022092,
+   "path_taken": [
+    "/",
+    "/resources/blog/evaluating-ai-systems",
+    "/resources/blog/evaluating-ai-systems"
+   ]
+  },
+  {
+   "id": "careers",
+   "passed": true,
+   "steps": 2,
+   "final_path": "/careers",
+   "final_heading": "Join Our Team",
+   "goal_probability": 0.79,
+   "checks_failed": [],
+   "errors": [],
+   "p50_ms": 249.2,
+   "cost_usd": 0.000224196,
+   "path_taken": [
+    "/",
+    "/careers",
+    "/careers"
+   ]
+  },
+  {
+   "id": "contact",
+   "passed": true,
+   "steps": 2,
+   "final_path": "/contact",
+   "final_heading": "Get in Touch",
+   "goal_probability": 0.97,
+   "checks_failed": [],
+   "errors": [],
+   "p50_ms": 316.6,
+   "cost_usd": 0.000206682,
+   "path_taken": [
+    "/",
+    "/contact",
+    "/contact"
+   ]
+  }
+ ],
+ "jev_calls": 6,
+ "network_calls": 6,
+ "replays": 0,
+ "wall_seconds": 15.2,
+ "cost_usd": 0.000651798
+}

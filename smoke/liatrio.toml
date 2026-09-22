@@ -1,0 +1,61 @@
+# Smoke-test definition for www.liatrio.ai, read by `jev-demo smoke smoke/liatrio.toml`
+# (task smoke:liatrio). The goal text in each scenario is what Jev is asked to pursue and
+# judge; the expected_* fields are what code checks afterwards. Change the words here and
+# you have a new e2e test: no selectors, no page objects, no scripted clicks.
+
+[site]
+name = "Liatrio"
+base_url = "https://www.liatrio.ai"
+start_path = "/"
+
+[defaults]
+# Browser actions an agent may take before it must have reached its goal.
+max_steps = 8
+# Smoke tests look, they do not touch: never type into a field, never submit a form. On a
+# page that has form fields, buttons are removed from the action space as well.
+forbid_form_input = true
+# Links to other hosts (job boards, GitHub, LinkedIn) are shown to Jev as context but are
+# not offered as actions.
+stay_on_site = true
+# P(goal reached) Jev must report before the scenario counts as reached.
+goal_threshold = 0.7
+
+[[scenarios]]
+id = "blog"
+goal = """
+Starting from the home page, get to the blog and open one blog post. You are done when a
+single article is on screen: the heading is that article's title and its body text is
+visible. A listing of many posts is not the goal, one post is.
+"""
+success_criteria = """
+The page is one blog article, not a listing: its heading is an article title, body copy is
+visible, and the path is under /resources/blog/ with an article slug after it.
+"""
+expected_path_prefix = "/resources/blog/"
+expected_text = ["blog"]
+
+[[scenarios]]
+id = "careers"
+goal = """
+Find the Careers page and confirm it lists open positions with a way to apply. Do not open
+the job board itself; seeing the roles listed on the Careers page is the goal.
+"""
+success_criteria = """
+The Careers page is open: a heading about joining the team or careers, and one or more open
+roles are listed with an apply link next to them.
+"""
+expected_path_prefix = "/careers"
+expected_text = ["careers", "apply"]
+
+[[scenarios]]
+id = "contact"
+goal = """
+Find the Contact page and confirm a visitor could get in touch from it: a contact form or
+contact details are shown. Do not type into or submit anything.
+"""
+success_criteria = """
+The Contact page is open: a heading inviting the visitor to get in touch, and either a form
+or contact details are visible. Nothing has been typed or submitted.
+"""
+expected_path_prefix = "/contact"
+expected_text = ["contact"]
