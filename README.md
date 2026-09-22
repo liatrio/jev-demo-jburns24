@@ -7,6 +7,9 @@
 3. **An adversarial e2e swarm on pre-push** ([jump](#experiment-2-an-adversarial-e2e-swarm-on-pre-push)):
    200 Jev-driven browser agents attack the site before every push, built on the same
    record/replay pattern.
+4. **Goal-driven smoke tests of a real site** ([jump](#experiment-3-goal-driven-smoke-tests-of-a-real-site)):
+   `task smoke:liatrio` drives one Jev agent per goal written in English in
+   `smoke/liatrio.toml` against www.liatrio.ai.
 
 ## Experiment 1: Jev vs generative LLMs on fraud-classification tapes
 
@@ -353,6 +356,37 @@ missed injected bug) are caught before the hook is trusted.
 - One agent in two hundred hit a typed-contract violation (the chosen option was not the
   argmax after rounding). Code falls back to the argmax and counts the violation.
 
+## Experiment 3: goal-driven smoke tests of a real site
+
+`task smoke:liatrio` points the swarm's decision loop at https://www.liatrio.ai with three
+goals written in English in `smoke/liatrio.toml`: open a blog post, find the careers page
+with its open roles, find the contact page (without touching the form). Each scenario is one
+Jev-driven browser agent:
+
+1. **Code observes** the page (path, status, heading, visible text, deduplicated links and
+   buttons) and enumerates the concrete actions. External links are context, not actions;
+   on a page with form fields, buttons are removed too, so nothing is ever typed or submitted.
+2. **Jev decides** in one call: `action` (choice over the enumerated links and buttons plus
+   `done` and `give_up`), `goal_reached` (boolean against the scenario's success criteria)
+   and `page_is_broken` (boolean). Every answer is checked against the typed contract.
+3. **Code acts**, and when Jev reports the goal reached it runs the deterministic half of
+   the verdict from the config: `expected_path_prefix`, `expected_text`, HTTP status.
+
+A scenario passes only when both layers agree. The report names which layer failed. Adding a
+test is adding a `[[scenarios]]` block; pointing it at another site is changing `[site]`
+and running `task smoke -- smoke/your-site.toml`.
+
+```bash
+task smoke:liatrio                 # 3 scenarios, live, about 20 s, under a tenth of a cent
+task smoke:liatrio:headed          # watch it in a visible Chromium window
+task smoke:liatrio -- --only blog  # one scenario
+```
+
+Smoke runs are live by default (`--mode live`): a public site changes, so there is nothing
+deterministic to replay. `tests/e2e/test_smoke_liatrio.py` runs the same scenarios under
+`task test:live`. Offline, `tests/unit/test_smoke_plumbing.py` covers the config loader, the
+action space rules and the deterministic checks. Results are written to `results/smoke/`.
+
 ## Layout
 
 ```
@@ -364,6 +398,7 @@ src/jev_demo/
   runner.py      stream semantics, play_tape, scoring, pooling
   report.py      rich tables and the plain-text analyst report
   pii_check.py   semantic lint: log-statement extraction + Jev PII classification (pre-commit hook)
+  smoke/         goal-driven smoke tests of a real site: config.py (TOML), agent.py, run.py
   cli.py         jev-demo tapes | play | play-all | generate-tapes | pii-check | swarm
   swarm/
     target.py    the portal under test, with injectable regressions
@@ -372,6 +407,7 @@ src/jev_demo/
     triage.py    Jev triage, dedupe, baseline, blocking rule
     run.py       orchestration, report, results/swarm writer
 tapes/           committed tape JSON (regenerate with task tapes:generate)
+smoke/           smoke-test definitions (liatrio.toml): site, goals, success criteria, expected checks
 tests/unit       offline contract tests (incl. the portal and the action space)
 tests/e2e        Jev-driven e2e suite (replay by default), incl. a 48-agent swarm slice
 tests/fixtures/pii  demo services with known clean and leaking log lines + expected.json

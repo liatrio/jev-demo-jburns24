@@ -91,12 +91,49 @@ live), wall time, cost, PASS or FAIL. Exit code 1 on FAIL is what blocks the pus
 
 Headed tasks need a display. On a server, prefix with `xvfb-run -a`.
 
+## Experiment 4: goal-driven smoke test of a real site (liatrio.ai)
+
+The swarm's loop pointed at a public website and a goal written in English. Each scenario in
+`smoke/liatrio.toml` is one Jev-driven browser agent: code lists the links and buttons on the
+page, Jev picks the one that advances the goal and says whether the goal is already reached,
+code clicks, repeats, then runs its own checks (path prefix, expected words, HTTP status) on the
+page the agent finished on. Nothing is typed, no form is submitted.
+
+```bash
+task smoke:liatrio                           # blog, careers, contact: 3 agents, live, about 20 s, under a tenth of a cent
+task smoke:liatrio -- --only contact         # one scenario
+task smoke:liatrio:headed                    # visible Chromium, one scenario at a time, 600 ms per action
+task smoke -- smoke/liatrio.toml --only blog --headed --slow-mo 1200   # raw form, very slow
+```
+
+What you see: one progress line per scenario as it finishes, then a table (scenario, steps,
+page landed on, heading, P(goal), p50 latency, cost, PASS or FAIL) and the trajectory under
+it: each page the agent stood on, Jev's P(goal reached) there, and the action it chose. A
+scenario passes only when Jev's P(goal) clears the threshold and every code check passes; the
+failing layer is named. Exit 1 on any failure. Results land in `results/smoke/liatrio-*`.
+
+Writing a new test is editing the TOML, not code:
+
+```toml
+[[scenarios]]
+id = "webinars"
+goal = "Find the webinars listing and open one webinar page."
+success_criteria = "A single webinar page is open with its title as the heading."
+expected_path_prefix = "/resources/webinars/"
+```
+
+Point it at another site by changing `[site]`, then `task smoke -- smoke/your-site.toml`.
+
+Notes: this is live by default (a public site changes, so nothing is recorded). It needs
+`API_KEY` and a Chromium Playwright can launch. In a sandbox whose egress proxy re-signs TLS
+with a private CA, set `JEV_SMOKE_INSECURE_TLS=1`; leave it unset everywhere else.
+
 ## Tests and hooks
 
 ```bash
 task test                                    # lint + unit + e2e replay, all offline
 task test:e2e                                # just the Jev-driven e2e suite from cassettes
-task test:live                               # e2e suite against the live gateway
+task test:live                               # e2e suite against the live gateway, includes the liatrio smoke test
 ```
 
 ## If something is off

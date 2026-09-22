@@ -76,6 +76,8 @@ class Observation:
     elements: list[dict[str, Any]]
     console_errors: list[str]
     signals: list[str] = field(default_factory=list)
+    # Untruncated page text for code-side checks; never sent to the model.
+    full_text: str = ""
 
     def for_model(self) -> dict[str, Any]:
         """What Jev sees. Element indices are the keys the action space refers to."""
@@ -194,6 +196,7 @@ class BrowserPool:
         self.base_url = base_url
         self.headed = headed
         self.slow_mo_ms = slow_mo_ms
+        self.launch_args: list[str] = []
         self._pw = None
         self.browser: Browser | None = None
 
@@ -205,6 +208,7 @@ class BrowserPool:
                 headless=not self.headed,
                 slow_mo=self.slow_mo_ms or None,
                 executable_path=exe,
+                args=self.launch_args,
             )
         except Exception as exc:  # noqa: BLE001 - turn Playwright's banner into one actionable line
             await self._pw.stop()

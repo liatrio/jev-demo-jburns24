@@ -206,5 +206,57 @@ def swarm(
     raise typer.Exit(code=0 if summary.passed else 1)
 
 
+@app.command()
+def smoke(
+    config: str = typer.Argument(..., help="TOML smoke definition, e.g. smoke/liatrio.toml"),
+    only: str | None = typer.Option(
+        None, "--only", help="comma list of scenario ids to run (default: all)"
+    ),
+    mode: str | None = typer.Option(
+        "live",
+        "--mode",
+        help="replay | record | live (default live: a public site changes, so no cassettes)",
+    ),
+    concurrency: int = typer.Option(3, "--concurrency", help="scenarios running at once"),
+    headed: bool = typer.Option(
+        False, "--headed", help="show the Chromium window and run scenarios one at a time"
+    ),
+    slow_mo: int = typer.Option(0, "--slow-mo", help="milliseconds to pause after each action"),
+    save: bool = typer.Option(True, help="write results/smoke/<name>-*"),
+) -> None:
+    """Goal-driven smoke test of a real site: one Jev-driven browser agent per scenario."""
+    from .smoke.config import load_config
+    from .smoke.run import DEFAULT_RESULTS as SMOKE_RESULTS
+    from .smoke.run import print_report as smoke_report
+    from .smoke.run import run_smoke
+    from .smoke.run import save_results as smoke_save
+
+    cfg = load_config(config)
+    console.print(
+        f"[bold]{cfg.site.name}[/bold] {cfg.site.base_url}: "
+        f"{len(cfg.scenarios)} scenarios from {config}"
+    )
+
+    def on_done(result) -> None:  # noqa: ANN001
+        mark = "[green]PASS[/green]" if result.passed else "[red]FAIL[/red]"
+        console.print(f"  {mark} {result.id}: {len(result.steps)} steps -> {result.final_path}")
+
+    summary, results = asyncio.run(
+        run_smoke(
+            cfg,
+            only={s.strip() for s in only.split(",")} if only else None,
+            mode=mode,
+            concurrency=concurrency,
+            headed=headed,
+            slow_mo_ms=slow_mo,
+            on_scenario_done=on_done,
+        )
+    )
+    smoke_report(summary, results)
+    if save:
+        smoke_save(summary, results, SMOKE_RESULTS, Path(config).stem)
+    raise typer.Exit(code=0 if summary.passed else 1)
+
+
 if __name__ == "__main__":
     app()
